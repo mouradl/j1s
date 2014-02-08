@@ -1,0 +1,199 @@
+{% extends "TuniAdminBundle::layout.html.twig" %}
+
+{% block content_middle_b %}
+<ul class="breadcrumb">
+	<li><a  class="glyphicons home"><i></i> juste1service</a></li>
+	<li class="divider"></li>
+	<li>{{'Annonces'|trans({}, 'TuniAdminBundle') }}</li>
+</ul>
+<div class="separator"></div>   
+
+<div class="heading-buttons">
+    <h3 class="glyphicons group"><i></i> Annonces</h3>
+    <div class="buttons pull-right">
+        <a href="{{ path('annonce_new') }}" class="btn btn-primary btn-icon glyphicons circle_plus"><i></i>Ajouter annonce</a>
+    </div>
+    <div class="clearfix"></div>
+</div>
+<div class="separator"></div>
+
+<div class="innerLR">
+   
+<form class="form-horizontal" action="" method="POST" >
+    
+        
+    
+    <div class="tab-content" style="padding: 0;" >
+		<div class="tab-pane active" id="account-settings">
+		
+			<div class="widget widget-2">
+				<div class="widget-head">
+					<h4 class="heading glyphicons edit"><i></i>Détail annonce</h4>
+				</div>
+				<div class="widget-body" style="padding-bottom: 0;">
+                                    {% for type, messages in app.session.flashBag.all %}
+                                        {% for message in messages %}
+                                            <div class="{{ type }} alert-success">
+                                                {{ message|trans({}, 'FOSUserBundle') }}
+                                            </div>
+                                        {% endfor %}
+                                    {% endfor %}
+				
+					<div class="row-fluid">
+                                          
+
+<div class="span6 control-group alpha">
+    <label class="control-label alignleft">Type :</label>
+    <div class="controls">
+    </div>
+</div>
+<div class="span6 control-group alpha civilit">
+
+									
+                                                                        {{ entity.typeAnnonce.type }}
+   
+</div>
+<div class="span6 control-group alpha">
+    <label class="control-label alignleft">Titre :</label>
+    <div class="controls">
+        
+										
+                                                                                {{ entity.titreAnn}}
+                
+        </div>
+    </div>
+<div class="span6 control-group alpha">
+                        <label class="control-label alignleft">membre :</label>
+                        <div class="controls">
+									
+                                                                       {% if entity.membre %} {{ entity.membre.nom ~' '~ entity.membre.prenom }}{%else%}Admin{% endif%}
+                               </div>
+                        </div>
+
+    <div class="span6 control-group alpha">
+        <label class="control-label alignleft">Adresse :</label>
+        <div class="controls">
+									
+                                                                        {{ entity.adresse }}
+                </div>
+        </div>
+<div class="span6 control-group alpha">
+                            <label class="control-label alignleft">Code Postal :</label>
+                            <div class="controls">
+									
+                                                                        {{ entity.codePostal}}
+                                    </div>
+                            </div>
+        <div class="span6 control-group alpha">
+         <label class="control-label alignleft">Disponibilite :</label>
+                <div class="controls">
+									
+                                                                        {{ entity.disponibilite }}
+                </div>
+        </div>                                            
+        <div class="span6 control-group alpha">
+            <label class="control-label alignleft">Prix :</label>
+            <div class="controls">
+									
+                                                                     {%if entity.prixAnn!=null%}   {{ entity.prixAnn ~' '~ entity.devise.code}}{%endif%}
+                   </div>
+            </div>
+
+                            <div class="span6 control-group alpha">
+                                <label class="control-label alignleft">Tarif avec le choix :</label>
+                                <div class="controls">
+                                                       		{%if entity.prixNegociable==1%}{{entity.prixNegociable}}{%else%}Non{%endif%}
+                                    </div>
+                                </div>
+                                
+            <div class="span6 control-group alpha">
+                <label class="control-label alignleft">Description :</label>
+                <div class="controls">
+									
+                                                                        {{ entity.descAnn|raw }}
+                      </div>
+                </div>
+<div class="span6 control-group alpha">
+                                    <label class="control-label alignleft">Mots Cles :</label>
+                                    <div class="controls">
+									
+                                                                        {{ entity.motCles }}
+                                             </div>
+                                    </div>
+
+
+           <div class="span6 control-group alpha">
+                                <label class="control-label alignleft">Publier :</label>
+                                <div class="controls">
+                                                       		{%if entity.publier==1%}Oui{%else%}Non{%endif%}
+                                    </div>
+                                </div>
+                                                                     
+                                            <div class="span12 control-group alpha">
+                                            
+<div class="well">
+	<div class="row-fluid gallery">
+		<ul>{% for image in entity.getFullImagePath() %}
+                                      {%if image!=null%}{%if image!=""%}
+						<li class="span4">
+				<span class="thumb view">
+					<img src="{{asset('upload/photos/'~entity.id~'/'~image)}}" alt="{{image}}" />
+				</span>
+				<span class="name"></span>
+                                {%endif%}{%endif%}
+			</li>
+				  {% endfor %}	</ul>
+	</div>
+</div>		
+
+                                            </div>
+
+					</div>
+					
+					<div class="form-actions" style="margin: 0;">
+                                            <div class="buttons pull-right" style="float:left;">
+                                                <a href="{{ path('annonce_edit',{'id':entity.id}) }}" class="btn btn-primary btn-icon glyphicons edit"><i></i>Editer</a>
+                                            </div>
+                                                <div class="buttons pull-right" style="float:right;">
+                                                <a href="{{ path('annonce')}}" class="btn btn-success btn-icon glyphicons list"><i></i>Retour à la liste</a>
+                                            </div>
+                                            </div>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+    
+</form>
+</div>
+
+  
+{% endblock %}
+
+{%block javascripts%}
+{{parent()}}	
+	<!-- Masonry -->
+	<script type="text/javascript" src="{{asset('bundles/tuniadmin/theme/scripts/jquery.masonry.min.js') }}"></script>
+<script>
+	function masonryGallery()
+	{
+		var $container = $('.gallery ul');
+		$container
+			.imagesLoaded( function(){
+				$container.masonry({
+					gutterWidth: 14,
+			    	itemSelector : 'li',
+			    	columnWidth: $('.gallery li:first').width()
+			  	});
+			});
+	}
+	$(function()
+	{
+		masonryGallery();
+
+		$(window).resize(function(e){
+			masonryGallery();
+		});
+	});
+	</script>
+{% endblock %}

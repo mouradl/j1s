@@ -1,0 +1,361 @@
+{% extends "TuniAdminBundle::layout.html.twig" %}
+{% block stylesheets %}
+{{parent()}}	
+<!-- plupload -->
+	<style type="text/css">@import url({{asset('bundles/tuniadmin/theme/scripts/plupload/js/jquery.plupload.queue/css/jquery.plupload.queue.css') }});</style>
+{% endblock %}
+{%block javascripts%}
+{{parent()}}	
+	<!-- Load plupload and all it's runtimes and finally the jQuery queue widget -->
+	<script type="text/javascript" src="{{asset('bundles/tuniadmin/theme/scripts/plupload/js/plupload.full.js') }}"></script>
+	<script type="text/javascript" src="{{asset('bundles/tuniadmin/theme/scripts/plupload/js/jquery.plupload.queue/jquery.plupload.queue.js') }}"></script>
+	
+	<script type="text/javascript">
+                $(window).load(function(){
+            $('#datepicker').datepicker("option", "minDate", 0);//datepicker({minDate: 0});
+        });            
+        function remplirRegion(){
+var id_select = $('#Pays').val();
+//alert(id_select)
+  $.ajax({
+    url: "{{ path('remplir_cb_Region') }}",
+    type: 'POST',
+    data: {'id': id_select},
+    dataType: 'json',
+    success: function(json){ // quand la réponse de la requete arrive
+      $('#Region').html('');
+      $.each(json, function(index, value) { // et  boucle sur la réponse contenu dans la variable passé à la function du success "json"
+      $('#Region').append('<option value="'+ value.id +'">'+ value.nomReg +'</option>');
+      });
+      remplirVille();
+    }
+  });
+  
+}
+function remplirVille(){
+var id_select = $('#Region').val();
+//alert(id_select)
+  $.ajax({
+    url: "{{ path('remplir_cb_Ville') }}",
+    type: 'POST',
+    data: {'id': id_select},
+    dataType: 'json',
+    success: function(json){ // quand la réponse de la requete arrive
+      $('#tuni_annoncebundle_annoncetype_ville').html('');
+      $.each(json, function(index, value) { // et  boucle sur la réponse contenu dans la variable passé à la function du success "json"
+      $('#tuni_annoncebundle_annoncetype_ville').append('<option value="'+ value.id +'">'+ value.nomV +'</option>');
+      });
+    }
+  });
+}
+
+function remplirCategorie(){
+var id_select = $('#Categories').val();
+//alert(id_select)
+  $.ajax({
+    url: "{{ path('remplir_cb_Categorie') }}",
+    type: 'POST',
+    data: {'id': id_select},
+    dataType: 'json',
+    success: function(json){ // quand la réponse de la requete arrive
+      $('#tuni_annoncebundle_annoncetype_sousCat').html('');
+      $.each(json, function(index, value) { // et  boucle sur la réponse contenu dans la variable passé à la function du success "json"
+      $('#tuni_annoncebundle_annoncetype_sousCat').append('<option value="'+ value.id +'">'+ value.nomSousCat +'</option>');
+      });
+    }
+  });
+}
+// Convert divs to queue widgets when the DOM is ready
+	$(function() {
+		$("#pluploadUploader").pluploadQueue({
+			// General settings
+			runtimes : 'gears,browserplus,html5',
+			url : '{{asset('bundles/tuniadmin/theme/scripts/plupload/examples/upload.php') }}',
+			max_file_size : '10mb',
+			chunk_size : '1mb',
+			unique_names : true,
+	
+			// Resize images on clientside if we can
+			resize : {width : 320, height : 240, quality : 90},
+	
+			// Specify what files to browse for
+			filters : [
+				{title : "Image files", extensions : "jpg,gif,png"},
+				{title : "Zip files", extensions : "zip"}
+			],
+	
+			// Flash settings
+			flash_swf_url : '{{asset('bundles/tuniadmin/theme/scripts/plupload/js/plupload.flash.swf') }}',
+	
+			// Silverlight settings
+			silverlight_xap_url : '{{asset('bundles/tuniadmin/theme/scripts/plupload/js/plupload.silverlight.xap') }}'
+		});
+	
+		// Client side form validation
+		$('#pluploadForm').submit(function(e) {
+	        var uploader = $('#pluploadUploader').pluploadQueue();
+	
+	        // Files in queue upload them first
+	        if (uploader.files.length > 0) {
+	            // When all files are uploaded submit form
+	            uploader.bind('StateChanged', function() {
+	                if (uploader.files.length === (uploader.total.uploaded + uploader.total.failed)) {
+	                    $('#pluploadForm').submit();
+	                }
+	            });
+	                
+	            uploader.start();
+	        } else {
+	            alert('You must queue at least one file.');
+	        }
+	
+	        return false;
+	    });
+	});
+	</script>
+{% endblock %}
+{% block content_middle_b %}
+<ul class="breadcrumb">
+	<li><a  class="glyphicons home"><i></i> juste1service</a></li>
+	<li class="divider"></li>
+	<li>{{'Annonces'|trans({}, 'TuniAdminBundle') }}</li>
+</ul>
+<div class="separator"></div>   
+
+<div class="heading-buttons">
+    <h3 class="glyphicons group"><i></i> Annonces</h3>
+    <div class="buttons pull-right">
+        <a href="{{ path('annonce_new') }}" class="btn btn-primary btn-icon glyphicons circle_plus"><i></i>Ajouter annonce</a>
+    </div>
+    <div class="clearfix"></div>
+</div>
+<div class="separator"></div>
+
+<div class="innerLR">
+   
+<form class="form-horizontal" action="{{ path('annonce_update', { 'id': entity.id }) }}"{{ form_enctype(edit_form) }} method="POST" >
+    
+        
+    
+    <div class="tab-content" style="padding: 0;" >
+		<div class="tab-pane active" id="account-settings">
+		
+			<div class="widget widget-2">
+				<div class="widget-head">
+					<h4 class="heading glyphicons edit"><i></i>Editer annonce</h4>
+				</div>
+				<div class="widget-body" style="padding-bottom: 0;">
+                                    {% for type, messages in app.session.flashBag.all %}
+                                        {% for message in messages %}
+                                            <div class="{{ type }} alert-success">
+                                                {{ message|trans({}, 'FOSUserBundle') }}
+                                            </div>
+                                        {% endfor %}
+                                    {% endfor %}
+				
+					<div class="row-fluid">
+                                          
+
+<div class="span6 control-group alpha">
+    <label class="control-label alignleft">Titre</label>
+    <div class="controls">
+                                                                        {{ form_errors(edit_form.titreAnn) }}
+                                                                        {{ form_widget(edit_form.titreAnn) }}
+    
+
+    </div>
+</div>
+<div class="span6 control-group alpha civilit ">
+ <label class="control-label alignleft">Type</label>
+    <div class="controls">
+    
+									{{ form_errors(edit_form.typeAnnonce) }}
+                                                                        {{ form_widget(edit_form.typeAnnonce) }}
+    
+</div>
+</div>
+
+<div class="span6 control-group alpha ">
+ <label class="control-label alignleft">Categorie</label>
+    <div class="controls">
+   
+       <select class="span10" id="Categories" onChange='remplirCategorie();'><option></option>{% for Categorie in Categories %}<option value="{{Categorie.id}}">{{Categorie.nomCat}}</option>{% endfor %}</select>
+ 
+ </div>
+</div>                                            
+<div class="span6 control-group alpha ">
+ <label class="control-label alignleft">Sous Categorie</label>
+    <div class="controls">
+    
+									{{ form_errors(edit_form.sousCat) }}
+                                                                        {{ form_widget(edit_form.sousCat) }}
+    
+</div>
+</div>
+                                            <div class="span6 control-group alpha">
+            <label class="control-label alignleft">Prix & Devise</label>
+            <div class="controls">
+									{{ form_errors(edit_form.prixAnn) }}
+                                                                        {{ form_widget(edit_form.prixAnn) }}
+                                                                        {{ form_errors(edit_form.devise) }}
+                                                                        {{ form_widget(edit_form.devise) }}
+                    
+                </div>
+            </div>
+
+                            <div class="span6 control-group alpha">
+                                <label class="control-label alignleft">Choix tarif</label>
+                                <div class="controls">
+                                    <div class="toggle-button" data-toggleButton-style-enabled="success">
+                                                        		{{ form_errors(edit_form.prixNegociable) }}
+                                                                        {{ form_widget(edit_form.prixNegociable) }}
+
+                                       
+                                       </div> 
+                                    
+                                    </div>
+                                </div>
+<div class="span4 control-group alpha">
+                                    <label class="control-label alignleft" >Pays</label>
+                                    <div class="controls alpha">
+                                        <select id="Pays" class="span4" onChange='remplirRegion();'><option></option>{% for Pay in Pays %}<option value="{{Pay.id}}">{{Pay.nomP}}</option>{% endfor %}</select>
+                                            
+                                        </div>
+                                    </div>
+ <div class="span4 control-group alpha">
+                                    <label class="control-label alignleft ">Region</label>
+                                    <div class="controls alpha">
+						<select id="Region" class="span4" onChange='remplirRegion();'><option></option></select>
+                                         
+                                        </div>
+                                    </div>
+ <div class="span4 control-group alpha">
+                                    <label class="control-label alignleft">Ville</label>
+                                    <div class="controls alpha">
+									{{ form_errors(edit_form.ville) }}
+                                                                        {{ form_widget(edit_form.ville) }}
+                                            
+                                        </div>
+                                    </div>
+
+                                                   
+<div class="span6 control-group alpha">
+    <label class="control-label alignleft">Adresse</label>
+    <div class="controls">
+        <div class="input-append">
+										{{ form_errors(edit_form.adresse) }}
+                                                                                {{ form_widget(edit_form.adresse) }}
+                
+            </div>
+        </div>
+    </div>
+<div class="span6 control-group alpha">
+                        <label class="control-label alignleft">Code Postal</label>
+                        <div class="controls">
+									{{ form_errors(edit_form.codePostal) }}
+                                                                        {{ form_widget(edit_form.codePostal) }}
+                                
+                            </div>
+                        </div>
+                                            
+   <div class="span6 control-group alpha">
+    <label class="control-label alignleft">Disponibilite</label>
+    <div class="controls">
+        <div class="input-append">
+										{{ form_errors(edit_form.disponibilite) }}
+                                                                                {{ form_widget(edit_form.disponibilite) }}
+                
+            </div>
+        </div>
+    </div>
+<div class="span6 control-group alpha">
+                            <label class="control-label alignleft">Mots Cles</label>
+                            <div class="controls">
+									{{ form_errors(edit_form.motCles) }}
+                                                                        {{ form_widget(edit_form.motCles) }}
+                                    
+                                </div>
+                            </div>
+                                 
+            <div class="span6 control-group alpha">
+                <label class="control-label alignleft">Date annonce</label>
+                <div class="controls">
+                    <input type="text" name="dateAnnonce" id="datepicker" value="{%if entity.dateAnnonce!=null%} {{entity.dateAnnonce|date('m/d/Y') }}{%endif%}" class="span10" />
+					
+                    </div>
+                </div>
+                                            
+                            <div class="span6 control-group alpha">
+                                <label class="control-label alignleft">Publier</label>
+                                <div class="controls">
+                                    <div class="toggle-button" data-toggleButton-style-enabled="success">
+                                                        		{{ form_errors(edit_form.publier) }}
+                                                                        {{ form_widget(edit_form.publier) }}
+
+                                        </div>
+                                        
+
+                                    </div>
+                                </div>
+                              <div class="span6 control-group alpha">
+                                <label class="control-label alignleft">Membre</label>
+                                <div class="controls">
+                                    <div class="toggle-button" data-toggleButton-style-enabled="success">
+                                                        		{{ form_errors(edit_form.membre) }}
+                                                                        {{ form_widget(edit_form.membre) }}
+
+                                        </div>
+                                        
+
+                                    </div>
+                                </div>
+          <div class="span12 control-group alpha">
+                                <br/>	                     
+<div class="innerLR">
+	<div class="widget widget-2">
+		<div class="widget-head">
+			<h4 class="heading glyphicons file_import"><i></i>Images</h4>
+		</div>
+		<div class="widget-body">
+			<form id="pluploadForm">
+				<div id="pluploadUploader">
+					<p>You browser doesn't have Flash, Silverlight, Gears, BrowserPlus or HTML5 support.</p>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<br/>	
+<div class="widget widget-gray widget-body-white row-fluid">
+		<div class="widget-head">
+			<h4 class="heading">Description</h4>
+		</div>
+		<div class="widget-body" style="padding: 10px 0 0;">
+			{{ form_errors(edit_form.descAnn) }}
+                                                                        {{ form_widget(edit_form.descAnn) }}
+                
+                </div>
+	</div>
+                                </div>
+
+
+
+{{ form_rest(edit_form) }}	    
+                                    </div>
+					
+					<div class="form-actions" style="margin: 0;">
+						<button type="submit" class="btn btn-icon btn-primary glyphicons circle_ok" onclick="if(!confirm('Voulez-vous modifier cette annonce')) return false;"><i></i>{{ 'registration.edit.submit'|trans({}, 'FOSUserBundle') }}</button>
+						<button type="reset"  style="float:right;"  class="btn btn-icon btn-default glyphicons circle_remove"><i></i>Annuler</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+
+</form>
+    
+</div>
+
+  
+{% endblock %}

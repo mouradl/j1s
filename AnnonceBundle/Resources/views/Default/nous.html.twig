@@ -1,0 +1,28 @@
+{% extends "TuniAnnonceBundle:Default:index.html.twig" %}
+{% block content_middle %}
+<div class="navbar-wrapper-content page">
+    <div class="container clearfix">
+        {% for Article in Articles %}
+        <section class="row">
+            <aside class="col-md-2 col-sm-4 position-{{ Article.direction}}">
+                {% if (Article.img )%}<img src="{{asset('upload/article/'~Article.img)}}" alt="{{Article.img}}" title="{{Article.img}}" class="img-responsive" >{%endif%}
+            </aside>
+            <article class="col-md-10 col-sm-8" id="{{Article.id}}">
+                <h4>{{ Article.titre }}</h4>
+                <p>{{ Article.contenu|raw }}</p>  
+                
+            </article>
+                
+        </section>
+{% endfor %}
+       
+        
+    </div><!-- /.container -->
+      </div>
+{% endblock %}
+ {% block fos_user_content %}
+{% if is_granted("IS_AUTHENTICATED_REMEMBERED")== false %}
+                       
+{{ render(controller('FOSUserBundle:Security2:login', { '_locale': app.request.locale ,'type':'job'})) }}
+{% endif %}
+{% endblock %} 

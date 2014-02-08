@@ -1,0 +1,159 @@
+{% extends "TuniAdminBundle::layout.html.twig" %}
+
+{%block javascripts%}
+{{parent()}}
+    
+    <script type="text/javascript">
+       
+function addFormField() {
+	var id = document.getElementById("id").value;
+	$("#divTxt").append("<p class='span6' style='margin-left: 0;' id='row" + id + "'><label for='val" + id + "'>Sous-catégorie " + id + "&nbsp;&nbsp;&nbsp;&nbsp;<a href='#' onClick='removeFormField(\"#row" + id + "\"); return false;'class='btn-action glyphicons remove btn-danger'><i></i></a></label><br>Nom:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type='text'  required='required' name='SouCat[-" + id + "][1]' id='val" + id + "'><br><br>Description: <input type='text'  required='required' name='SouCat[-" + id + "][2]' ><input type='hidden' required='required' name='SouCat[-" + id + "][4]' value='NULL'></p>");
+	
+	
+	
+	id = (id - 1) + 2;
+	document.getElementById("id").value = id;
+}
+
+function removeFormField(id) {
+	$(id).remove();
+}
+</script>
+{%endblock%}  
+
+{% block content_middle_b %}
+<ul class="breadcrumb">
+	<li><a  class="glyphicons home"><i></i> juste1service</a></li>
+	<li class="divider"></li>
+	<li>{{'Categories'|trans({}, 'TuniAdminBundle') }}</li>
+</ul>
+<div class="separator"></div>   
+
+<div class="heading-buttons">
+    <h3 class="glyphicons group"><i></i> Categories</h3>
+    <div class="buttons pull-right">
+        <a href="{{ path('categorie_new') }}" class="btn btn-primary btn-icon glyphicons circle_plus"><i></i>Ajouter categorie</a>
+    </div>
+    <div class="clearfix"></div>
+</div>
+<div class="separator"></div>
+
+<div class="innerLR">
+   
+<form class="form-horizontal" action="{{ path('categorie_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
+    
+        
+    
+    <div class="tab-content" style="padding: 0;" >
+		<div class="tab-pane active" id="account-settings">
+		
+			<div class="widget widget-2">
+				<div class="widget-head">
+					<h4 class="heading glyphicons edit"><i></i>Editer categorie</h4>
+				</div>
+				<div class="widget-body" style="padding-bottom: 0;">
+                                    {% for type, messages in app.session.flashBag.all %}
+                                        {% for message in messages %}
+                                            <div class="{{ type }} alert-success">
+                                                {{ message|trans({}, 'FOSUserBundle') }}
+                                            </div>
+                                        {% endfor %}
+                                    {% endfor %}
+				
+					<div class="row-fluid">
+                                           
+
+<div class=" control-group alpha">
+    <label class="control-label alignleft">Nom</label>
+    <div class="controls">
+        <div class="input-append">
+										{{ form_errors(edit_form.nomCat) }}
+                                                                                {{ form_widget(edit_form.nomCat) }}
+                
+            </div>
+        </div>
+    </div>
+
+        <div class=" control-group alpha">
+            <label class="control-label alignleft">Description</label>
+            <div class="controls">
+									{{ form_errors(edit_form.descCat) }}
+                                                                        {{ form_widget(edit_form.descCat) }}
+                    
+                </div>
+            </div>
+
+                            
+                                
+            <div class=" control-group alpha">
+                <label class="control-label alignleft">Mot Clés:</label>
+                <div class="controls">
+									{{ form_errors(edit_form.motCles) }}
+                                                                        {{ form_widget(edit_form.motCles) }}
+                        
+                    </div>
+                </div>
+<div class=" control-group alpha">
+                                <label class="control-label alignleft">Icone:</label>
+                                              		{{ form_errors(edit_form.icon) }}
+                                                                        {{ form_widget(edit_form.icon) }}
+</div>
+<div class="span6 control-group alpha">
+                                <label class="control-label alignleft">Publié</label>
+                                <div class="controls">
+                                    <div class="toggle-button" data-toggleButton-style-enabled="success">
+                                                        		{{ form_errors(edit_form.isPublished) }}
+                                                                        {{ form_widget(edit_form.isPublished) }}
+
+                                        </div>
+                                        
+
+                                    </div>
+                                </div>{{ form_rest(edit_form) }}	    
+
+                                         <div class="span12" id="divChamps">
+                                             <div class="span12">
+                                                 <div class=" buttons pull-left">
+        <a href="#" class="btn btn-mini  btn-icon glyphicons circle_plus" onClick="addFormField(); return false;"><i></i>Ajouter Sous-Catégorie</a>
+    </div></div>
+          
+                                            
+       <div class="span12" id="divTxt">
+              {% set index = 1 %}
+                      
+                 {%for SousCategorie in SousCategories%}
+                        {% set values = [] %}
+                        {%for SousCategorieattribut in SousCategorie.attribut%}
+                        {% set values = values|merge([SousCategorieattribut.id]) %}
+                        {%endfor%}
+                  <p class="span6" style='margin-left: 0;' id='row{{index}}'><label for='val{{index}}'>Sous-Catégorie {{index}}&nbsp;&nbsp;&nbsp;&nbsp;<a href='#' onClick='removeFormField("#row{{index}}"); return false;' class='btn-action glyphicons remove btn-danger'><i></i></a></label><br>Nom:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type='text'  required='required' name='SouCat[{{SousCategorie.id}}][1]' id='SouCat{{index}}' value="{{SousCategorie.nomSousCat}}" ><br><br>Description: <input type='text'  required='required' name='SouCat[{{SousCategorie.id}}][2]'value="{{SousCategorie.descSousCat}}" >   <!--<br><br>Attributs:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <select name='SouCat[{{SousCategorie.id}}][3][]' multiple="TRUE">{%for att in attributs%}
+                       <option {%if att.id in values%}selected="selected"{%endif%} value="{{att.id}}">{{att.nom}}</option>    
+                  {%endfor%}           
+                  </select> --><input type="hidden" name='SouCat[{{SousCategorie.id}}][4]' value="{{SousCategorie.id}}"></p>{%set index = index+1 %}
+                  {%endfor%}
+                           
+              
+                           
+                  
+                 
+          </div> <input type="hidden" id="id" value="{{index}}">
+         </div>   
+					</div>
+					
+					<div class="form-actions" style="margin: 0;">
+						<button type="submit" class="btn btn-icon btn-primary glyphicons circle_ok" onclick="if(!confirm('Voulez-vous modifier cet categorie')) return false;"><i></i>{{ 'registration.edit.submit'|trans({}, 'FOSUserBundle') }}</button>
+						<button type="reset"  style="float:right;"  class="btn btn-icon btn-default glyphicons circle_remove"><i></i>Annuler</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+    
+</form>
+</div>
+
+  
+{% endblock %}
+
+  

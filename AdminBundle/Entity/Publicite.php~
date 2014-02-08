@@ -1,0 +1,59 @@
+<?php
+
+namespace Tuni\AnnonceBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Publicite
+ *
+ * @ORM\Table(name="publicite")
+ * @ORM\Entity
+ */
+class Publicite
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="script", type="text", nullable=false)
+     */
+    private $script;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nom", type="string", length=100, nullable=false)
+     */
+    private $nom;
+
+    /**
+     * @var \TaillePub
+     *
+     * @ORM\ManyToOne(targetEntity="TaillePub")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="taille_pub_id", referencedColumnName="id")
+     * })
+     */
+    private $taillePub;
+
+    /**
+     * @var \TypePub
+     *
+     * @ORM\ManyToOne(targetEntity="TypePub")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="type_pub_id", referencedColumnName="id")
+     * })
+     */
+    private $typePub;
+
+
+}

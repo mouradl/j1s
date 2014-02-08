@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Tuni\FrontBundle\Entity\Paypal" table="paypal">
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="utilisateur" type="text" column="utilisateur" nullable="false"/>
+    <field name="password" type="text" column="password" nullable="false"/>
+    <field name="signature" type="text" column="signature" nullable="false"/>
+    <field name="sandbox" type="boolean" column="sandbox" nullable="true"/>
+    <field name="https" type="boolean" column="https" nullable="true"/>
+    <many-to-one field="methodepayement" target-entity="Methodepayement">
+      <join-columns>
+        <join-column name="methodePayement_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

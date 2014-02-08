@@ -1,0 +1,69 @@
+{% extends "TuniAnnonceBundle:Default:index.html.twig" %}
+{% block maincontent %}
+<section class="main-content grid_24 alpha  ">
+  
+<form class="form-horizontal" action="{{ path('tuni_membre_update', { 'id': entityid }) }}" {{ form_enctype(form) }}{{ form_enctype(edit_form) }} method="POST" >
+    
+        
+    
+    	<div class="grid_22 widget-head">
+					<h4 class="heading glyphicons edit"><i></i>Editer Jobeur</h4>
+				</div>
+				    {% for type, messages in app.session.flashBag.all %}
+                                        {% for message in messages %}
+                                            <div class="{{ type }} alert-success">
+                                                {{ message|trans({}, 'FOSUserBundle') }}
+                                            </div>
+                                        {% endfor %}
+                                    {% endfor %}
+				
+					   {% include "TuniAnnonceBundle:Membre:edit_content.html.twig" %}
+					
+					<div class="grid_22 form-actions" style="margin: 0;">
+						<button type="submit" class="btn btn-icon btn-primary glyphicons circle_ok" onclick="if(!confirm('Voulez-vous modifier cet utilisateur')) return false;"><i></i>{{ 'registration.edit.submit'|trans({}, 'FOSUserBundle') }}</button>
+						<button type="reset"  style="float:right;"  class="btn btn-icon btn-default glyphicons circle_remove"><i></i>Annuler</button>
+					</div>
+				
+		
+{{ form_rest(form) }}	    
+    
+</form>
+<br><div class="grid_22 widget-head">
+					<h4 class="heading glyphicons edit"><i></i>Mes Annonces</h4>
+				</div><br>
+    <div class="grid_22">
+    <table class="table table-bordered table-condensed table-striped table-vertical-center checkboxs js-table-sortable ui-sortable">
+                        <thead>
+                            <tr>
+                                <th style="width: 1%;" class="center">{{ knp_pagination_sortable(pagination, 'Titre', 'a.titreAnn') }}</th>
+                                <th style="width: 1%;" class="center">{{ knp_pagination_sortable(pagination, 'Prix', 'a.prixAnn') }}</th>
+                                <th style="width: 1%;" class="center">{{ knp_pagination_sortable(pagination, 'Type', 'k.type') }}</th>
+                                <th style="width: 1%;" class="center">{{ knp_pagination_sortable(pagination, 'Age', 's.nomSousCat') }}</th>
+                                <th style="width: 1%;" class="center">{{ knp_pagination_sortable(pagination, 'Date', 'a.dateAnnonce') }}</th>
+                                <th style="width: 1%;" class="center">{{ knp_pagination_sortable(pagination, 'Publier', 'a.publier') }}</th>
+                                <th class="center" style="width: 20px;">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                                {% if total==0 %}<tr class="selectable"><td colspan="7" >Aucun annonce{{total}}</td></tr>{% endif%}
+				{% for entity in pagination %}
+                                <tr class="selectable">
+                                    <td class="center">{{ entity.titreAnn }}</td>
+                                    <td class="center">{{ entity.prixAnn }}</td>
+                                    <td class="center">{{ entity.typeAnnonce.type }}</td>
+                                    <td class="center">{{ entity.sousCat.nomSousCat }}</td>
+                                    <td class="center">{% if entity.dateAnnonce %}{{ entity.dateAnnonce|date('Y-m-d') }}{% endif %}</td>
+                                    <td class="center">{% if entity.publier %}oui {%else%}non{% endif%}</td>
+                                    <td class="center">
+                                        <a class="btn-action glyphicons eye_open btn-info" href="{{ path('annonceFront_showMembre',{'id':entity.id}) }}"><i></i>show</a>
+                                        <a href="{{ path('annonceFront_editMembre',{'id':entity.id}) }}" class="btn-action glyphicons pencil btn-success"><i></i>edit</a>
+                                        <a href="{{ path('annonceFront_deleteMembre',{'id':entity.id}) }}" onclick="return(confirm('Etes-vous sûr de vouloir supprimer cet annonce?'));" class="btn-action glyphicons remove_2 btn-danger"><i></i>delete</a>
+                                    </td>
+                                </tr>
+				{% endfor %}
+                            </tbody>
+                        </table>
+        </div>
+</section>
+                
+{% endblock %}

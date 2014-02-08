@@ -1,0 +1,55 @@
+{% extends "TuniAnnonceBundle:Default:index.html.twig" %}
+{% block content_middle %}
+<div class="navbar-wrapper-content page">
+    <div class="container clearfix">
+ <div class="container-center row">
+            <section class="no-border">
+                <article class="express-post col-lg-6">
+                    <div class="panel panel-default">
+                   <div class="panel-heading">Parrainage</div>
+                    <div class="panel-body">
+                    <section class="col-md-12 col-sm-12 col-xs-12 no-border">
+                         <form action="{{ path('tuni_annonce_parrainer') }}" role="form" method="post">
+                                    {% for type, messages in app.session.flashBag.all %}
+                                        {% for message in messages %}
+                                            <div class="{{ type }} alert-success">
+                                                {{ message|trans({}, 'FOSUserBundle') }}
+                                            </div>
+                                        {% endfor %}
+                                    {% endfor %}
+                <div class="input-group">
+                  <label  class="input-group-addon glyphicon glyphicon-user"></label>
+                  
+                  <input type="text" required="required" class="form-control" placeholder="Entrer le nom de votre parrain" name="nom" >
+              </div>
+                <div class="input-group">
+                  <label  class="input-group-addon glyphicon glyphicon-user"></label>
+                  
+                  <input type="text" required="required" class="form-control" placeholder="Entrer le prénom de votre parrain" name="prenom" >
+              </div>                   
+              <div class="input-group">
+                  <label  class="input-group-addon glyphicon glyphicon-envelope"></label>
+                  
+                    <input type="email" required="required" class="form-control" placeholder="Entrer l'email de votre parrain" name="email" >
+              </div>
+                <input type="submit" class="btn position-right bnt-envois" value="Envoyer">
+          </form>
+                        </section>              
+                    </div>
+                   </div>
+                </article>
+                <article class="col-lg-6 ">
+                                   <img src="{{ asset('bundles/tuniannonce/images/interne/contactez-nous.png') }}" alt="contact" title="contact"  class="img-responsive  col-lg-10 col-lg-offset-2">
+                </article>
+            </section>
+        </div>
+        
+        </div></div>
+                
+{% endblock %}
+{% block fos_user_content %}
+{% if is_granted("IS_AUTHENTICATED_REMEMBERED")== false %}
+                       
+{{ render(controller('FOSUserBundle:Security2:login', { '_locale': app.request.locale ,'type':'job'})) }}
+{% endif %}
+{% endblock %} 

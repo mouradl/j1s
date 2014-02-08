@@ -1,0 +1,11 @@
+{% extends "TuniAnnonceBundle::layout.html.twig" %}
+
+{% block content_middle %}
+<div class="navbar-wrapper-content page">
+    <div class="container clearfix">
+<p>
+{{ 'resetting.check_email'|trans({'%email%': email}, 'FOSUserBundle') }}
+</p>
+</div></div>
+
+{% endblock %}

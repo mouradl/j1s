@@ -1,0 +1,162 @@
+
+
+<div class="span6 control-group alpha">
+    <label class="control-label alignleft">Civilite</label>
+    <div class="controls">
+    </div>
+</div>
+<div class="span6 control-group alpha civilit">
+
+									{{ form_errors(edit_form.civilite) }}
+                                                                        {{ form_widget(edit_form.civilite) }}
+    
+
+</div>
+<div class="span6 control-group alpha">
+    <label class="control-label alignleft">Nom</label>
+    <div class="controls">
+        <div class="input-append">
+										{{ form_errors(edit_form.nom) }}
+                                                                                {{ form_widget(edit_form.nom) }}
+                
+            </div>
+        </div>
+    </div>
+    <div class="span6 control-group alpha">
+        <label class="control-label alignleft">Prénom</label>
+        <div class="controls">
+									{{ form_errors(edit_form.prenom) }}
+                                                                        {{ form_widget(edit_form.prenom) }}
+                
+            </div>
+        </div>
+        <div class="span6 control-group alpha">
+            <label class="control-label alignleft">Avatar</label>
+            <div class="controls">
+            </div>
+        </div>
+        <div class="span6 control-group alpha">
+
+									{{ form_errors(edit_form.logo) }}
+                                                                        {{ form_widget(edit_form.logo) }}
+            
+
+        </div>
+        <div class="span6 control-group alpha">
+            <label class="control-label alignleft">Adresse</label>
+            <div class="controls">
+									{{ form_errors(edit_form.adresse) }}
+                                                                        {{ form_widget(edit_form.adresse) }}
+                                                                        {{ form_errors(edit_form.codePostal) }}
+                                                                        {{ form_widget(edit_form.codePostal) }}
+                    
+                </div>
+            </div>
+            <div class="span6 control-group alpha">
+                <label class="control-label alignleft">Email</label>
+                <div class="controls">
+									{{ form_errors(form.email) }}
+                                                                        {{ form_widget(form.email) }}
+                        
+                    </div>
+                </div>
+                <div class="span6 control-group alpha">
+                    <label class="control-label alignleft">Tel fixe/GSM</label>
+                    <div class="controls">
+									{{ form_errors(edit_form.tel) }}
+                                                                        {{ form_widget(edit_form.tel) }}
+                            
+                        </div>
+                    </div>
+
+                    <div class="span6 control-group alpha">
+                        <label class="control-label alignleft">Cache Phone</label>
+                        <div class="controls">
+                            <div class="toggle-button" data-toggleButton-style-enabled="success">
+                                                        		{{ form_errors(edit_form.cachePhone) }}
+                                                                        {{ form_widget(edit_form.cachePhone) }}
+
+                                </div>
+                                
+
+                            </div>
+                        </div>
+
+                        <div class="span6 control-group alpha">
+                            <label class="control-label alignleft">Fax</label>
+                            <div class="controls">
+									{{ form_errors(edit_form.fax) }}
+                                                                        {{ form_widget(edit_form.fax) }}
+                                    
+                                </div>
+                            </div>
+                            <div class="span6 control-group alpha">
+                                <label class="control-label alignleft">Age</label>
+                                <div class="controls">
+									{{ form_errors(edit_form.age) }}
+                                                                        {{ form_widget(edit_form.age) }}
+                                        
+                                    </div>
+                                </div>
+
+
+                                <div class="span6 control-group alpha">
+                                    <label class="control-label alignleft">Login</label>
+                                    <div class="controls">
+									{{ form_errors(form.username) }}
+                                                                        {{ form_widget(form.username) }}
+                                            
+                                        </div>
+                                    </div>
+
+
+                                    <div class="span6 control-group alpha">
+                                        <label class="control-label alignleft">Mot de passe</label>
+                                        <div class="controls">
+									{{ form_errors(form.password.first) }}
+                                                                        {{ form_widget(form.password.first) }}
+                                                
+                                            </div>
+                                        </div>
+
+                                        <div class="span6 control-group alpha">
+                                            Confirmer Mot de passe
+
+                                        </div>
+
+
+
+
+
+                                        <div class="span6 control-group alpha">
+
+									{{ form_errors(form.password.second) }}
+                                                                        {{ form_widget(form.password.second) }}
+                                            
+
+                                        </div>
+
+
+<div class="span6 control-group alpha">
+<label class="control-label alignleft">Parrain</label>
+                                                                    <div class="controls">
+									{{ form_errors(edit_form.parrain) }}
+                                                                        {{ form_widget(edit_form.parrain) }}
+                                                                            
+                                                                        </div>
+
+          
+                                        </div>
+<div class="span6 control-group alpha"{% if is_granted("ROLE_SUPER_ADMIN")== false %} style="display: none"{%endif%}>
+                        <label class="control-label alignleft">Vrai profil</label>
+                        <div class="controls">
+                            <div class="toggle-button" data-toggleButton-style-enabled="success">
+                                                        		{{ form_errors(edit_form.isNotFake) }}
+                                                                        {{ form_widget(edit_form.isNotFake) }}
+
+                                </div>
+                                
+
+                            </div>
+                        </div>
+{{ form_rest(edit_form) }}	    

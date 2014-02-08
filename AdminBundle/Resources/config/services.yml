@@ -1,0 +1,7 @@
+parameters:
+#    tuni_admin.example.class: Tuni\AdminBundle\Example
+
+services:
+#    tuni_admin.example:
+#        class: %tuni_admin.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

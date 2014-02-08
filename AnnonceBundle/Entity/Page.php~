@@ -1,0 +1,53 @@
+<?php
+
+namespace Tuni\AnnonceBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Page
+ *
+ * @ORM\Table(name="page")
+ * @ORM\Entity
+ */
+class Page
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id_page", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $idPage;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nom_page", type="text", nullable=false)
+     */
+    private $nomPage;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="mot_cles", type="string", length=50, nullable=false)
+     */
+    private $motCles;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="description_page", type="text", nullable=false)
+     */
+    private $descriptionPage;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="url_page", type="string", length=30, nullable=false)
+     */
+    private $urlPage;
+
+
+}

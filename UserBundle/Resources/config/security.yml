@@ -1,0 +1,70 @@
+security:
+    encoders:
+        FOS\UserBundle\Model\UserInterface: sha512
+
+    providers:
+        chain_provider:
+            chain:
+                providers: [fos_userbundle, my_fos_facebook_provider]
+        fos_userbundle:
+            id: fos_user.user_provider.username_email
+        my_fos_facebook_provider:
+            id: my.facebook.user
+    firewalls:
+        dev:
+            pattern:  ^/{_(profiler|wdt)}/
+            security: false 
+        user:
+            pattern: ^/user
+            anonymous: ~
+            fos_facebook:
+                login_path: /user/job/acceuil
+                check_path: _security_check
+                default_target_path: /user/job/acceuil
+                provider: my_fos_facebook_provider
+                app_url: "%api_facebook_name%"
+                server_url: "%api_facebook_server%"
+                
+            form_login:
+                provider: fos_userbundle
+                csrf_provider: form.csrf_provider
+                login_path: /user/%locale%/job/connexion
+#                login_path: /user/job/acceuil
+                use_forward: false
+                check_path:  /user/connexion_check
+                failure_path: null
+                default_target_path: /user/job/acceuil
+                remember_me: true
+            remember_me:
+                key: %secret%
+                lifetime: 3600
+                path: /
+                domain: ~
+            logout:
+                path: fos_user_security_logout
+#                target: /user/%locale%/Membre/connexion 
+                target: /user/%locale%/job/connexion
+                
+            anonymous:    true
+        admin:
+            pattern: ^/admins
+            anonymous: ~
+            form_login:
+                provider: fos_userbundle
+                csrf_provider: form.csrf_provider
+                login_path: /admins/%locale%/Administrateur/connexion
+                use_forward: false
+                check_path:  /admins/connexion_check
+                failure_path: null
+                default_target_path: Admin_user_security_index
+                remember_me: true
+            remember_me:
+                key: %secret%
+                lifetime: 3600
+                path: /
+                domain: ~
+            logout:
+                path: Admin_user_security_logout
+                target: /admins/%locale%/Administrateur/connexion
+            anonymous:    true
+    

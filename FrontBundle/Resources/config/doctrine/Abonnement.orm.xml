@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Tuni\FrontBundle\Entity\Abonnement" table="abonnement">
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="nom" type="string" column="nom" length="255" nullable="false"/>
+    <field name="description" type="text" column="description" nullable="true"/>
+    <field name="typeMembre" type="integer" column="type_membre" nullable="true"/>
+    <field name="listeType" type="string" column="liste_type" length="255" nullable="true"/>
+    <field name="listeDure" type="integer" column="liste_dure" nullable="true"/>
+    <field name="prioritaire" type="boolean" column="prioritaire" nullable="true"/>
+    <field name="nombreImage" type="integer" column="nombre_image" nullable="true"/>
+    <field name="video" type="boolean" column="video" nullable="true"/>
+    <field name="pixUnitaire" type="float" column="pix_unitaire" nullable="true"/>
+    <field name="quantite" type="integer" column="quantite" nullable="true"/>
+    <field name="prix" type="float" column="prix" nullable="true"/>
+    <field name="expiration" type="integer" column="expiration" nullable="true"/>
+    <field name="active" type="boolean" column="active" nullable="true"/>
+    <field name="dateDebDisponible" type="date" column="date_deb_disponible" nullable="true"/>
+    <field name="dateFinDisponible" type="date" column="date_fin_disponible" nullable="true"/>
+    <many-to-many field="promotion" target-entity="Promotion" mapped-by="abonnement"/>
+  </entity>
+</doctrine-mapping>

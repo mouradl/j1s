@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Annonce" table="annonce">
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="titreAnn" type="string" column="titre_ann" length="30" nullable="false"/>
+    <field name="adresse" type="string" column="adresse" length="255" nullable="true"/>
+    <field name="codePostal" type="integer" column="code_postal" nullable="true"/>
+    <field name="prixAnn" type="integer" column="prix_ann" nullable="false"/>
+    <field name="prixNegociable" type="boolean" column="prix_negociable" nullable="true"/>
+    <field name="typeAnn" type="string" column="type_ann" length="100" nullable="false"/>
+    <field name="logo" type="string" column="logo" length="255" nullable="true"/>
+    <field name="descAnn" type="text" column="desc_ann" nullable="false"/>
+    <field name="motCles" type="string" column="mot_cles" length="30" nullable="false"/>
+    <field name="imagesAnn" type="string" column="images_ann" length="20" nullable="false"/>
+    <field name="vidieoAnn" type="string" column="vidieo_ann" length="35" nullable="true"/>
+    <field name="dateAnnonce" type="date" column="date_annonce" nullable="false"/>
+    <field name="publier" type="boolean" column="publier" nullable="false"/>
+    <many-to-one field="region" target-entity="Region">
+      <join-columns>
+        <join-column name="region_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="sousCat" target-entity="SousCategorie">
+      <join-columns>
+        <join-column name="sous_cat_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="statutAnnonce" target-entity="StatutAnnonce">
+      <join-columns>
+        <join-column name="statut_annonce_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="devise" target-entity="Devise">
+      <join-columns>
+        <join-column name="devise_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="membre" target-entity="Membre">
+      <join-columns>
+        <join-column name="membre_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="mailExpiration" target-entity="MailExpiration">
+      <join-columns>
+        <join-column name="mail_expiration_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

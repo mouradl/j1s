@@ -1,0 +1,50 @@
+{% extends "TuniAnnonceBundle:Default:index.html.twig" %}
+{% block content_middle %}
+
+<div class="navbar-wrapper-content faq">
+    <div class="container clearfix">
+{% block maincontent %}
+            <section class="col-lg-9 col-md-9">
+ <img src="{{ asset('bundles/tuniannonce/images/interne/contactez-nous.png') }}" alt="contact" title="contact"  class="img-responsive img-contact col-lg-10 col-lg-offset-2">
+
+                   
+                        </section>
+
+
+                           
+                  
+      
+            <section class="col-lg-3 col-md-3 col-sm-11 col-xs-12">
+                                   
+                <aside class="service-contact col-lg-12 col-md-12">
+                    <a href="{{ path('tuni_annonce_service-express') }}" title="service-express "><img src="{{ asset('bundles/tuniannonce/images/service-express.png') }}" title="service-express" alt="service-express"class="img-responsive"></a>
+
+                    <a href="{{ path('tuni_annonce_service-express') }}" title="Ajouter votre parrain"><img src="{{ asset('bundles/tuniannonce/images/parainage.png') }}" title="parainage" alt="parainage" class="img-responsive">     </a>      
+             
+                      </aside>
+               <aside class="service-contact  col-lg-12 col-md-12">
+                                   <a class="hidden-sm" href="{{ path('tuni_annonce_comment-ca-marche') }}#24" title="contact"><img src="{{ asset('bundles/tuniannonce/images/faire_jobbing.png') }}" title="Faire le jobbig c'est quoi ?" alt="Jobbing"></a>
+                                   <a href="{{ path('tuni_annonce_contact') }}" title="contact"><img src="{{ asset('bundles/tuniannonce/images/contact.png') }}" title="Contactez nous" alt="contact"></a>
+
+                </aside>
+              
+                      </section>  
+       
+        
+        </div>
+
+
+               
+
+{% endblock %}
+        </div></div>   
+
+        
+{% endblock %}
+{% block fos_user_content %}
+{% if is_granted("IS_AUTHENTICATED_REMEMBERED")== false %}
+                       
+{{ render(controller('FOSUserBundle:Security2:login', { '_locale': app.request.locale ,'type':'job'})) }}
+{% endif %}
+{% endblock %} 
+          

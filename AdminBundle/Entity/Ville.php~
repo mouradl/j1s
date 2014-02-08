@@ -1,0 +1,42 @@
+<?php
+
+namespace Tuni\AnnonceBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Ville
+ *
+ * @ORM\Table(name="ville")
+ * @ORM\Entity
+ */
+class Ville
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nom_v", type="string", length=10, nullable=false)
+     */
+    private $nomV;
+
+    /**
+     * @var \Pays
+     *
+     * @ORM\ManyToOne(targetEntity="Pays")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="pays_id", referencedColumnName="id")
+     * })
+     */
+    private $pays;
+
+
+}

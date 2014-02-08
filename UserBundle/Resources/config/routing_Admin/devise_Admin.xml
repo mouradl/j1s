@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<routes xmlns="http://symfony.com/schema/routing"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
+
+   
+    <route id="Devise" pattern="/">
+        <default key="_controller">TuniAnnonceBundle:Devise:index</default>
+        <requirement key="_method">GET</requirement>
+    </route>
+    <route id="Devise_create" pattern="/create">
+        <default key="_controller">TuniAnnonceBundle:Devise:create</default>
+        <requirement key="_method">POST</requirement>
+    </route>
+
+    <route id="Devise_new" pattern="/new">
+        <default key="_controller">TuniAnnonceBundle:Devise:new</default>
+        <requirement key="_method">GET</requirement>
+    </route>
+
+    <route id="Devise_show" pattern="/{id}/show">
+        <default key="_controller">TuniAnnonceBundle:Devise:show</default>
+        <requirement key="_method">GET</requirement>
+    </route>
+    
+    <route id="Devise_edit" pattern="/{id}/edit">
+        <default key="_controller">TuniAnnonceBundle:Devise:edit</default>
+        <requirement key="_method">GET</requirement>
+    </route>
+    
+    <route id="Devise_update" pattern="/{id}/update">
+        <default key="_controller">TuniAnnonceBundle:Devise:update</default>
+        <requirement key="_method">POST</requirement>
+    </route>
+    
+    <route id="Devise_delete" pattern="/{id}/delete">
+        <default key="_controller">TuniAnnonceBundle:Devise:delete</default>
+         <requirement key="_method">GET</requirement>
+    </route>
+<route id="Devise_deleteliste" pattern="/deleteliste">
+        <default key="_controller">TuniAnnonceBundle:Devise:deleteliste</default>
+        <requirement key="_method">POST</requirement>
+    </route>
+
+</routes>

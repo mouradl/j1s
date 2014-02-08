@@ -1,0 +1,155 @@
+
+
+
+                                                    <div class="grid_12 control-group alpha">
+                                                        <label class="control-label alignleft">Civilite</label>
+                                                        <div class="controls">
+                                                        </div>
+                                                    </div>
+                                                    <div class="grid_12 control-group alpha civilit">
+
+									{{ form_errors(formMembre.civilite) }}
+                                                                        {{ form_widget(formMembre.civilite) }}
+                                                        
+
+                                                    </div>
+                                                    <div class="grid_12 control-group alpha">
+                                                        <label class="control-label alignleft">Nom</label>
+                                                        <div class="controls">
+                                                            <div class="input-append">
+										{{ form_errors(formMembre.nom) }}
+                                                                                {{ form_widget(formMembre.nom) }}
+                                                                    
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="grid_12 control-group alpha">
+                                                            <label class="control-label alignleft">Prénom</label>
+                                                            <div class="controls">
+									{{ form_errors(formMembre.prenom) }}
+                                                                        {{ form_widget(formMembre.prenom) }}
+                                                                    
+                                                                </div>
+                                                            </div>
+                                                            <div class="grid_12 control-group alpha">
+                                                                <label class="control-label alignleft">Logo</label>
+                                                                <div class="controls">
+                                                                </div>
+                                                            </div>
+                                                            <div class="grid_12 control-group alpha">
+
+									{{ form_errors(formMembre.logo) }}
+                                                                        {{ form_widget(formMembre.logo) }}
+                                                                
+
+                                                            </div>
+                                                            <div class="grid_12 control-group alpha">
+                                                                <label class="control-label alignleft">Adresse</label>
+                                                                <div class="controls">
+									{{ form_errors(formMembre.adresse) }}
+                                                                        {{ form_widget(formMembre.adresse) }}
+                                                                        
+                                                                    </div>
+                                                                </div>
+                                                                <div class="grid_12 control-group alpha">
+                                                                    <label class="control-label alignleft">Email</label>
+                                                                    <div class="controls">
+									{{ form_errors(form.email) }}
+                                                                        {{ form_widget(form.email) }}
+                                                                            
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="grid_12 control-group alpha">
+                                                                        <label class="control-label alignleft">Tel fixe/GSM</label>
+                                                                        <div class="controls">
+									{{ form_errors(formMembre.tel) }}
+                                                                        {{ form_widget(formMembre.tel) }}
+                                                                                
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="grid_12 control-group alpha">
+                                                                            <label class="control-label alignleft">Cache Phone</label>
+                                                                            <div class="controls">
+                                                                                <div class="toggle-button" data-toggleButton-style-enabled="success">
+                                                        		{{ form_errors(formMembre.cachePhone) }}
+                                                                        {{ form_widget(formMembre.cachePhone) }}
+
+                                                                                    </div>
+                                                                                    
+
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="grid_12 control-group alpha">
+                                                                                <label class="control-label alignleft">Fax</label>
+                                                                                <div class="controls">
+									{{ form_errors(formMembre.fax) }}
+                                                                        {{ form_widget(formMembre.fax) }}
+                                                                                        
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="grid_12 control-group alpha">
+                                                                                    <label class="control-label alignleft">Age</label>
+                                                                                    <div class="controls">
+									{{ form_errors(formMembre.age) }}
+                                                                        {{ form_widget(formMembre.age) }}
+                                                                                            
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="grid_12 control-group alpha">
+                                                                                        <label class="control-label alignleft">Enreprise</label>
+                                                                                        <div class="controls">
+									{{ form_errors(formMembre.entreprise) }}
+                                                                        {{ form_widget(formMembre.entreprise) }}
+                                                                                                
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="grid_12 control-group alpha">
+                                                                                            <label class="control-label alignleft">SRET</label>
+                                                                                            <div class="controls">
+									{{ form_errors(formMembre.siret) }}
+                                                                        {{ form_widget(formMembre.siret) }}
+                                                                                                    
+                                                                                                </div>
+                                                                                            </div>
+
+                                                                                            <div class="grid_12 control-group alpha">
+                                                                                                <label class="control-label alignleft">Login</label>
+                                                                                                <div class="controls">
+									{{ form_errors(form.username) }}
+                                                                        {{ form_widget(form.username) }}
+                                                                                                        
+                                                                                                    </div>
+                                                                                                </div>
+
+
+                                                                                                <div class="grid_12 control-group alpha">
+                                                                                                    <label class="control-label alignleft">Mot de passe</label>
+                                                                                                    <div class="controls">
+									{{ form_errors(form.password.first) }}
+                                                                        {{ form_widget(form.password.first) }}
+                                                                                                            
+                                                                                                        </div>
+                                                                                                    </div>
+
+                                                                                                    <div class="grid_12 control-group alpha">
+                                                                                                        Confirmer Mot de passe
+
+                                                                                                    </div>
+
+
+
+
+
+                                                                                                    <div class="grid_12 control-group alpha">
+
+									{{ form_errors(form.password.second) }}
+                                                                        {{ form_widget(form.password.second) }}
+                                                                                                        
+
+                                                                                                    </div>
+
+
+
+{{ form_rest(formMembre) }}	    

@@ -1,0 +1,42 @@
+{% extends "TuniAnnonceBundle::layout.html.twig" %}
+
+{% block content_middle %}
+<div class="navbar-wrapper-content page">
+    <div class="container clearfix">
+<div id="login">
+               
+                    <form class="form-signin" action="{{ path('fos_user_resetting_send_email') }}" method="post">
+                            <div class="widget widget-4">
+                                    <div class="widget-head">
+                                            <h4 class="heading">{{ 'resetting.request.submit'|trans({}, 'FOSUserBundle') }}</h4>
+                                    </div>
+                            </div>
+                            <h2 class="glyphicons lock form-signin-heading"><i></i> {{ 'Réinitialisations'|trans({}, 'FOSUserBundle') }}</h2>
+                                {% for type, messages in app.session.flashbag.all() %}
+                                      {% for key, message in messages %}
+                                          <div class="flash-{{ type }} justify">
+                                              {{ message|trans({}, 'FOSUserBundle') }}
+                                          </div>
+                                      {% endfor %}
+                                 {% endfor %}        
+                    
+                                
+{% if invalid_username is defined %}
+            <div class="error-count-aut justify" ><span>{{ 'resetting.request.invalid_username'|trans({'%username%': invalid_username}, 'FOSUserBundle') }}</span></div>
+        {% endif %}
+                                        <div class="uniformjs">
+                                              
+        <label for="username">{{ 'resetting.request.username'|trans({}, 'FOSUserBundle') }}</label>
+        <input type="text" id="username" name="username" required="required" />
+                                        </div>
+                                         <button type="submit" id="_submit" name="_submit" class="btn btn-large btn-primary">{{ 'Envoyer'|trans({}, 'FOSUserBundle') }}</button>
+                                 
+                     </form>
+</div> </div></div> 
+
+{% endblock %}
+
+{% block connect %}
+
+
+  {% endblock %}    

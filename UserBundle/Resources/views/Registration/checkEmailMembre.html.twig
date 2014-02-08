@@ -1,0 +1,17 @@
+{% extends "TuniAnnonceBundle::layout.html.twig" %}
+
+{% block content_middle %}
+<div class="navbar-wrapper-content page">
+    <div class="container clearfix">
+<p>
+{{ 'registration.check_email'|trans({'%email%': user.email}, 'FOSUserBundle') }}
+</p>
+</div></div>
+
+{% endblock %}
+{% block fos_user_content %}
+{% if is_granted("IS_AUTHENTICATED_REMEMBERED")== false %}
+                       
+{{ render(controller('FOSUserBundle:Security2:login', { '_locale': app.request.locale ,'type':'job'})) }}
+{% endif %}
+{% endblock %} 

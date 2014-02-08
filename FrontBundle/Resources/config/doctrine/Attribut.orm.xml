@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Tuni\FrontBundle\Entity\Attribut" table="attribut">
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="nom" type="string" column="nom" length="100" nullable="false"/>
+    <field name="unite" type="string" column="unite" length="30" nullable="true"/>
+    <field name="libelle" type="string" column="libelle" length="100" nullable="true"/>
+    <field name="isRequired" type="boolean" column="is_required" nullable="true"/>
+    <field name="isSelectbox" type="boolean" column="is_selectbox" nullable="true"/>
+    <many-to-many field="sousCat" target-entity="Souscategorie" inversed-by="attribut">
+      <join-table name="attribut_souscategorie">
+        <join-columns>
+          <join-column name="attribut_id" referenced-column-name="id"/>
+        </join-columns>
+        <inverse-join-columns>
+          <join-column name="sous_cat_id" referenced-column-name="id"/>
+        </inverse-join-columns>
+      </join-table>
+    </many-to-many>
+  </entity>
+</doctrine-mapping>

@@ -1,0 +1,45 @@
+{% extends "TuniAnnonceBundle:Default:index.html.twig" %}
+{% block maincontent %}
+<section class="main-content grid_24 alpha  ">
+  
+<div class="grid_22 widget-head">
+					<h4 class="heading glyphicons edit"><i></i>Resultat de recherche Annonces</h4>
+				</div><br>
+                                 {{total}} Resultats trouvées
+    <div class="grid_22">
+    <table class="table table-bordered table-condensed table-striped table-vertical-center checkboxs js-table-sortable ui-sortable">
+                        <thead>
+                            {% if pagination==null %}<tr class="selectable"><td colspan="7" >Aucun annonce </td></tr>
+				{%else%}
+                            <tr>
+                                <th style="width: 1%;" class="center">{{ knp_pagination_sortable(pagination, 'Titre', 'a.titreAnn') }}</th>
+                                <th style="width: 1%;" class="center">{{ knp_pagination_sortable(pagination, 'Prix', 'a.prixAnn') }}</th>
+                                <th style="width: 1%;" class="center">{{ knp_pagination_sortable(pagination, 'Type', 'k.type') }}</th>
+                                <th style="width: 1%;" class="center">{{ knp_pagination_sortable(pagination, 'Categorie', 's.nomSousCat') }}</th>
+                                <th style="width: 1%;" class="center">{{ knp_pagination_sortable(pagination, 'Date', 'a.dateAnnonce') }}</th>
+                                <th style="width: 1%;" class="center">{{ knp_pagination_sortable(pagination, 'Publier', 'a.publier') }}</th>
+                                <th class="center" style="width: 20px;">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                                {% if total==0 %}<tr class="selectable"><td colspan="7" >Aucun annonce{{total}}</td></tr>{% endif%}
+				{% for entity in pagination %}
+                                <tr class="selectable">
+                                    <td class="center">{{ entity.titreAnn }}</td>
+                                    <td class="center">{{ entity.prixAnn }}</td>
+                                    <td class="center">{{ entity.typeAnnonce.type }}</td>
+                                    <td class="center">{{ entity.sousCat.nomSousCat }}</td>
+                                    <td class="center">{% if entity.dateAnnonce %}{{ entity.dateAnnonce|date('Y-m-d') }}{% endif %}</td>
+                                    <td class="center">{% if entity.publier %}oui {%else%}non{% endif%}</td>
+                                    <td class="center">
+                                        <a class="btn-action glyphicons eye_open btn-info" href="{{ path('annonceFront_showMembre',{'id':entity.id}) }}"><i></i>show</a>
+                                    </td>
+                                </tr>
+				{% endfor %}
+                            </tbody>
+{% endif%}
+                        </table>
+        </div>
+</section>
+                
+{% endblock %}

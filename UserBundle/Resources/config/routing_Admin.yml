@@ -1,0 +1,108 @@
+Admin_user_security:
+    resource: "routing_Admin/security_Admin.xml"
+    prefix: /
+Admin_user_profile:
+    resource: "routing_Admin/profile_Admin.xml"
+    prefix: /compte
+
+Admin_user_register:
+    resource: "routing_Admin/registration_Admin.xml"
+    prefix: /inscription
+
+Admin_user_resetting:
+    resource: "routing_Admin/resetting_Admin.xml"
+    prefix: /resetting
+
+Admin_user_change_password:
+    resource: "routing_Admin/change_password_Admin.xml"
+    prefix: /compte
+
+Admin_annoncesecured:
+    resource: "@TuniAnnonceBundle/Resources/config/routing.yml"
+    prefix:   /Tuni
+tuni_adminsecured2:
+    resource: "@TuniAdminBundle/Resources/config/routing.yml"
+    prefix:   /Admin
+tuni_admin_liste_admins:
+    pattern:  /listeAdmins
+    defaults: { _controller: TuniAdminBundle:Default:listeAdmins}
+listRegion:
+    pattern:  /listRegion
+    defaults: { _controller: TuniAdminBundle:Default:listRegion}
+tuni_admin_admins_delete:
+    pattern:  /delete/{id}
+    defaults: { _controller: TuniAdminBundle:Default:delete }
+Ville_deleteReg:
+    pattern:  /VilleDel/{id}
+    defaults: { _controller: TuniAdminBundle:Default:deleteReg }
+tuni_admin_admins_deleteliste:
+    pattern:  /deleteliste
+    defaults: { _controller: TuniAdminBundle:Default:deleteliste }
+    requirements:
+       _method: POST
+Region_deleteliste:
+    pattern:  /deletelisteRegion
+    defaults: { _controller: TuniAdminBundle:Default:deletelisteRegion }
+    requirements:
+       _method: POST
+tuni_admin_admins_edit:
+   pattern: /edit/{id}
+   defaults: { _controller: TuniAdminBundle:Default:editAdmin}
+
+tuni_admin_admins_show:
+   pattern: /show/{id}
+   defaults: { _controller: TuniAdminBundle:Default:showAdmin}   
+tuni_admin_admins_update:
+   pattern: /update
+   defaults: { _controller: TuniAdminBundle:Default:update}
+Admin_user_members_manage:
+    resource: "routing_Admin/members_Admin.xml"
+    prefix: /membres    
+Admin_user_member_manage:
+    resource: "routing_Admin/member_Admin.xml"
+    prefix: /membre
+Admin_user_memberProf_manage:
+    resource: "routing_Admin/memberProf_Admin.xml"
+    prefix: /membreProf
+Admin_user_attribut_manage:
+    resource: "routing_Admin/attribut_Admin.xml"
+    prefix: /attribut
+Admin_user_categorie_manage:
+    resource: "routing_Admin/categorie_Admin.xml"
+    prefix: /categorie
+Admin_user_annonce_manage:
+    resource: "routing_Admin/annonce_Admin.xml"
+    prefix: /annonce     
+Admin_user_contact_manage:
+    resource: "routing_Admin/contact_Admin.xml"
+    prefix: /contact 
+Admin_user_page_manage:
+    resource: "routing_Admin/page_Admin.xml"
+    prefix: /page     
+Admin_user_mailExpiration_manage:
+    resource: "routing_Admin/mailExpiration_Admin.xml"
+    prefix: /mailExpiration
+Admin_configuration_manage:
+    resource: "routing_Admin/configuration_Admin.xml"
+    prefix: /configuration 
+Admin_temoignage_manage:
+    resource: "routing_Admin/temoignage_Admin.xml"
+    prefix: /temoignage
+Admin_user_Slider_manage:
+    resource: "routing_Admin/slider_Admin.xml"
+    prefix: /Slider     
+Admin_user_menu_manage:
+    resource: "routing_Admin/menu_Admin.xml"
+    prefix: /menu 
+Admin_user_Social_manage:
+    resource: "routing_Admin/social_Admin.xml"
+    prefix: /Social
+Admin_user_Article_manage:
+    resource: "routing_Admin/article_Admin.xml"
+    prefix: /Article
+Admin_user_Devise_manage:
+    resource: "routing_Admin/devise_Admin.xml"
+    prefix: /Devise
+Admin_user_service-express_manage:
+    resource: "routing_Admin/service-express_Admin.xml"
+    prefix: /service-express

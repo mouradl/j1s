@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<routes xmlns="http://symfony.com/schema/routing"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
+
+    <route id="annonceFront" pattern="/">
+        <default key="_controller">TuniAnnonceBundle:Annonce:index</default>
+        <requirement key="_method">GET</requirement>
+    </route>
+    <route id="annonceFront_createMembre" pattern="/create">
+        <default key="_controller">TuniAnnonceBundle:Annonce:createMembre</default>
+        <requirement key="_method">POST</requirement>
+    </route>
+
+    <route id="annonceFront_newMembre" pattern="/new">
+        <default key="_controller">TuniAnnonceBundle:Annonce:newMembre</default>
+        <requirement key="_method">GET</requirement>
+    </route>
+
+    <route id="annonceFront_showMembre" pattern="/{id}/show">
+        <default key="_controller">TuniAnnonceBundle:Annonce:showMembre</default>
+        <requirement key="_method">GET</requirement>
+    </route>
+    
+    <route id="annonceFront_editMembre" pattern="/{id}/editMembre">
+        <default key="_controller">TuniAnnonceBundle:Annonce:editMembre</default>
+        <requirement key="_method">GET</requirement>
+    </route>
+    
+    <route id="annonceFront_update" pattern="/{id}/updateMembre">
+        <default key="_controller">TuniAnnonceBundle:Annonce:updateMembre</default>
+        <requirement key="_method">POST</requirement>
+    </route>
+    
+    <route id="annonceFront_deleteMembre" pattern="/{id}/delete">
+        <default key="_controller">TuniAnnonceBundle:Annonce:deleteMembre</default>
+         <requirement key="_method">GET</requirement>
+    </route>
+    
+     <route id="annonceFront_Recherche" pattern="/Recherche">
+        <default key="_controller">TuniAnnonceBundle:Annonce:Recherche</default>
+        <requirement key="_method">POST</requirement>
+    </route>
+    <route id="annonceFront_RechercheAvance" pattern="/RechercheAvance">
+        <default key="_controller">TuniAnnonceBundle:Annonce:RechercheAvance</default>
+        <requirement key="_method">POST</requirement>
+    </route>
+    <route id="annonceFront_RechercheAvanceGet" pattern="/RechercheAvanceGet">
+        <default key="_controller">TuniAnnonceBundle:Annonce:RechercheAvanceGet</default>
+        <requirement key="_method">GET</requirement>
+    </route>
+    <route id="annonceFront_ReAv" pattern="/ReAv/{idc}/{idcs}/{idReg}/">
+        <default key="_controller">TuniAnnonceBundle:Annonce:ReAv</default>
+        <default key="idcs">0</default>
+        <default key="idc">0</default>
+        <default key="idReg">0</default>
+        <requirement key="_method">GET</requirement>
+    </route>
+
+</routes>

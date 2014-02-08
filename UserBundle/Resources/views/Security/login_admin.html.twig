@@ -1,0 +1,44 @@
+<div id="login">
+               
+                    <form class="form-signin" action="{{ path("Admin_user_security_check") }}" method="post">
+                            <div class="widget widget-4">
+                                    <div class="widget-head">
+                                            <h4 class="heading">{{ 'security.login.head'|trans({}, 'FOSUserBundle') }}</h4>
+                                    </div>
+                            </div>
+                            <h2 class="glyphicons unlock form-signin-heading"><i></i> {{ 'security.login.heading'|trans({}, 'FOSUserBundle') }}</h2>
+                                {% for type, messages in app.session.flashbag.all() %}
+                                      {% for key, message in messages %}
+                                          <div class="flash-{{ type }} justify">
+                                              {{ message|trans({}, 'FOSUserBundle') }}
+                                          </div>
+                                      {% endfor %}
+                                 {% endfor %}        
+                                 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                                     {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} 
+                                     <br>
+                                     <a href="{{ path('Admin_user_security_logout') }}">
+                                         {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
+                                     </a>
+                                     <br>
+                                     <a href="{{ path('Admin_user_security_index') }}">
+                                         {{ 'Acceuil'|trans({}, 'FOSUserBundle') }}
+                                     </a>
+                                 {% else %}
+
+                                {% if error %}
+                                     <div class="error-count-aut justify" ><span>{{ error|trans({}, 'FOSUserBundle') }}</span></div>
+                                 {% endif %}
+
+                                        <div class="uniformjs">
+                                                <input type="text" id="username" name="_username" value="{{ last_username }}" required="required" class="input-block-level" placeholder="Email address"> 
+                                                <input type="password" id="password" name="_password" required="required"  class="input-block-level" placeholder="Password"> 
+                                                <label class="checkbox"><input type="checkbox" id="remember_me" name="_remember_me" value="on">{{ 'security.login.remember_me'|trans({}, 'FOSUserBundle') }}<span class="oublierpw"><a href="{{ path("Admin_user_resetting_request") }}">{{ 'security.login.forgot_pw'|trans({}, 'FOSUserBundle') }}</a></span></label>
+                                                <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+                                                <input type="hidden" name="_target_path" value="/admins/{{app.request.locale}}/Admin" />
+
+                                        </div>
+                                         <button type="submit" id="_submit" name="_submit" class="btn btn-large btn-primary">{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}</button>
+                                 {% endif %}
+                     </form>
+</div>   

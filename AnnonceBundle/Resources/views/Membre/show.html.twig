@@ -1,0 +1,156 @@
+
+{% extends "TuniAdminBundle::layout.html.twig" %}
+
+{% block content_middle_b %}
+<ul class="breadcrumb">
+	<li><a  class="glyphicons home"><i></i> juste1service</a></li>
+	<li class="divider"></li>
+	<li>{{'Administrateur'|trans({}, 'TuniAdminBundle') }}</li>
+</ul>
+<div class="separator"></div>   
+
+<div class="heading-buttons">
+    <h3 class="glyphicons group"><i></i> Jobeurs</h3>
+    <div class="buttons pull-right">
+        <a href="{{ path('membre_new') }}" class="btn btn-primary btn-icon glyphicons circle_plus"><i></i>Ajouter Jobeur</a>
+    </div>
+    <div class="clearfix"></div>
+</div>
+<div class="separator"></div>
+
+<div class="innerLR">
+   
+<form class="form-horizontal" action="" method="POST" >
+    
+        
+    
+    <div class="tab-content" style="padding: 0;" >
+		<div class="tab-pane active" id="account-settings">
+		
+			<div class="widget widget-2">
+				<div class="widget-head">
+					<h4 class="heading glyphicons edit"><i></i>Détail Jobeur</h4>
+				</div>
+				<div class="widget-body" style="padding-bottom: 0;">
+                                    {% for type, messages in app.session.flashBag.all %}
+                                        {% for message in messages %}
+                                            <div class="{{ type }} alert-success">
+                                                {{ message|trans({}, 'FOSUserBundle') }}
+                                            </div>
+                                        {% endfor %}
+                                    {% endfor %}
+				
+					<div class="row-fluid">
+                                          
+
+<div class="span6 control-group alpha">
+    <label class="control-label alignleft">Civilite :</label>
+    <div class="controls">
+    </div>
+</div>
+<div class="span6 control-group alpha civilit">
+
+									
+                                                                        {{ entity.civilite }}
+   
+</div>
+<div class="span6 control-group alpha">
+    <label class="control-label alignleft">Nom :</label>
+    <div class="controls">
+        <div class="input-append">
+										
+                                                                                {{ entity.nom}}
+                </div>
+        </div>
+    </div>
+<div class="span6 control-group alpha">
+                        <label class="control-label alignleft">Prénom :</label>
+                        <div class="controls">
+									
+                                                                        {{ entity.prenom }}
+                               </div>
+                        </div>
+
+    <div class="span6 control-group alpha">
+        <label class="control-label alignleft">Adresse :</label>
+        <div class="controls">
+									
+                                                                        {{ entity.adresse }}
+                </div>
+        </div>
+<div class="span6 control-group alpha">
+                            <label class="control-label alignleft">Email :</label>
+                            <div class="controls">
+									
+                                                                        {{ entity.utilisateur.email}}
+                                    </div>
+                            </div>
+        <div class="span6 control-group alpha">
+            <label class="control-label alignleft">Tel fixe/GSM :</label>
+            <div class="controls">
+									
+                                                                        {{ entity.tel}}
+                   </div>
+            </div>
+
+                            <div class="span6 control-group alpha">
+                                <label class="control-label alignleft">Cacher Phone :</label>
+                                <div class="controls">
+                                                       		{%if entity.cachePhone==1%}Oui{%else%}Non{%endif%}
+                                    </div>
+                                </div>
+                                
+            <div class="span6 control-group alpha">
+                <label class="control-label alignleft">Fax :</label>
+                <div class="controls">
+									
+                                                                        {{ entity.fax }}
+                      </div>
+                </div>
+<div class="span6 control-group alpha">
+                                    <label class="control-label alignleft">Age :</label>
+                                    <div class="controls">
+									
+                                                                        {{ entity.age }}
+                                             </div>
+                                    </div>
+
+
+                <div class="span6 control-group alpha">
+                    <label class="control-label alignleft">Login :</label>
+                    <div class="controls">
+									
+                                                                        {{ entity.utilisateur.username }}
+                          </div>
+                    </div>
+
+
+                                    <div class="span6 control-group alpha">
+                                        <label class="control-label alignleft">Date d'inscription :</label>
+                                        <div class="controls">
+									{{ entity.registredUser|date('Y-m-d H:i:s') }}
+                                            </div>
+                                        </div>
+                                    
+
+					</div>
+					
+					<div class="form-actions" style="margin: 0;">
+                                            <div class="buttons pull-right" style="float:left;">
+                                                <a href="{{ path('membre_edit',{'id':entity.id}) }}" class="btn btn-primary btn-icon glyphicons edit"><i></i>Editer</a>
+                                            </div>
+                                                <div class="buttons pull-right" style="float:right;">
+                                                <a href="{{ path('membre')}}" class="btn btn-success btn-icon glyphicons list"><i></i>Retour à la liste</a>
+                                            </div>
+                                            </div>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+    
+</form>
+</div>
+
+  
+{% endblock %}

@@ -1,0 +1,112 @@
+{% extends "TuniAnnonceBundle:Default:index.html.twig" %}
+{% block content_middle %}
+<div class="navbar-wrapper-content page">
+    <div class="container clearfix">
+ <div class="container-center row">
+            <section class="no-border">
+                  <article class="col-lg-6">
+         <div class="panel panel-default">
+                   <div class="panel-heading">Service Express</div>
+                    <div class="panel-body">
+                      <section class="col-md-12 col-sm-12 col-xs-12 no-border">
+                      <article>
+                       
+                        <p>  Recourir à l’aide d un bricoleur pour monter une étagère, trouver une baby sitter pour samedi soir ou encore besoin d’un dépannage informatique ?</p>
+                       <p> Ne passez plus des heures au téléphone, un seul clic et nous vous assurons un service de qualité et au meilleur prix. <br>
+                        </p> <br>
+                        <h4>Utilisation de service express:</h4>
+                        <p>Les utilisateurs et les annonceurs particuliers peuvent bénéficier de l utilisation du service express
+L insertion d une annonce est gratuite.</p>
+</p>Pour bénéficier du service express , un pacte est explicitement établi afin que le prestataire : </p>
+                        <ul class="list-group-item-text">
+                            <li>S' engage à ne mettre que des informations exactes concernant son identité</li>
+                             <li>S'engage à décrire le plus précisément possible sa demande de prestation</li>
+                              <li>S'engage à ne demander des services uniquement compatibles avec les règles légales
+applicables aux services à la personne.</li>
+                        </ul><br>
+
+                        <p>Votre annonce est prise en compte et traitée par notre service en priorité.</p>
+                       
+                        Votre annonce sera traitée maximum <strong>2H</strong> après validation du formulaire.
+
+                      </article>
+                        </section>                
+                    </div>
+                   </div>
+                </article>
+                <article class="express-post col-lg-6">
+                    <div class="panel panel-default">
+                   <div class="panel-heading">Formulaire</div>
+                    <div class="panel-body">
+                    <section class="col-md-12 col-sm-12 col-xs-12 no-border">
+                         <form action="{{ path('tuni_annonce_serviceExpress_create') }}"  {{ form_enctype(form) }} role="form" method="post">
+            {% for type, messages in app.session.flashBag.all %}
+                                        {% for message in messages %}
+                                            <div class="{{ type }} alert-success">
+                                                {{ message|trans({}, 'FOSUserBundle') }}
+                                            </div>
+                                        {% endfor %}
+                                    {% endfor %}
+              <div class="input-group">
+              <label for="name"  class="input-group-addon glyphicon glyphicon-user"></label>
+             
+              
+                                                                                {{ form_errors(form.nom) }}
+                                                                                {{ form_widget(form.nom) }}
+            </div>
+            <div class="input-group">
+              <label for="firstname"  class="input-group-addon glyphicon glyphicon-user"></label>
+             
+              
+                                                                                {{ form_errors(form.prenom) }}
+                                                                                {{ form_widget(form.prenom) }}
+            </div> 
+                                 <div class="input-group">
+              <label for="adresse"  class="input-group-addon glyphicon glyphicon-map-marker"></label>
+             
+              
+                                                                                {{ form_errors(form.adresse) }}
+                                                                                {{ form_widget(form.adresse) }}
+            </div>             
+            
+                <div class="input-group">
+              <label for="tel" class="input-group-addon  glyphicon glyphicon-phone"></label>
+             
+                                                                                {{ form_errors(form.tel) }}
+                                                                                {{ form_widget(form.tel) }}
+            </div>              
+              <div class="input-group">
+                  <label  class="input-group-addon glyphicon glyphicon-envelope"></label>
+                                                                                {{ form_errors(form.email) }}
+                                                                                {{ form_widget(form.email) }}
+              </div>
+             
+          
+            
+            
+                               <div class="input-group">
+                                       <label for="message" class="input-group-addon  glyphicon glyphicon-bookmark"></label>
+                                   
+                                                                                {{ form_errors(form.message) }}
+                                                                                {{ form_widget(form.message) }}
+                               </div>
+                             {{ form_rest(form) }}
+                <input type="submit" class="btn position-right bnt-envois" value="Envoyer">
+          </form>
+                        </section>              
+                    </div>
+                   </div>
+                </article>
+             
+            </section>
+        </div>
+        
+        </div></div>
+                
+{% endblock %}
+{% block fos_user_content %}
+{% if is_granted("IS_AUTHENTICATED_REMEMBERED")== false %}
+                       
+{{ render(controller('FOSUserBundle:Security2:login', { '_locale': app.request.locale ,'type':'job'})) }}
+{% endif %}
+{% endblock %} 

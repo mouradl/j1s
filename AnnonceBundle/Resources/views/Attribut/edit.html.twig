@@ -1,0 +1,175 @@
+{% extends "TuniAdminBundle::layout.html.twig" %}
+
+{%block javascripts%}
+{{parent()}}
+    <script type="text/javascript">
+        $(window).load(function(){
+            {%if (entity.isSelectbox==FALSE)%}
+            $('#divChamps').hide();
+            {%endif%}
+        });
+       $('.isSelect').change(function(){
+			
+			if($('.isSelect').is(':checked'))
+			$('#divChamps').show();
+			else
+			$('#divChamps').hide();
+			
+			
+			
+			});
+function addFormField() {
+	var id = document.getElementById("id").value;
+	$("#divTxt").append("<p id='row" + id + "'><label for='val" + id + "'>Champ " + id + "&nbsp;&nbsp;</label><input type='text'  name='val[]' id='val" + id + "'>&nbsp;&nbsp<a href='#' onClick='removeFormField(\"#row" + id + "\"); return false;' class='btn-action glyphicons remove btn-danger'><i></i></a><p>");
+	
+	
+	
+	id = (id - 1) + 2;
+	document.getElementById("id").value = id;
+}
+
+function removeFormField(id) {
+	$(id).remove();
+}
+</script>
+{%endblock%}  
+
+
+{% block content_middle_b %}
+<ul class="breadcrumb">
+	<li><a  class="glyphicons home"><i></i> juste1service</a></li>
+	<li class="divider"></li>
+	<li>{{'Attributs'|trans({}, 'TuniAdminBundle') }}</li>
+</ul>
+<div class="separator"></div>   
+
+<div class="heading-buttons">
+    <h3 class="glyphicons group"><i></i> Attributs</h3>
+    <div class="buttons pull-right">
+        <a href="{{ path('attribut_new') }}" class="btn btn-primary btn-icon glyphicons circle_plus"><i></i>Ajouter attribut</a>
+    </div>
+    <div class="clearfix"></div>
+</div>
+<div class="separator"></div>
+
+<div class="innerLR">
+   
+<form class="form-horizontal" action="{{ path('attribut_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
+    
+        
+    
+    <div class="tab-content" style="padding: 0;" >
+		<div class="tab-pane active" id="account-settings">
+		
+			<div class="widget widget-2">
+				<div class="widget-head">
+					<h4 class="heading glyphicons edit"><i></i>Editer Attribut</h4>
+				</div>
+				<div class="widget-body" style="padding-bottom: 0;">
+                                    {% for type, messages in app.session.flashBag.all %}
+                                        {% for message in messages %}
+                                            <div class="{{ type }} alert-success">
+                                                {{ message|trans({}, 'FOSUserBundle') }}
+                                            </div>
+                                        {% endfor %}
+                                    {% endfor %}
+				
+					<div class="row-fluid">
+                                           
+
+<div class=" control-group alpha">
+    <label class="control-label alignleft">Nom</label>
+    <div class="controls">
+        <div class="input-append">
+										{{ form_errors(edit_form.nom) }}
+                                                                                {{ form_widget(edit_form.nom) }}
+                
+            </div>
+        </div>
+    </div>
+
+        <div class=" control-group alpha">
+            <label class="control-label alignleft">Unite</label>
+            <div class="controls">
+									{{ form_errors(edit_form.unite) }}
+                                                                        {{ form_widget(edit_form.unite) }}
+                    
+                </div>
+            </div>
+
+                            
+                                
+            <div class=" control-group alpha">
+                <label class="control-label alignleft">Libelle</label>
+                <div class="controls">
+									{{ form_errors(edit_form.libelle) }}
+                                                                        {{ form_widget(edit_form.libelle) }}
+                        
+                    </div>
+                </div>
+
+<div class="control-group alpha">
+                                <label class="control-label alignleft">Required</label>
+                                <div class="controls">
+                                    <div class="toggle-button" data-toggleButton-style-enabled="success">
+                                                        		{{ form_errors(edit_form.isRequired) }}
+                                                                        {{ form_widget(edit_form.isRequired) }}
+
+                                        </div>
+                                        
+
+                                    </div>
+                                </div>
+<div class="span6 control-group alpha">
+                                <label class="control-label alignleft">SelectBox</label>
+                                <div class="controls">
+                                    <div class="toggle-button" data-toggleButton-style-enabled="success">
+                                                        		{{ form_errors(edit_form.isSelectbox) }}
+                                                                        {{ form_widget(edit_form.isSelectbox) }}
+
+                                        </div>
+                                        
+
+                                    </div>
+                                </div>
+{{ form_rest(edit_form) }}	    
+
+                                         <div class="span6" id="divChamps">
+                                             <div class="span12">
+                                                 <div class=" buttons pull-left">
+        <a href="#" class="btn btn-mini  btn-icon glyphicons circle_plus" onClick="addFormField(); return false;"><i></i>Ajouter champ</a>
+    </div></div>
+          
+                                            
+          <div class="span12" id="divTxt">
+              {% set index = 1 %}
+              {%if (entity.isSelectbox)%}
+                  {%for choix in Multichoix%}
+                  <p id='row{{index}}'><label for='val{{index}}'>Champ{{index}}&nbsp;&nbsp;</label><input type='text' value="{{choix.val}}" name='val[]' id='val{{index}}'>&nbsp;&nbsp <a href="#" onclick='removeFormField("#row{{index}}");' class="btn-action glyphicons remove btn-danger"><i></i></a><p>
+                  {%set index = index+1 %}
+                  {%endfor%}
+                            <input type="hidden" id="id" value="{{index}}">
+              {%else%}
+                            <input type="hidden" id="id" value="2">
+              <p id='row1'><label for='val1'>Champ1&nbsp;&nbsp;</label><input type='text'  name='val[]' id='val1'><p>
+             {%endif%}
+                  
+          </div>
+         </div>   
+					</div>
+					
+					<div class="form-actions" style="margin: 0;">
+						<button type="submit" class="btn btn-icon btn-primary glyphicons circle_ok" onclick="if(!confirm('Voulez-vous modifier cet attribut')) return false;"><i></i>{{ 'registration.edit.submit'|trans({}, 'FOSUserBundle') }}</button>
+						<button type="reset"  style="float:right;"  class="btn btn-icon btn-default glyphicons circle_remove"><i></i>Annuler</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+    
+</form>
+</div>
+
+  
+{% endblock %}

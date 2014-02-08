@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<routes xmlns="http://symfony.com/schema/routing"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
+
+    <route id="tuni_membre" pattern="/">
+        <default key="_controller">TuniAnnonceBundle:Membre:index</default>
+        <requirement key="_method">GET</requirement>
+    </route>
+    <route id="tuni_membre_create" pattern="/create">
+        <default key="_controller">TuniAnnonceBundle:Membre:create</default>
+        <requirement key="_method">POST</requirement>
+    </route>
+
+    <route id="tuni_membre_new" pattern="/new">
+        <default key="_controller">TuniAnnonceBundle:Membre:new</default>
+        <requirement key="_method">GET</requirement>
+    </route>
+
+    <route id="tuni_membre_show" pattern="/{id}/show">
+        <default key="_controller">TuniAnnonceBundle:Membre:show</default>
+        <requirement key="_method">GET</requirement>
+    </route>
+    
+    <route id="tuni_membre_edit" pattern="/{id}/edit">
+        <default key="_controller">TuniAnnonceBundle:Membre:edit</default>
+        <requirement key="_method">GET</requirement>
+    </route>
+    
+    <route id="tuni_membre_update" pattern="/{id}/update">
+        <default key="_controller">TuniAnnonceBundle:Membre:update</default>
+        <requirement key="_method">POST</requirement>
+    </route>
+    
+    <route id="tuni_membre_delete" pattern="/{id}/delete">
+        <default key="_controller">TuniAnnonceBundle:Membre:delete</default>
+         <requirement key="_method">GET</requirement>
+    </route>
+
+
+</routes>

@@ -1,0 +1,113 @@
+
+{% extends "TuniAdminBundle::layout.html.twig" %}
+
+{% block content_middle_b %}
+<ul class="breadcrumb">
+    <li><a  class="glyphicons home"><i></i> juste1service</a></li>
+    <li class="divider"></li>
+    <li>{{'Contacts'|trans({}, 'TuniAdminBundle') }}</li>
+</ul>
+<div class="separator"></div>
+
+<div class="heading-buttons">
+    <h3 class="glyphicons group"><i></i> Importe</h3>
+    
+    <div class="clearfix"></div>
+</div>
+<div class="separator"></div>
+<div class="widget widget-2" style="margin: 0;">
+    <div class="widget-head">
+        <h4 class="heading glyphicons list"><i></i> Importer</h4>
+    </div>
+    <div class="widget-body">
+        <div class="separator bottom form-inline small">
+           
+            <span class="pull-right">
+
+
+            </span>
+        </div>
+       <form action="{{ path('importRegionVille') }}" enctype="multipart/form-data" method="POST" >
+			            {% for type, messages in app.session.flashBag.all %}
+                                        {% for message in messages %}
+                <div class="{{ type }} alert-success">
+                                                {{ message|trans({}, 'FOSUserBundle') }}
+                    </div> <br>
+                                        {% endfor %}
+                    {% endfor %}
+            
+                    						
+                                                                                                <label for="RegionVille_file" class="form">Liste region (csv):</label>
+                                                                                                <div class="fileupload fileupload-new" data-provides="fileupload">
+						  	<div class="input-append">
+						    	<div class="uneditable-input span3"><i class="icon-file fileupload-exists"></i> <span class="fileupload-preview"></span></div><span class="btn btn-file"><span class="fileupload-new">Parcourir</span><span class="fileupload-exists">Changer</span> <input type="file" accept="text/csv" id="RegionVille_file" name="RegionVille_file" onchange="checkfile(this);" class="form">
+                                                        </span><a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Supprimer</a><input type="submit" class="btn btn-primary" value="Importer" />
+						  	</div>
+                                                                                                        <span style="margin: 0;" class="btn-action single glyphicons circle_question_mark" data-toggle="tooltip" data-placement="top" data-original-title=""><i></i></span> 
+						</div>(pays;region;ville)
+                                                                                       
+            
+            </form>        
+                      <form action="{{ path('importCategories') }}" enctype="multipart/form-data" method="POST" >
+                                <label for="Categories_file" class="form">Liste categories (csv):</label>
+                                                                  <div class="fileupload fileupload-new" data-provides="fileupload">
+						  	<div class="input-append">
+						    	<div class="uneditable-input span3"><i class="icon-file fileupload-exists"></i> <span class="fileupload-preview"></span></div><span class="btn btn-file"><span class="fileupload-new">Parcourir</span><span class="fileupload-exists">Changer</span><input type="file" id="Categories_file" name="Categories_file" accept="text/csv" onchange="checkfile(this);" class="form">
+
+                                                         </span><a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Supprimer</a><input type="submit" class="btn btn-primary" value="Importer" />
+						  	</div>
+                                                      <span style="margin: 0;" class="btn-action single glyphicons circle_question_mark" data-toggle="tooltip" data-placement="top" data-original-title=""><i></i></span>                     
+						</div>
+                                                            
+(nomCat;description;mots-Cles;publié(0/1);nomsousCat;descSouCat;Attributs(X,Y,...))
+                                                                                       
+            
+            </form>     
+                        
+
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <br/>
+
+
+{% endblock content_middle_b %}
+
+{% block javascripts %}
+{{parent()}}
+                <script>
+                    $("#selectAction").change(function() {
+
+                        if ($("#selectAction").val() == "supprimer") {
+                            var form_data = $('#adminsform').serialize();
+                            $.ajax({
+                                type: "POST",
+                                url: "{{ path('contact') }}",
+                                data: form_data,
+                                cache: false,
+                                success: function(data) {
+                                    // alert(data);
+                                    window.location = '{{ path('contact') }}';
+                                }
+                            });
+                            return false;
+                        }
+                    });
+                    </script>
+                    <script type="text/javascript" language="javascript">
+function checkfile(sender) {
+    var validExts = new Array(".csv");
+    var fileExt = sender.value;
+    fileExt = fileExt.substring(fileExt.lastIndexOf('.'));
+    if (validExts.indexOf(fileExt) < 0) {
+      alert("Vous avez selectionnez un fichier invalide,l'extension valide est " +
+               validExts.toString() + " .");
+       sender.value='';
+      return false;
+    }
+    else return true;
+}
+</script>
+{% endblock %}

@@ -1,0 +1,50 @@
+#_security_check:
+#    pattern:  /fb/login_check
+#_security_logout:
+#    pattern:  /fb/logout
+#_facebook_secured:
+#    pattern: /secured/
+
+_security_check:
+  pattern:  /login_check
+_security_logout:
+  pattern:  /logout
+_facebook_secured:
+    pattern: /secured/
+    defaults: { _controller: AcmeDemoBundle:Welcome:index }
+fos_user_security:
+    resource: "routing/security.xml"
+    prefix: /
+fos_user_profile:
+    resource: "routing/profile.xml"
+    prefix: /compte
+
+fos_user_register:
+    resource: "routing/registration.xml"
+    prefix: /inscription
+
+fos_user_resetting:
+    resource: "routing/resetting.xml"
+    prefix: /resetting
+
+fos_user_change_password:
+    resource: "routing/change_password.xml"
+    prefix: /compte
+tuni_user_checklogout:
+    pattern:  /checklogout
+    defaults: { _controller: TuniUserBundle:Security:checklogout }
+tuni_adminsecured:
+    resource: "@TuniAdminBundle/Resources/config/routing.yml"
+    prefix:   /Admin
+tuni_annoncesecured:
+    resource: "@TuniAnnonceBundle/Resources/config/routing.yml"
+    prefix:   /job
+tuni_user_member_manage:
+    resource: "routing/member.xml"
+    prefix: /membre
+tuni_user_memberProf_manage:
+    resource: "routing/memberProf.xml"
+    prefix: /membreProf
+tuni_user_annonce_manage:
+    resource: "routing/annonce.xml"
+    prefix: /annonceUser 

@@ -1,0 +1,271 @@
+{% extends "TuniAnnonceBundle:Default:index.html.twig" %}
+{% block content_middle %}
+				    {% for type, messages in app.session.flashBag.all %}
+                                        {% for message in messages %}
+                                            <div class="{{ type }} alert-success">
+                                                {{ message|trans({}, 'FOSUserBundle') }}
+                                            </div>
+                                        {% endfor %}
+                                    {% endfor %}
+				
+
+             
+        <div class="navbar-wrapper-content">
+    <div class="container">
+<div class="container-top">
+        
+    <section class="bloc-static clearfix">
+                <aside class="col-lg-3 col-md-3 col-sm-4 "><a href="{{path('tuni_annonce_propos-service')}}"><img src="{{ asset('bundles/tuniannonce/images/je-propose.png') }}" alt="" title=""></a></aside>
+                 <aside class="col-lg-3 col-md-3 col-sm-4 "><a href="{{path('tuni_annonce_besoin-service')}}"><img src="{{ asset('bundles/tuniannonce/images/besoin.png') }}" alt="" title=""></a></aside>
+                  <aside class="col-lg-3 col-md-3 hidden-sm "><a href="{{path('tuni_annonce_comment-ca-marche')}}"><img src="{{ asset('bundles/tuniannonce/images/comment.png') }}" alt="" title=""></a></aside>
+                   <aside class="col-lg-3 col-md-3 col-sm-4 "><a href="#"><img src="{{ asset('bundles/tuniannonce/images/mon-compte.png') }}" alt="" title=""></a></aside>
+            </section>
+          <section class="pub visible-lg visible-md">
+                <div class="pub-img  col-lg-2 col-md-2">
+                    <img src="{{ asset('bundles/tuniannonce/images/img-left.png') }}" alt="" title=""  class="img-responsive">
+                </div>
+                <div class="col-lg-8 col-md-8 ">
+                    <p class="pub-text text-center">Facilitez votre recherche d'1 service</p>
+                                      <p class="pub-text-1 text-center"data-toggle="tooltip" id="element" data-placement="top" title="" data-original-title="Prestation uniquement pour les abonnés">"Recevez directement  par e-mail tous les nouveaux services"</p>
+
+                </div>
+                  <div class="pub-img text-center col-lg-2 col-md-2 col-lg-pull-0"> 
+                      <img src="{{ asset('bundles/tuniannonce/images/img-right.png') }}" alt="" title=""  class="img-responsive"></div>
+            </section>
+            <div class="recherche hidden-sm hidden-xs">
+               <section class="recherche-text">
+                    <div class="col-lg-2 col-md-3">
+                        <img src="{{ asset('bundles/tuniannonce/images/rechreche-rapide.png') }}" alt="Recherche avancée" title="Recherche avancée"  class="img-responsive"></div>
+                    <p class="col-lg-8 col-md-9">Juste1service vous propose 831 offres</p>
+                </section>
+                <section class="recherche-form col-lg-12">
+                    <form action="{{path('annonceFront_RechercheAvance')}}" method="post" name="FormCriteres"  class="form-inline" >
+                        <div class="form-group">
+                        
+                              <select id="Region" name="Region" class="form-control  input-sm" onChange='remplirVille();'><option value="">Par région</option>{% for Region in Regions %}<option value="{{Region.id}}">{{Region.nomReg}}</option>{% endfor %}</select>
+                         </div>
+                          <div class="form-group">
+                        <select id="Ville" name="Ville" class="form-control  input-sm" onChange=''><option value="">Par ville</option></select>
+                        
+                         </div>
+                        <div class="form-group ">
+                        
+                           <select class="form-control  input-sm" id="Categories" name="Categories" onChange='remplirCategorie();'><option value="">Par catégorie</option>{% for Categorie in Categories %}<option value="{{Categorie.id}}">{{Categorie.nomCat}}</option>{% endfor %}</select>
+                        </div>
+                         <div class="form-group ">
+                        
+                             <select id="SCategorie" name="soucat" class="form-control  input-sm" onChange=''><option value="">Par sous catégorie</option></select>
+                        </div>
+                       
+                        <div class="form-group">
+                        <input type="text" name="motClet" placeholder="Taper un Mot clè"   class="form-control input-sm"/>
+                     
+                        </div>
+      
+                       <input type="submit" value="Rechercher" class="btn btn-search input-sm"/>
+                    </form>  
+                </section>
+            </div>
+               
+        
+  </div>
+
+       
+   <div class="container-center page">
+       <section  class="col-lg-9 fiche-job">
+                        <article class="next-left col-lg-5 col-md-5 col-sm-12 col-xs-12 " >
+
+                            <ul class="bxslider">
+                                    <li><img src="{% if entity.membre.logo %}{{asset('upload/logo/'~entity.membre.id~'/'~entity.membre.logo)}} {% else %}{{ asset('bundles/tuniannonce/images/avatar.png') }}{% endif %}"  height="107" width="107" title="avatar" alt="avatar">
+                                    <li><img src="{{ asset('bundles/tuniannonce/images/avatar.png') }}" alt="mon profil" title="mon profil" height="107" width="107" /></li>
+                                    <li><img src="{{ asset('bundles/tuniannonce/images/avatar.png') }}" alt="mon profil" title="mon profil" height="107" width="107" /></li>
+                                    <li><img src="{{ asset('bundles/tuniannonce/images/avatar.png') }}" alt="mon profil" title="mon profil" height="107" width="107"/></li>
+                                    <li><img src="{{ asset('bundles/tuniannonce/images/avatar.png') }}" alt="mon profil" title="mon profil" height="107" width="107" /></li>
+</ul>
+                           
+                            
+                  
+                         <pre> <span>Pseudo :</span> {% if entity.membre.prenom %}{{entity.membre.prenom}} {{entity.membre.nom[:1] }}{% endif %} </pre>
+                       {% if entity.membre.cachePhone == false %} <pre><span>Tél :</span> {{ entity.membre.tel}} </pre>{% endif %}
+                       <pre><span>Zone de travail : </span>{% if entity.ville%}{% if entity.ville.region%}{% if entity.ville.region.pays%}{{ entity.ville.region.pays.nomP}} {% endif %}{{ entity.ville.region.nomReg}}{% endif %} {{ entity.ville.nomV}} {% endif %} {% if entity.adresse %}{{ entity.adresse}} {{ entity.codePostal}} {% endif %}</pre>
+                        <pre><span>Déscription de l'offre :</span><br> 
+                        {% if entity.descAnn %}{{ entity.descAnn |raw }}{% endif %}
+                        
+                        </pre>
+                        <pre><span>Disponibilité :</span><br> 
+                        {% if entity.disponibilite %}{{ entity.disponibilite}}{% endif %}
+                        
+                        </pre>
+                          </article>
+                        <aside class="col-lg-6 col-md-6 col-sm-12 col-xs-12 next-right position-right">
+                            
+                            <div class="confiance">
+                                <span>Confiance </span>
+                                <span>{% if entity.membre.indiceConfiance %}{{entity.membre.indiceConfiance}}{% else %}0{% endif %}%</span>
+                            </div>
+                            <div class="certification">
+                                <h4 class="title">Mes « post-it certifiés » </h4>
+                                <ul class="list-inline">
+                                      <li>{% if entity.membre.certificationArray[0] %}Photo<img src="{{ asset('bundles/tuniannonce/images/profil/certifie.png') }}" alt="" title="">{% else %}<img src="{{ asset('bundles/tuniannonce/images/profil/non-certifie.png') }}">{% endif %}</li>
+                                      <li>{% if entity.membre.certificationArray[1] %}Tel<img src="{{ asset('bundles/tuniannonce/images/profil/certifie.png') }}" alt="" title="">{% else %}<img src="{{ asset('bundles/tuniannonce/images/profil/non-certifie.png') }}">{% endif %}</li>                                      
+                                      <li>{% if entity.membre.certificationArray[2] %}Justificatif<img src="{{ asset('bundles/tuniannonce/images/profil/certifie.png') }}" alt="" title="">{% else %}<img src="{{ asset('bundles/tuniannonce/images/profil/non-certifie.png') }}">{% endif %}</li>
+                                      <li>{% if entity.membre.certificationArray[3] %}Identité<img src="{{ asset('bundles/tuniannonce/images/profil/certifie.png') }}" alt="" title="">{% else %}<img src="{{ asset('bundles/tuniannonce/images/profil/non-certifie.png') }}">{% endif %}</li>
+                                  
+                                </ul>
+                            </div>
+                           
+                            <div class="notation">
+                                  <h4 class="title">Mon évalution  </h4>
+                                <ul class="list-inline">
+                                <li><img src="{{ asset('bundles/tuniannonce/images/profil/eva1.png') }}" alt="" title=""></li>
+                                      <li><img src="{{ asset('bundles/tuniannonce/images/profil/eva1.png') }}" alt="" title=""></li>
+                                <li><img src="{{ asset('bundles/tuniannonce/images/profil/eva1.png') }}" alt="" title=""></li>
+
+                                     <li><img src="{{ asset('bundles/tuniannonce/images/profil/eva2.png') }}" alt="" title=""></li>
+                               <li><img src="{{ asset('bundles/tuniannonce/images/profil/eva2.png') }}" alt="" title=""></li>
+                               </ul>
+                                  
+                            </div>
+                            <div>
+                                <h4> commentaire :</h4>
+                                 <p  class="disabled">
+                               
+ pas de commentaire
+
+
+                                  </p>
+                            </div>
+                           
+                             <div>
+                                 <ul class="list-inline">
+                                     <li class="type-price col-md-6 "><span >{% if entity.prixNegociable %}{{ entity.prixNegociable}}{% elseif entity.prixAnn %}{{ entity.prixAnn}} {%else%}Non mentionné{% endif %}</span></li>
+                                     <li class="col-md-6"><a href="" ><img src="{{ asset('bundles/tuniannonce/images/profil/contacter-moi.png') }}" alt="contacter moi" title="contacter moi"></a></li>
+                                         
+                                 </ul>
+                             </div>
+                            <div id="map-canvas" style="float:right;height:220px;width:100%; margin:10px 0;"></div>
+                            <div class="addthis_toolbox addthis_default_style ">
+<a class="addthis_button_preferred_1"></a>
+<a class="addthis_button_preferred_2"></a>
+<a class="addthis_button_preferred_3"></a>
+<a class="addthis_button_preferred_4"></a>
+<a class="addthis_button_compact"></a>
+<a class="addthis_counter addthis_bubble_style"></a>
+</div>
+<script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-4f266a0b33a1be7a"></script>
+<!-- AddThis Button END -->
+
+                        </aside>
+                    </section>
+               
+                                   
+                <aside class="service-contact col-lg-3 col-md-3 col-sm-11 col-xs-12">
+                    <a href="{{ path('tuni_annonce_service-express') }}" title="service-express "><img src="{{ asset('bundles/tuniannonce/images/service-express.png') }}" title="service-express" alt="service-express"class="img-responsive"></a>
+
+                    <a href="{{ path('tuni_annonce_parrainer_get') }}" title="Ajouter votre parrain"><img src="{{ asset('bundles/tuniannonce/images/parainage.png') }}" title="parainage" alt="parainage" class="img-responsive">     </a>      
+             
+                    
+                                   <a href="{{ path('tuni_annonce_comment-ca-marche') }}" title="contact"><img src="{{ asset('bundles/tuniannonce/images/faire_jobbing.png') }}" title="Faire le jobbig c'est quoi ?" alt="Jobbing"></a>
+
+                </aside>
+
+
+
+                               <article class="col-md-12 col-sm-12 col-xs-12 block-annonce">
+
+                                    <span class="title">Annonces publié par : {% if entity.membre.nom %}{{entity.membre.nom }}{% endif %}</span>
+                                    <table class="table table-responsive table-bordered table-striped col-md-12">
+                                        <tr>
+                                            <th>Titre</th>
+                                            <th>Categories</th>
+                                            <th>Description</th>
+                                            <th>Prix relatif</th>
+                                            <th>Publication</th>
+                                           
+                                        </tr>
+                                        
+				{% for entityA in pagination %}
+                                <tr >
+                                    <td ><a href="{{ path('annonceFront_showMembre',{'id':entityA.id}) }}" title="Détail annonce">{{ entityA.titreAnn }}</a></td>
+                                    <td >{{ entityA.sousCat.nomSousCat }}</td>
+                                    <td >{% if entityA.descAnn %}{{ entityA.descAnn[:50] |raw }} ...{% endif %}</td>
+                                    <td >{{ entityA.prixAnn }}</td>
+                                    <td >{% if entityA.dateAnnonce %}{{ entityA.dateAnnonce|date('Y-m-d') }}{% endif %}</td>
+                                    
+                                </tr>
+				{% endfor %}
+                                        
+                                        
+
+                                    </table>
+                                    <div class="pagination pagination-sm pull-right" style="margin: 0;">
+				 {{ knp_pagination_render(pagination) }}
+                            </div>
+                                </article>
+
+                       
+                 
+
+                   
+        
+        </div>
+   
+        
+
+</div></div>                
+{% endblock %}    
+{% block fos_user_content %}
+{% if is_granted("IS_AUTHENTICATED_REMEMBERED")== false %}
+                       
+{{ render(controller('FOSUserBundle:Security2:login', { '_locale': app.request.locale ,'type':'job'})) }}
+{% endif %}
+{% endblock %}
+{% block javascripts %}
+{{parent()}}
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false&language=fr">
+</script>
+<script type="text/javascript">
+var geocoder;
+var map;
+// initialisation de la carte Google Map de départ
+function initialiserCarte() {
+  geocoder = new google.maps.Geocoder();
+  // Ici j'ai mis la latitude et longitude du vieux Port de Marseille pour centrer la carte de départ
+  var latlng = new google.maps.LatLng(43.295309,5.374457);
+  var mapOptions = {
+    zoom      : 14,
+    center    : latlng,
+    mapTypeId : google.maps.MapTypeId.ROADMAP
+  }
+  // map-canvas est le conteneur HTML de la carte Google Map
+  map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+TrouverAdresse();
+}
+ 
+function TrouverAdresse() {
+  // Récupération de l'adresse tapée dans le formulaire
+  var adresse = '{% if entity.ville%}{% if entity.ville.region%}{% if entity.ville.region.pays%}{{ entity.ville.region.pays.nomP}} {% endif %}{{ entity.ville.region.nomReg}}{% endif %} {{ entity.ville.nomV}} {% endif %} {% if entity.adresse %}{{ entity.adresse}} {{ entity.codePostal}} {% endif %}';
+  geocoder.geocode( { 'address': adresse}, function(results, status) {
+    if (status == google.maps.GeocoderStatus.OK) {
+      map.setCenter(results[0].geometry.location);
+      // Récupération des coordonnées GPS du lieu tapé dans le formulaire
+      var strposition = results[0].geometry.location+"";
+      strposition=strposition.replace('(', '');
+      strposition=strposition.replace(')', '');
+      // Affichage des coordonnées dans le <span>
+      //document.getElementById('text_latlng').innerHTML='Coordonnées : '+strposition;
+      // Création du marqueur du lieu (épingle)
+      var marker = new google.maps.Marker({
+          map: map,
+          position: results[0].geometry.location
+      });
+    } else {
+      alert('Adresse introuvable: ' + status);
+    }
+  });
+}
+// Lancement de la construction de la carte google map
+google.maps.event.addDomListener(window, 'load', initialiserCarte);
+</script>
+{% endblock %}

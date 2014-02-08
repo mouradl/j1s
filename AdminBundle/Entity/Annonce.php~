@@ -1,0 +1,176 @@
+<?php
+
+namespace Tuni\AnnonceBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Annonce
+ *
+ * @ORM\Table(name="annonce")
+ * @ORM\Entity
+ */
+class Annonce
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="titre_ann", type="string", length=30, nullable=false)
+     */
+    private $titreAnn;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="adresse", type="string", length=255, nullable=true)
+     */
+    private $adresse;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="code_postal", type="integer", nullable=true)
+     */
+    private $codePostal;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="prix_ann", type="integer", nullable=false)
+     */
+    private $prixAnn;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="prix_negociable", type="boolean", nullable=true)
+     */
+    private $prixNegociable;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="type_ann", type="string", length=100, nullable=false)
+     */
+    private $typeAnn;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="logo", type="string", length=255, nullable=true)
+     */
+    private $logo;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="desc_ann", type="text", nullable=false)
+     */
+    private $descAnn;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="mot_cles", type="string", length=30, nullable=false)
+     */
+    private $motCles;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="images_ann", type="string", length=20, nullable=false)
+     */
+    private $imagesAnn;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="vidieo_ann", type="string", length=35, nullable=true)
+     */
+    private $vidieoAnn;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="date_annonce", type="date", nullable=false)
+     */
+    private $dateAnnonce;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="publier", type="boolean", nullable=false)
+     */
+    private $publier;
+
+    /**
+     * @var \MailExpiration
+     *
+     * @ORM\ManyToOne(targetEntity="MailExpiration")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="mail_expiration_id", referencedColumnName="id")
+     * })
+     */
+    private $mailExpiration;
+
+    /**
+     * @var \Membre
+     *
+     * @ORM\ManyToOne(targetEntity="Membre")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="membre_id", referencedColumnName="id")
+     * })
+     */
+    private $membre;
+
+    /**
+     * @var \Devise
+     *
+     * @ORM\ManyToOne(targetEntity="Devise")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="devise_id", referencedColumnName="id")
+     * })
+     */
+    private $devise;
+
+    /**
+     * @var \StatutAnnonce
+     *
+     * @ORM\ManyToOne(targetEntity="StatutAnnonce")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="statut_annonce_id", referencedColumnName="id")
+     * })
+     */
+    private $statutAnnonce;
+
+    /**
+     * @var \Region
+     *
+     * @ORM\ManyToOne(targetEntity="Region")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="region_id", referencedColumnName="id")
+     * })
+     */
+    private $region;
+
+    /**
+     * @var \SousCategorie
+     *
+     * @ORM\ManyToOne(targetEntity="SousCategorie")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="sous_cat_id", referencedColumnName="id")
+     * })
+     */
+    private $sousCat;
+
+
+}

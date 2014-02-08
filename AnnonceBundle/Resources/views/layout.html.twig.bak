@@ -1,0 +1,449 @@
+{% extends "::base.html.twig" %}
+{% block title %}Juste1service{% endblock %}
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('bundles/tuniannonce/css/bootstrap.min.css') }}" />
+<!-- Just for debugging purposes. Don't actually copy this line! -->
+    <!--[if lt IE 9]><script src="../../docs-assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Custom styles for this template -->
+<link rel="stylesheet" href="{{ asset('bundles/tuniannonce/css/style.css') }}" />
+<link rel="stylesheet" href="{{ asset('bundles/tuniannonce/css/ie9.css') }}" type="text/css"/>
+<link href="{{ asset('bundles/tuniannonce/css/ui.totop.css') }}" rel="stylesheet">
+<link href="{{ asset('bundles/tuniannonce/css/datepicker.css') }}" rel="stylesheet">
+{% endblock %}
+{% block content_header %}
+ <div class="header-top">
+                          
+                 
+                  <section class="logo col-lg-2 col-md-2 col-sm-4 col-xs-4 ">
+                      <a href="{{path('tuni_annonce_homepage')}} "class="logo"> <img src="{{ asset('bundles/tuniannonce/images/logo-head.png') }}" class="img-responsive" alt="Juste1Service" title="Juste1Service">  
+                  </a></section>
+        
+                <section class=" col-lg-10 col-md-9 col-sm-8 col-xs-8  ">
+                      <aside class="header-top-a  row ">
+                          <div id="fb-root"></div>
+                        {{ facebook_initialize({'xfbml': true, 'fbAsyncInit': 'onFbInit();'}) }}
+
+                      <ul class=" list-inline ">
+                          <li class="facebook">
+                              <a href="http://www.facebook.com"><img src="{{ asset('bundles/tuniannonce/images/facebook.png') }}" class="img-responsive"></a>
+                          </li>
+                          <li class="twitter">
+                               <a href="http://www.twitter.com"><img src="{{ asset('bundles/tuniannonce/images/twitter.png') }}" class="img-responsive"></a>
+                          </li>
+                                                  
+                          
+                          {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                                 <li><img src="{% if membre.logo %}{{asset('upload/logo/'~membre.id~'/'~membre.logo)}} {% else %}{{ asset('bundles/tuniannonce/images/avatar.png') }}{% endif %}" width="35" height="35px" class="img-responsive img-thumbnail"</li>
+                                    {% if is_granted("ROLE_FACEBOOK") %}
+                                    <li class="dropdown">
+                                       <a href="{{ path('tuni_membre_edit', {'id': app.user.id}) }}" class="dropdown-toggle" data-toggle="dropdown">{{ app.user.firstname~" "~app.user.lastname}} <b class="caret"></b></a>
+                                   {%else%}
+                                    <li class="dropdown">
+                                       <a href="{{ path('tuni_membre_edit', {'id': app.user.id}) }}" class="dropdown-toggle" data-toggle="dropdown">{{app.user.username}}<b class="caret"></b></a>
+                                     {% endif %}
+                                       <ul class="dropdown-menu"> 
+                                           <li><a href="{{ path('tuni_membre_edit', {'id': app.user.id}) }}">{{ 'Mon profil'|trans({}, 'FOSUserBundle') }}</a></li>
+                                         <li><a href="{{ path('tuni_membre_edit', {'id': app.user.id}) }}">{{ 'Editer mon profil'|trans({}, 'FOSUserBundle') }}</a></li>
+                                           <li><a href="#">{{ 'Mes parrains'|trans({}, 'FOSUserBundle') }}</a></li>
+                                           <li><a href="#">{{ 'Mes abonnements'|trans({}, 'FOSUserBundle') }}</a></li>
+
+                                         <li class="divider"></li>
+                                         <li><a href="{{ path('fos_user_security_logout') }}">{{ 'layout.logout'|trans({}, 'FOSUserBundle') }}</a></li>
+                                       </ul>
+                                     </li>
+                                   
+                            
+                        
+                          {%else%}
+                            
+{% block connect %} 
+                                           <li class="">
+ <div class="compte glyphicon glyphicon-user">
+                              <a href="#signup-modal" class="signup" data-toggle="modal">
+                                  
+                                  <span>Créer un compte</span></a></div>
+                              <div class="connect glyphicon glyphicon-lock">
+                                   <a href="#login-modal" class="dropdown-toggle login" data-toggle="modal"><span>Connexion</span></a>
+                              </div>{% endblock %}
+                          </li>{% endif %}
+                           
+                      </ul>
+             
+                 </aside>
+                
+                         <article class="header-top-b row">
+                      <article class=" col-md-7 hidden-sm hidden-xs">
+<p class="text-top">Le réseau des services entre particuliers</p>
+                      </article>
+                          
+                     <div class="col-md-5 col-sm-8 col-xs-8 search-top">
+                        
+                           <form action="{{ path('annonceFront_Recherche') }}" class="input-group col-md-12 col-sm-12 col-xs-12 " method="POST">
+                           <input type="search" class="form-control" name="mc" id="mc" placeholder="Recherche rapide">
+      <span class="input-group-btn">
+          <button class="btn btn-default" type="submit">Go!</button>
+      </span> </form>
+    
+                          </div>
+                  </article>
+                       </section>
+                      </div>
+              
+              <div class="header-center">     
+        <nav class="navbar navbar-inverse navbar-static-top" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+            </div>
+            <div class="navbar-collapse collapse">
+              <ul class="nav navbar-nav ">
+                  {% for Menu in Menus %}
+                      <li class="active {%if Menu.titre|length>10%}two {%else%} one {%endif%} "><a href="{{path("tuni_annonce_"~Menu.url)}}"><span>{{Menu.titre}}</span></a></li>
+                
+              {% endfor %}
+                      
+              </ul>
+            </div>
+          </div>
+        </nav>
+              </div>
+
+    
+
+              <div class="header-bottom  clearfix">
+    <!-- slide
+    ================================================== -->
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+      <!-- Indicators -->
+     
+      <div class="carousel-inner">{%set first = 1 %}
+          {% for Slide in Slides %}
+              
+          <div class="item {%if first == 1%} active{%endif%}">
+              {%set first = -1 %}
+            
+          <img src="{{asset('upload/slider/'~Slide.id~'/'~Slide.img)}}"  class="img-responsive" alt="First slide">
+          <div class="container">
+           
+          </div>
+        </div> {% endfor %}
+      </div>
+      <a class="left carousel-control" href="#myCarousel" data-slide="prev"></a>
+      <a class="right carousel-control" href="#myCarousel" data-slide="next"></a>
+    </div><!-- /.slide -->
+     
+</div>     
+{% endblock %}
+{% block content_middle %}
+{% endblock %}
+{% block content_bottom %}
+  <div class="navbar-wrapper-footer">
+     <div class="container">
+         <footer class="row">
+          <section class="footer-top">
+               <div  class="logo-footer col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                   <a href="{{path('tuni_annonce_homepage')}}" title="Juste1service"> 
+                      <img src="{{ asset('bundles/tuniannonce/images/logo-footer.png') }}" class="img-responsive" alt="Juste1Service" title="Juste1Service" />  
+                  </a> </div>
+           <ul class="nav nav-pills col-lg-10 col-sm-10 hidden-xs ">
+               {% for Menu in Menus %}
+                      <li class="{%if Menu.titre|length>10%}two {%else%} one {%endif%} "><a href="{{path("tuni_annonce_"~Menu.url)}}"><span>{{Menu.titre}}</span></a></li>
+                
+              {% endfor %}
+                                                        <li class="one"><a href="{{path("tuni_annonce_mention")}}"><span>Mention</span></a></li>
+                                                    </ul>
+                                                </section>
+                                                <section class="footer-center">
+                                                    <p>Recevez derniers annonces sur Juste1Service...</p>
+                                                    <article>
+                                                        <aside class="col-lg-6 col-md-6 col-sm-12  col-xs-12">  
+                      {% for type, messages in app.session.flashBag.all %}
+                                        {% for message in messages %}
+                                            {%if type=="Newsletter"%}
+                                                                <div class="{{ type }} alert-success">
+                                                    {{ message|trans({}, 'FOSUserBundle') }}
+                                                                    </div>
+                                            {%endif%}
+                                        {% endfor %}
+                                    {% endfor %}
+                                                                    <form action="{{path('tuni_annonce_newsletterIndex')}}"  class="input-group col-lg-8 col-sm-12 col-xs-12 " name="newsletterForm" method="post" >
+                                                                        <label class="input-group-addon">Newsletter</label>
+                                                                        <input type="email" name="email" id="email"  class="form-control" placeholder="E-mail" required="true" />
+                                                                        
+                                                                        <span class="input-group-btn">
+                                                                            <button class="btn btn-primary" type="submit">S'abonner!</button>
+                                                                        </span>
+                                                                    </form>
+                                                                    
+                                                                </aside>
+                                                                <aside class="col-lg-6 col-md-6 col-sm-12 col-xs-12 ">
+                                                                    <ul class=" list-inline position-right">
+                                                                        {% for Social in Socials %}
+                                                                                <li class="col-lg-1"><a href="{{Social.url}}" target="_blanck"><img src="{{ asset('bundles/tuniannonce/images/social/'~Social.icon) }}" class="img-responsive"></a></li>
+
+                                                                        {% endfor %}
+
+
+                                                                    </ul>
+
+                                                                </aside>
+
+
+                                                            </article>
+                                                        </section>
+                                                        <section class="footer-bottom">
+                                                            <article  class="copyright" >
+
+                                                                <p class="col-lg-offset-5 col-sm-offset-0 col-xs-offset-0">Copyright &copy; 2013  <a href="www.jesute1service.com">Juste1service </a>Tous droits reservés</p>
+
+                                                            </article>
+
+                                                        </section>
+                                                        <!--           
+                                                   <section class="footer-top">
+                                                                  <div  class="logo-footer col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                                                                      <a href="" title="Juste1service"> 
+                                                                          <img src="{{ asset('bundles/tuniannonce/images/logo-footer.png') }}" class="img-responsive" alt="Juste1Service" title="Juste1Service" />  
+                                                                     </a> </div>
+                                                              <ul class="nav nav-pills col-lg-10 col-sm-10 hidden-xs ">
+               {% for Menu in Menus %}
+                      <li class="{%if Menu.titre|length>10%}two {%else%} one {%endif%} "><a href="{{path("tuni_annonce_"~Menu.url)}}"><span>{{Menu.titre}}</span></a></li>
+                
+              {% endfor %}
+              <li class="one"><a href="./mention"><span>Mention</span></a></li>
+              </ul>
+          </section>
+          <section class="footer-center">
+              <p>Amiliorez votre recherche sur Juste1Service...</p>
+              <article>
+                  <aside class="col-lg-4 col-sm-12  col-xs-12  hidden-sm hidden-xs">
+                      <h3>Par secteur</h3>
+                       
+                      <ul>
+                          {% for Categorie in Categories %}
+                   
+                              <li><a href="{{path('annonceFront_ReAv',{'idc':Categorie.id,'idcs':0,'idReg':0})}}"><span>{{Categorie.nomCat}}</span></a></li>
+                           {% endfor %}
+                           
+                      </ul>
+                      
+                    
+                  </aside>
+                   <aside class="col-lg-4 col-sm-12  col-xs-12  hidden-sm hidden-xs ">
+                      <h3>Par région</h3>
+                        <ul>
+                             {% for Region in Regions %}
+                   
+                              <li><a href="{{path('annonceFront_ReAv',{'idc':0,'idcs':0,'idReg':Region.id})}}"><span>{{Region.nomReg}}</span></a></li>
+                           {% endfor %}
+                          
+                      </ul>
+                  </aside>
+                   <aside class="col-lg-4 hidden-sm hidden-xs">
+                      <h3>Par Metier</h3>
+                        <ul>
+                               
+                          {% for Categorie in Categories %}
+                                {% for SousCategorie in SousCategories %}
+                            {%if SousCategorie.categorie.nomCat == Categorie.nomCat%}
+                            <li><a href="{{path('annonceFront_ReAv',{'idc':SousCategorie.categorie.id,'idcs':SousCategorie.id,'idReg':0})}}"><span>{{SousCategorie.nomSousCat}}</span></a></li>
+                            {% endif %}
+                             {% endfor %}
+                       
+                     {% endfor %}
+                          
+                      </ul>
+                  </aside>
+             
+              </article>
+          </section>
+          <section class="footer-bottom">
+              <article  class="copyright" >
+    
+        <p class="col-lg-offset-4">Copyright &copy; 2013  <a href="www.jesute1service.com">Juste1service </a>Tous droits reservés</p>
+ 
+              </article>
+
+          </section>
+     -->
+{% endblock %}
+ {% block fos_user_content %}
+
+                       {% endblock %} 
+    {% block javascripts %}
+                                                        <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+                                                        <script src="{{ asset('bundles/tuniannonce/js/bootstrap.min.js') }}"></script>
+                                                        <script src="{{ asset('bundles/tuniannonce/js/modal.js') }}"></script>
+                                                        <script src="{{ asset('bundles/tuniannonce/js/bootstrap-datepicker.js') }}"></script>
+                                                        <!-- easing plugin ( optional ) -->
+                                                        <script src="{{ asset('bundles/tuniannonce/js/easing.js') }}" type="text/javascript"></script>
+
+                                                       
+                     
+                                                  
+                                                            <script type="text/javascript">
+                                                                function remplirCategorieSearch() {
+                                                                    var id_select = $('#categSearch').val();
+                                                                    //alert(id_select)
+                                                                    $.ajax({
+                                                                        url: "{{ path('remplir_cb_Categorie') }}",
+                                                                        type: 'POST',
+                                                                        data: {'id': id_select},
+                                                                        dataType: 'json',
+                                                                        success: function(json) { // quand la réponse de la requete arrive
+                                                                            $('#soucat').html('');
+                                                                            $.each(json, function(index, value) { // et  boucle sur la réponse contenu dans la variable passé à la function du success "json"
+                                                                                $('#soucat').append('<option value="' + value.id + '">' + value.nomSousCat + '</option>');
+                                                                            });
+                                                                        }
+                                                                    });
+                                                                }</script>
+                                           
+                                                                    <script type="text/javascript">
+                                                                        function remplirVille() {
+                                                                            var id_select = $('#Region').val();
+                                                                            //alert(id_select)
+                                                                            $.ajax({
+                                                                                url: "{{ path('remplir_cb_Ville') }}",
+                                                                                type: 'POST',
+                                                                                data: {'id': id_select},
+                                                                                dataType: 'json',
+                                                                                success: function(json) { // quand la réponse de la requete arrive
+                                                                                    $('#Ville').html('');
+                                                                                    $('#Ville').append('<option value="">Recherche par ville</option>');
+
+                                                                                    $.each(json, function(index, value) { // et  boucle sur la réponse contenu dans la variable passé à la function du success "json"
+                                                                                        $('#Ville').append('<option value="' + value.id + '">' + value.nomV + '</option>');
+
+                                                                                    });
+
+                                                                                }
+                                                                            });
+                                                                        }
+                                                                        function remplirRegion() {
+                                                                            var id_select = $('#Pays').val();
+                                                                            //alert(id_select)
+                                                                            $.ajax({
+                                                                                url: "{{ path('remplir_cb_Region') }}",
+                                                                                type: 'POST',
+                                                                                data: {'id': id_select},
+                                                                                dataType: 'json',
+                                                                                success: function(json) { // quand la réponse de la requete arrive
+                                                                                    $('#Region').html('');
+                                                                                    $('#Region').append('<option value=""></option>');
+
+                                                                                    $.each(json, function(index, value) { // et  boucle sur la réponse contenu dans la variable passé à la function du success "json"
+                                                                                        $('#Region').append('<option value="' + value.id + '">' + value.nomReg + '</option>');
+                                                                                    });
+                                                                                }
+                                                                            });
+                                                                        }
+                                                                        function remplirCategorie() {
+                                                                            var id_select = $('#Categories').val();
+                                                                            //alert(id_select)
+                                                                            $.ajax({
+                                                                                url: "{{ path('remplir_cb_Categorie') }}",
+                                                                                type: 'POST',
+                                                                                data: {'id': id_select},
+                                                                                dataType: 'json',
+                                                                                success: function(json) { // quand la réponse de la requete arrive
+                                                                                    $('#SCategorie').html('');
+                                                                                    $('#SCategorie').append('<option value="">Recherche par sous catégorie</option>');
+
+                                                                                    $.each(json, function(index, value) { // et  boucle sur la réponse contenu dans la variable passé à la function du success "json"
+                                                                                        $('#SCategorie').append('<option value="' + value.id + '">' + value.nomSousCat + '</option>');
+                                                                                    });//remplirAttributs();
+                                                                                }
+                                                                            });
+                                                                            //remplirAttributs();
+                                                                        }
+                                                                        function remplirAttributs() {
+                                                                            var id_select = $('#SCategorie').val();
+                                                                            //alert(id_select)
+                                                                            $.ajax({
+                                                                                url: "{{ path('remplir_Attributs') }}",
+                                                                                type: 'POST',
+                                                                                data: {'id': id_select},
+                                                                                dataType: 'json',
+                                                                                success: function(json) { // quand la réponse de la requete arrive
+                                                                                    $('#attributs').html('');
+                                                                                    $.each(json, function(index, value) { // et  boucle sur la réponse contenu dans la variable passé à la function du success "json"
+                                                                                        var attrib;
+                                                                                        var vals = "";
+                                                                                        if (value.isSelectbox) {
+
+
+                                                                                            $.ajax({
+                                                                                                url: "{{ path('remplir_AttributsVals') }}",
+                                                                                                type: 'POST',
+                                                                                                data: {'id': value.id},
+                                                                                                dataType: 'json',
+                                                                                                success: function(json) { // quand la réponse de la requete arrive
+                                                                                                    vals = "";
+                                                                                                    $.each(json, function(i, val) { // et  boucle sur la réponse contenu dans la variable passé à la function du success "json"
+                                                                                                        vals += '<option value="' + val.id + '">' + val.val + '</option>';
+                                                                                                        //alert(vals);
+                                                                                                    });
+                                                                                                    attrib = '<label>' + value.libelle + '</label> <select name="' + value.libelle + '">' + vals + '</select> ' + value.unite;
+                                                                                                    $('#attributs').append('<div class="grid_6">' + attrib + '</div>');
+
+                                                                                                }
+                                                                                            });
+
+                                                                                        } else {
+                                                                                            attrib = '<label>' + value.libelle + '</label> <input type="text" name="' + value.libelle + '">' + value.unite;
+                                                                                            $('#attributs').append('<div class="grid_6">' + attrib + '</div>');
+                                                                                        }
+                                                                                    });
+                                                                                }
+                                                                            });
+                                                                        }
+                                                                        </script>
+                                                                        <!-- UItoTop plugin -->
+                                                        <script src="{{ asset('bundles/tuniannonce/js/jquery.ui.totop.js') }}" type="text/javascript"></script>
+                                                         <!-- Starting the plugin -->
+                                                                              <script type="text/javascript">
+                                                            $('.input-daterange').datepicker({
+                                                                language: "FR",
+                                                                orientation: "auto left",
+                                                                calendarWeeks: true,
+                                                                autoclose: true,
+                                                                todayHighlight: true
+                                                            });
+                                                            </script>
+
+                                                                        <script type="text/javascript">
+                                                                    $(document).ready(function() {
+
+                                                                        var defaults = {
+                                                                            containerID: 'toTop', // fading element id
+                                                                            containerHoverID: 'toTopHover', // fading element hover id
+                                                                            scrollSpeed: 1200,
+                                                                            easingType: 'linear'
+                                                                        };
+
+
+                                                                        $().UItoTop({easingType: 'easeOutQuart'});
+
+                                                                    });
+
+                                                                    </script>
+                               <script language="javascript">
+   $(document).ready(function(){
+	$("[rel='tooltip']").tooltip();
+    })
+</script>
+        
+{% endblock %}

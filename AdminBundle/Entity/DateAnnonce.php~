@@ -1,0 +1,49 @@
+<?php
+
+namespace Tuni\AnnonceBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * DateAnnonce
+ *
+ * @ORM\Table(name="date_annonce")
+ * @ORM\Entity
+ */
+class DateAnnonce
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="date_deb", type="string", length=30, nullable=false)
+     */
+    private $dateDeb;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="date_fin", type="string", length=30, nullable=false)
+     */
+    private $dateFin;
+
+    /**
+     * @var \Annonce
+     *
+     * @ORM\ManyToOne(targetEntity="Annonce")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="annonce_id", referencedColumnName="id")
+     * })
+     */
+    private $annonce;
+
+
+}

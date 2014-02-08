@@ -1,0 +1,93 @@
+
+
+{% extends "TuniAdminBundle::layout.html.twig" %}
+			
+{% block content_middle_b %}
+<ul class="breadcrumb">
+	<li><a  class="glyphicons home"><i></i> juste1service</a></li>
+	<li class="divider"></li>
+	<li>{{'Contact'|trans({}, 'TuniAdminBundle') }}</li>
+</ul>
+<div class="separator"></div>
+<div class="heading-buttons">
+	<h3 class="glyphicons group"><i></i> Contact</h3>
+	
+	<div class="clearfix"></div>
+</div>
+<div class="separator"></div>
+<div class="innerLR">
+	
+<form class="form-horizontal" action="" method="POST" >
+    
+        
+    
+    <div class="tab-content" style="padding: 0;" >
+		<div class="tab-pane active" id="account-details">
+		
+			<div class="widget widget-2">
+				<div class="widget-head">
+					<h4 class="heading glyphicons edit"><i></i>Détail contact</h4>
+				</div>
+				<div class="widget-body" style="padding-bottom: 0;">
+                                    {% for type, messages in app.session.flashBag.all %}
+                                        {% for message in messages %}
+                                            <div class="{{ type }} alert-success">
+                                                {{ message|trans({}, 'FOSUserBundle') }}
+                                            </div>
+                                        {% endfor %}
+                                    {% endfor %}
+					<div class="row-fluid">
+						<div class="span6">
+							
+							<div class="control-group">
+								<label class="control-label alignleft">Nom:</label>
+								<div class="controls">
+									{{ entity.nom }}
+									
+								</div>
+							</div>
+                                                    <div class="control-group">
+								<label class="control-label alignleft">Objet:</label>
+								<div class="controls">
+									{{ entity.objet }}
+									
+								</div>
+							</div>
+                                                    <div class="control-group">
+								<label class="control-label alignleft">E-mail:</label>
+								<div class="controls">
+									{{ entity.email }}
+									
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label alignleft">Message:</label>
+								<div class="controls">
+									
+										{{ entity.message }}
+									
+								</div>
+							</div>
+                                                                                                       
+						
+                                                    
+							
+						</div>
+					</div>
+					<div class="form-actions" style="margin: 0;">
+                                            
+                                           <div class="buttons pull-right" style="float:right;">
+                                                <a href="{{ path('contact')}}" class="btn btn-success btn-icon glyphicons list"><i></i>Retour à la liste</a>
+                                            </div>
+                                            </div>
+					
+				</div>
+			</div>
+		</div>
+		
+	</div>
+
+</form>
+</div>
+
+{% endblock content_middle_b %}

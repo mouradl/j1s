@@ -1,0 +1,63 @@
+<?php
+
+namespace Tuni\AnnonceBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * SousCategorie
+ *
+ * @ORM\Table(name="sous-categorie")
+ * @ORM\Entity
+ */
+class SousCategorie
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nom_sous_cat", type="string", length=50, nullable=false)
+     */
+    private $nomSousCat;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="desc sous_cat", type="string", length=100, nullable=true)
+     */
+    private $descSousCat;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\ManyToMany(targetEntity="Attribut", mappedBy="sousCat")
+     */
+    private $attribut;
+
+    /**
+     * @var \Categorie
+     *
+     * @ORM\ManyToOne(targetEntity="Categorie")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="categorieid", referencedColumnName="id")
+     * })
+     */
+    private $categorie;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->attribut = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+}

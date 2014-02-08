@@ -1,0 +1,88 @@
+
+						<div class="span6">
+							
+							<div class="control-group">
+								<label class="control-label">civilite</label>
+								<div class="controls">
+									{{ form_errors(formMembre.civilite) }}
+                                                                        {{ form_widget(formMembre.civilite) }}
+									
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label">nom</label>
+								<div class="controls">
+									<div class="input-append">
+										{{ form_errors(formMembre.nom) }}
+                                                                                {{ form_widget(formMembre.nom) }}
+                                                                               
+									</div>
+								</div>
+							</div>
+                                                    <div class="control-group">
+							<label class="control-label">prenom</label>
+									<div class="controls">
+									{{ form_errors(formMembre.prenom) }}
+                                                                        {{ form_widget(formMembre.prenom) }}
+								</div>
+							</div>
+                                                     <div class="control-group">
+							<label class="control-label">age</label>
+									<div class="controls">
+									{{ form_errors(formMembre.age) }}
+                                                                        {{ form_widget(formMembre.age) }}
+								</div>
+							</div>
+                                                    
+                                                    <div class="control-group">
+								<label class="control-label">tel</label>
+								<div class="controls">
+									{{ form_errors(formMembre.tel) }}
+                                                                        {{ form_widget(formMembre.tel) }}
+									
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label">cachePhone</label>
+								<div class="controls">
+                                                                    <div class="toggle-button" data-toggleButton-style-enabled="success">
+                                                        		{{ form_errors(formMembre.cachePhone) }}
+                                                                        {{ form_widget(formMembre.cachePhone) }}
+								   </div>
+                                                               </div>
+							</div>
+						</div>
+						<div class="span6">
+                                                        <div class="control-group">
+								<label class="control-label">fax</label>
+								<div class="controls">
+									{{ form_errors(formMembre.fax) }}
+                                                                        {{ form_widget(formMembre.fax) }}
+									
+								</div>
+							</div>
+                                                        <div class="control-group">
+								<label class="control-label">adresse</label>
+								<div class="controls">
+									{{ form_errors(formMembre.adresse) }}
+                                                                        {{ form_widget(formMembre.adresse) }}
+									{{ form_errors(formMembre.codePostal) }}
+                                                                        {{ form_widget(formMembre.codePostal) }}
+								</div>
+							</div>
+							                  <div class="control-group"{% if is_granted("ROLE_SUPER_ADMIN")== false %} style="display: none"{%endif%}>
+                        <label class="control-label ">Vrai profil</label>
+                        <div class="controls">
+                            <div class="toggle-button" data-toggleButton-style-enabled="success">
+                                                        		{{ form_errors(formMembre.isNotFake) }}
+                                                                        {{ form_widget(formMembre.isNotFake) }}
+
+                                </div>
+                                
+
+                            </div>
+                        </div>
+						</div>
+                              
+					
+{{ form_rest(formMembre) }}	    

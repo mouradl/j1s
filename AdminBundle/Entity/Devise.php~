@@ -1,0 +1,46 @@
+<?php
+
+namespace Tuni\AnnonceBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Devise
+ *
+ * @ORM\Table(name="devise")
+ * @ORM\Entity
+ */
+class Devise
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="code", type="string", length=10, nullable=false)
+     */
+    private $code;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nom", type="string", length=100, nullable=false)
+     */
+    private $nom;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="taux_change-usd", type="float", nullable=true)
+     */
+    private $tauxChangeUsd;
+
+
+}

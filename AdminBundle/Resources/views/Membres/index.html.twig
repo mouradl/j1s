@@ -1,0 +1,63 @@
+{% extends "TuniAdminBundle::layout.html.twig" %}
+
+{% block content_middle_b %}
+    <h1>Membre list</h1>
+
+    <table class="records_list">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Civilite</th>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>Entreprise</th>
+                <th>Siret</th>
+                <th>Age</th>
+                <th>Tel</th>
+                <th>Cachephone</th>
+                <th>Fax</th>
+                <th>Adresse</th>
+                <th>Registreduser</th>
+                <th>Logo</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td><a href="{{ path('membre_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{{ entity.civilite }}</td>
+                <td>{{ entity.nom }}</td>
+                <td>{{ entity.prenom }}</td>
+                <td>{{ entity.entreprise }}</td>
+                <td>{{ entity.siret }}</td>
+                <td>{{ entity.age }}</td>
+                <td>{{ entity.tel }}</td>
+                <td>{{ entity.cachePhone }}</td>
+                <td>{{ entity.fax }}</td>
+                <td>{{ entity.adresse }}</td>
+                <td>{% if entity.registredUser %}{{ entity.registredUser|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ entity.logo }}</td>
+                <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('membre_show', { 'id': entity.id }) }}">show</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('membre_edit', { 'id': entity.id }) }}">edit</a>
+                    </li>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+        <ul>
+        <li>
+            <a href="{{ path('membre_new') }}">
+                Create a new entry
+            </a>
+        </li>
+    </ul>
+    {% endblock %}

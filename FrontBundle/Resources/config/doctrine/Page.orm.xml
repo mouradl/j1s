@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Tuni\FrontBundle\Entity\Page" table="page">
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="nomPage" type="text" column="nom_page" nullable="false"/>
+    <field name="motCles" type="string" column="mot_cles" length="50" nullable="false"/>
+    <field name="descriptionPage" type="text" column="description_page" nullable="false"/>
+    <field name="urlPage" type="string" column="url_page" length="30" nullable="false"/>
+    <field name="type" type="boolean" column="type" nullable="true"/>
+  </entity>
+</doctrine-mapping>

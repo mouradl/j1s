@@ -1,0 +1,63 @@
+<?php
+
+namespace Tuni\AnnonceBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Categorie
+ *
+ * @ORM\Table(name="categorie")
+ * @ORM\Entity
+ */
+class Categorie
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nom_cat", type="string", length=25, nullable=false)
+     */
+    private $nomCat;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="is_published", type="boolean", nullable=true)
+     */
+    private $isPublished;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="desc_cat", type="string", length=100, nullable=true)
+     */
+    private $descCat;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="mot_cles", type="string", length=30, nullable=false)
+     */
+    private $motCles;
+
+    /**
+     * @var \TypeAnnonce
+     *
+     * @ORM\ManyToOne(targetEntity="TypeAnnonce")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="typeannonceid", referencedColumnName="id")
+     * })
+     */
+    private $typeannonce;
+
+
+}

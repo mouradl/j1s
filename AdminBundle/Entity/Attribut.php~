@@ -1,0 +1,75 @@
+<?php
+
+namespace Tuni\AnnonceBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Attribut
+ *
+ * @ORM\Table(name="attribut")
+ * @ORM\Entity
+ */
+class Attribut
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nom", type="string", length=100, nullable=false)
+     */
+    private $nom;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="unite", type="string", length=30, nullable=true)
+     */
+    private $unite;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="libelle", type="string", length=100, nullable=true)
+     */
+    private $libelle;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="is_selectbox", type="boolean", nullable=true)
+     */
+    private $isSelectbox;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\ManyToMany(targetEntity="SousCategorie", inversedBy="attribut")
+     * @ORM\JoinTable(name="attribut_sous-categorie",
+     *   joinColumns={
+     *     @ORM\JoinColumn(name="attribut_id", referencedColumnName="id")
+     *   },
+     *   inverseJoinColumns={
+     *     @ORM\JoinColumn(name="sous_cat_id", referencedColumnName="id")
+     *   }
+     * )
+     */
+    private $sousCat;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->sousCat = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+}

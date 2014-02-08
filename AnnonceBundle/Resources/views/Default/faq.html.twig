@@ -1,0 +1,89 @@
+{% extends "TuniAnnonceBundle:Default:index.html.twig" %}
+{% block content_middle %}
+
+<div class="navbar-wrapper-content faq">
+    <div class="container clearfix">
+{% block maincontent %}
+            <section class="col-lg-9 col-md-9">
+                
+                <h1>Mon profil</h1>  
+                   {% for Article in Articles %}
+     {% if Article.direction=="left"%}
+        <div class="panel-group" id="accordion">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{ Article.id }}" class="collapsed">{{ Article.titre }}</a>
+      </h4>
+    </div>
+    <div id="collapse{{ Article.id }}" class="panel-collapse collapse" style="height: 0px;">
+      <div class="panel-body">
+        <p>{{ Article.contenu|raw }}</p>
+      </div>
+    </div>
+  </div>
+ </div>
+                {% endif%}
+{% endfor %}
+        <h1>Mon compte</h1>  
+        
+                   {% for Article in Articles %}
+    {% if Article.direction=="right" %}
+        <div class="panel-group" id="accordion">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{ Article.id }}" class="collapsed">{{ Article.titre }}</a>
+      </h4>
+    </div>
+    <div id="collapse{{ Article.id }}" class="panel-collapse collapse" style="height: 0px;">
+      <div class="panel-body">
+        <p>{{ Article.contenu|raw }}</p>
+      </div>
+    </div>
+  </div>
+ </div>
+    {% endif %}            
+{% endfor %}
+    
+                   
+                        </section>
+
+
+                           
+                  
+      
+            <section class="col-lg-3 col-md-3 col-sm-11 col-xs-12">
+                                   
+                <aside class="service-contact col-lg-12 col-md-12">
+                    <a href="{{ path('tuni_annonce_service-express') }}" title="service-express "><img src="{{ asset('bundles/tuniannonce/images/service-express.png') }}" title="service-express" alt="service-express"class="img-responsive"></a>
+
+                    <a href="{{ path('tuni_annonce_service-express') }}" title="Ajouter votre parrain"><img src="{{ asset('bundles/tuniannonce/images/parainage.png') }}" title="parainage" alt="parainage" class="img-responsive">     </a>      
+             
+                      </aside>
+               <aside class="service-contact  col-lg-12 col-md-12">
+                                   <a class="hidden-sm" href="{{ path('tuni_annonce_comment-ca-marche') }}#24" title="contact"><img src="{{ asset('bundles/tuniannonce/images/faire_jobbing.png') }}" title="Faire le jobbig c'est quoi ?" alt="Jobbing"></a>
+                                   <a href="{{ path('tuni_annonce_contact') }}" title="contact"><img src="{{ asset('bundles/tuniannonce/images/contact.png') }}" title="Contactez nous" alt="contact"></a>
+
+                </aside>
+              
+                      </section>  
+       
+        
+        </div>
+
+
+               
+
+{% endblock %}
+        </div></div>   
+
+        
+{% endblock %}
+{% block fos_user_content %}
+{% if is_granted("IS_AUTHENTICATED_REMEMBERED")== false %}
+                       
+{{ render(controller('FOSUserBundle:Security2:login', { '_locale': app.request.locale ,'type':'job'})) }}
+{% endif %}
+{% endblock %} 
+          

@@ -1,0 +1,160 @@
+{% extends "TuniAnnonceBundle::layout.html.twig" %}
+
+{%block javascripts%}
+{{parent()}}	
+	<!-- Load plupload and all it's runtimes and finally the jQuery queue widget -->
+	<script type="text/javascript" src="{{asset('bundles/tuniadmin/theme/scripts/plupload/js/plupload.full.js') }}"></script>
+	<script type="text/javascript" src="{{asset('bundles/tuniadmin/theme/scripts/plupload/js/jquery.plupload.queue/jquery.plupload.queue.js') }}"></script>
+	 <script type="text/javascript">
+function setMin(){
+$('#rech_prix_min').val=$('#pricemin').val();
+
+}
+function setMax(){
+$('#rech_prix_max').val=$('#pricemax').val();
+
+}
+    </script>
+	
+{% endblock %}
+{% block content_middle %}
+        
+        <div class="navbar-wrapper-content page2">
+    <div class="container clearfix">
+<div class="container-top">
+    <section class="pub visible-lg visible-md">
+                <div class="pub-img  col-lg-2 col-md-2">
+                    <img src="{{ asset('bundles/tuniannonce/images/img-left.png') }}" alt="" title=""  class="img-responsive">
+                </div>
+                <div class="col-lg-8 col-md-8 ">
+                    <p class="pub-text text-center">Facilitez votre recherche d'1 service</p>
+                                       <p class="pub-text-1 text-center"data-toggle="tooltip" id="element" data-placement="top" title="" data-original-title="Prestation uniquement pour les abonnés">"Recevez directement  par e-mail tous les nouveaux services"</p>
+
+                </div>
+                  <div class="pub-img text-center col-lg-2 col-md-2 col-lg-pull-0"> 
+                      <img src="{{ asset('bundles/tuniannonce/images/img-right.png') }}" alt="" title=""  class="img-responsive"></div>
+            </section>
+  </div>
+
+       
+  {% if result== true %}
+     <div class="container-center row">
+            <section>
+                
+            <aside class="col-lg-4">
+                    
+                    <fieldset class="advanced-search">
+                        <legend>Recherche avancée</legend>
+                        <form action="{{path('annonceFront_RechercheAvance')}}" role="form" method="post">
+                            <div class="form-group">
+                               
+  <label class="control-label col-md-3" for="radios">Type :</label>
+  <div class="controls col-md-8">
+    <label class="radio" for="offre">
+      <input type="radio" name="Type" id="offre" value="offre" checked="checked">
+    Offre
+    </label>
+    <label class="radio" for="demande">
+      <input type="radio" name="Type" id="demande" value="demande">
+     Demande
+    </label>
+  </div>
+</div>
+                                
+                                <div class="form-group">
+                        <label>Région :</label>
+                              <select id="Region" name="Region" class="form-control  input-sm" onChange='remplirVille();'><option value="">Recherche par région</option>{% for Region in Regions %}<option value="{{Region.id}}">{{Region.nomReg}}</option>{% endfor %}</select>
+                         </div>
+                          <div class="form-group">
+                              <label>Ville :</label>
+                              <select id="Ville" name="Ville" class="form-control  input-sm" onChange=''><option value="">Recherche par ville</option></select>
+                        
+                        </div>
+                        
+                         <div class="form-group ">
+                             <label>Services:</label>
+                        <select class="form-control  input-sm" id="Categories" name="Categories" onChange='remplirCategorie();'><option value="">Recherche par catégorie</option>{% for Categorie in Categories %}<option value="{{Categorie.id}}">{{Categorie.nomCat}}</option>{% endfor %}</select>
+                       
+                        </div>
+                             <div class="form-group ">
+                             <label>Métier</label>
+                        <select id="SCategorie" name="soucat" class="form-control  input-sm" onChange=''><option value="">Recherche par sous catégorie</option></select>
+                        
+                        </div>
+                           
+              
+                 </fieldset>
+                     <fieldset class="tri-search">
+                        <legend>Trier votre recherche </legend>
+                        
+       
+                       <div class="form-group " id="datepicker">
+       
+                            <input type="text" class="input-small input-daterange form-control" name="start" placeholder="date début"/><br>
+  
+                            <input type="text" class="input-small input-daterange form-control" name="end" placeholder="date fin" />
+
+
+                        </div>
+                           
+                         <div class="input-group">
+                            
+                                 <span class="input-group-addon">Prix min</span>
+                                 <input type="number" name="price" class="form-control" step="10" min="1" max="10000" /> 
+                            
+                                   </div>
+                       <div class="input-group ">
+                           <span class="input-group-addon">Prix max</span>
+                                 <input type="number" name="price" class="form-control" step="100" min="1" max="10000" /> 
+                          
+                        </div>
+                        <input type="submit" class="btn  bnt-valider position-right" value="Valider">    
+                             
+                
+          </form>
+                 </fieldset>
+                </aside>
+                <article class="recent-post col-lg-8">
+                    <fieldset>
+                        <legend>Resultat de recherche ({{total}}) </legend>
+                        {% if (pagination==null or total==0)%}<span class="selectable">Aucun annonce </span>
+				{%else%}
+                    {% for entity in pagination %}<section class="col-md-12 col-sm-12 col-xs-12">
+                            <aside class="col-md-2 col-sm-2 col-xs-12 "><img class="img-thumbnail" height="200" width="320" src="{% if entity.membre.logo %}{{asset('upload/logo/'~entity.membre.id~'/'~entity.membre.logo)}} {% else %}{{ asset('bundles/tuniannonce/images/avatar.png') }}{% endif %}" title="avatar" alt="avatar"></aside>
+                            <article class="col-md-7 col-sm-6 col-xs-12">
+                                <h5>{% if entity.titreAnn %}{{ entity.titreAnn }}{% endif %}</h5>
+                                <p>
+                                    {% if entity.descAnn %}{{ entity.descAnn[:100] ~ ' ...'|raw }}{% endif %}
+                                </p>
+                                <p>Publié le {% if entity.dateAnnonce %}{{ entity.dateAnnonce|date('Y-m-d') }}{% endif %}</p>
+                            </article>
+                            <aside class="col-md-3 col-sm-4 col-xs-12">
+                                <!--<span class="price">{%if entity.prixAnn!=null%}   {{ entity.prixAnn ~' '~ entity.devise.code}}{%endif%}</span>-->
+                                <span class="detail"><a href="{{ path('annonceFront_showMembre',{'id':entity.id}) }}"  title="Détail">détail</a></span>
+                            </aside>
+                        </section>
+                      
+                        
+                            
+                            {% endfor %}
+                  
+                        <div class="pagination pagination-sm pull-right" style="margin: 0;">
+				 {{ knp_pagination_render(pagination) }}
+                            </div>
+ {% endif%}
+                    </fieldset>
+                </article> 
+               
+            </section>
+        </div>
+        
+
+ {% endif%}
+</div></div>                
+{% endblock %}
+{% block fos_user_content %}
+{% if is_granted("IS_AUTHENTICATED_REMEMBERED")== false %}
+                       
+{{ render(controller('FOSUserBundle:Security2:login', { '_locale': app.request.locale ,'type':'job'})) }}
+{% endif %}
+{% endblock %}

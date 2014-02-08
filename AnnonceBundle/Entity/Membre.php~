@@ -1,0 +1,129 @@
+<?php
+
+namespace Tuni\AnnonceBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Membre
+ *
+ * @ORM\Table(name="membre")
+ * @ORM\Entity
+ */
+class Membre
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="civilite", type="string", length=30, nullable=false)
+     */
+    private $civilite;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nom", type="string", length=20, nullable=false)
+     */
+    private $nom;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="prenom", type="string", length=20, nullable=false)
+     */
+    private $prenom;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="entreprise", type="string", length=100, nullable=true)
+     */
+    private $entreprise;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="siret", type="string", length=100, nullable=true)
+     */
+    private $siret;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="age", type="integer", nullable=false)
+     */
+    private $age;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="tel", type="string", length=30, nullable=false)
+     */
+    private $tel;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="cache_phone", type="boolean", nullable=true)
+     */
+    private $cachePhone;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="fax", type="string", length=30, nullable=false)
+     */
+    private $fax;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="adresse", type="string", length=30, nullable=false)
+     */
+    private $adresse;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="registred_user", type="date", nullable=false)
+     */
+    private $registredUser;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="logo", type="string", length=10, nullable=true)
+     */
+    private $logo;
+
+    /**
+     * @var \StatutMembre
+     *
+     * @ORM\ManyToOne(targetEntity="StatutMembre")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="statut_membre_id", referencedColumnName="id")
+     * })
+     */
+    private $statutMembre;
+
+    /**
+     * @var \Utilisateur
+     *
+     * @ORM\ManyToOne(targetEntity="Utilisateur")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="utilisateur_id", referencedColumnName="id")
+     * })
+     */
+    private $utilisateur;
+
+
+}

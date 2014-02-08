@@ -1,0 +1,257 @@
+{% extends "TuniAnnonceBundle::layout.html.twig" %}
+{% block content_middle %}
+<div class="navbar-wrapper-content">
+    <div class="container clearfix">
+{% block maincontent %}
+ 
+ 
+
+        <div class="container-top">
+    <section class="bloc-static clearfix">
+                <aside class="col-lg-3 col-md-3 col-sm-4 "><a href="{{path('tuni_annonce_propos-service')}}"><img src="{{ asset('bundles/tuniannonce/images/je-propose.png') }}" alt="Je propose un service" title="Je propose un service"></a></aside>
+                 <aside class="col-lg-3 col-md-3 col-sm-4 "><a href="{{path('tuni_annonce_besoin-service')}}"><img src="{{ asset('bundles/tuniannonce/images/besoin.png') }}" alt="J'ai besoin d'un service" title="J'ai besoin d'un service"></a></aside>
+                  <aside class="col-lg-3 col-md-3 hidden-sm "><a href="{{path('tuni_annonce_comment-ca-marche')}}"><img src="{{ asset('bundles/tuniannonce/images/comment.png') }}" alt="comment ça marche" title="comment ça marche"></a></aside>
+                   <aside class="col-lg-3 col-md-3 col-sm-4 "><a href="{{path('tuni_annonce_abonnez-vous')}}"><img src="{{ asset('bundles/tuniannonce/images/mon-compte.png') }}" alt="Abonnez vous" title="Abonnez vous"></a></aside>
+            </section>
+          <section class="pub visible-lg visible-md">
+                <div class="pub-img  col-lg-2 col-md-2">
+                    <img src="{{ asset('bundles/tuniannonce/images/img-left.png') }}" alt="" title=""  class="img-responsive">
+                </div>
+                <div class="col-lg-8 col-md-8 ">
+                    <p class="pub-text text-center">Facilitez votre recherche d'1 service</p>
+                    <a href="#"class="pub-text-1 text-center" rel='tooltip' data-toggle="tooltip"  data-placement="top" title="" data-original-title="Prestation uniquement pour les abonnés">"Recevez directement  par e-mail tous les nouveaux services"</a>
+
+                </div>
+                  <div class="pub-img text-center col-lg-2 col-md-2 col-lg-pull-0"> 
+                      <img src="{{ asset('bundles/tuniannonce/images/img-right.png') }}" alt="" title=""  class="img-responsive"></div>
+            </section>
+            <div class="recherche hidden-sm hidden-xs">
+               <section class="recherche-text">
+                    <div class="col-lg-2 col-md-3">
+                        <img src="{{ asset('bundles/tuniannonce/images/rechreche-rapide.png') }}" alt="Recherche avancée" title="Recherche avancée"  class="img-responsive"></div>
+                    <p class="col-lg-8 col-md-9">Juste1service vous propose 831 offres</p>
+                </section>
+                <section class="recherche-form col-lg-12">
+                    <form action="{{path('annonceFront_RechercheAvance')}}" method="post" name="FormCriteres"  class="form-inline" >
+                        <div class="form-group">
+                        
+                              <select id="Region" name="Region" class="form-control  input-sm" onChange='remplirVille();'><option value="">Par région</option>{% for Region in Regions %}<option value="{{Region.id}}">{{Region.nomReg}}</option>{% endfor %}</select>
+                         </div>
+                          <div class="form-group">
+                        <select id="Ville" name="Ville" class="form-control  input-sm" onChange=''><option value="">Par ville</option></select>
+                        
+                         </div>
+                        <div class="form-group ">
+                        
+                           <select class="form-control  input-sm" id="Categories" name="Categories" onChange='remplirCategorie();'><option value="">Par catégorie</option>{% for Categorie in Categories %}<option value="{{Categorie.id}}">{{Categorie.nomCat}}</option>{% endfor %}</select>
+                        </div>
+                         <div class="form-group ">
+                        
+                             <select id="SCategorie" name="soucat" class="form-control  input-sm" onChange=''><option value="">Par sous catégorie</option></select>
+                        </div>
+                       
+                        <div class="form-group">
+                        <input type="text" name="motClet" placeholder="Taper un Mot clè"   class="form-control input-sm"/>
+                     
+                        </div>
+      
+                       <input type="submit" value="Rechercher" class="btn btn-search input-sm"/>
+                    </form>  
+                </section>
+            </div>
+               
+        </div>
+        <div class="container-center row">
+             
+            <section class="col-lg-9 col-md-9">
+                   <article class="offre-post">
+                    <fieldset>
+                          <legend>Offres récentes</legend>
+                    {% for lastAnnonce in lastAnnonces %}
+						<section class="col-md-12 col-sm-12 col-xs-12">
+                            <aside class="col-md-2 col-sm-2 col-xs-4 "><img class="img-thumbnail" height="200" width="320" src="{% if lastAnnonce.membre.logo %}{{asset('upload/logo/'~lastAnnonce.membre.id~'/'~lastAnnonce.membre.logo)}} {% else %}{{ asset('bundles/tuniannonce/images/avatar.png') }}{% endif %}" title="avatar" alt="avatar"></aside>
+                            <article class="col-md-7 col-sm-6 col-xs-8">
+                                <h5>{{ lastAnnonce.titreAnn }}</h5>
+                                <p>
+                                    {{ lastAnnonce.descAnn[:100] ~ ' ...'|raw }}
+                                </p>
+                                <p>Publié le {% if lastAnnonce.dateAnnonce %}{{ lastAnnonce.dateAnnonce|date('Y-m-d') }}{% endif %}</p>
+                            </article>
+                            <aside class="col-md-3 col-sm-4 col-xs-12">
+                                <span class="detail"><a href="{{ path('annonceFront_showMembre',{'id':lastAnnonce.id}) }}" title="Détail annonce">détail</a></span>
+                            </aside>
+                        </section>
+                      
+                        
+                            
+                            {% endfor %}
+                  
+      
+
+                    </fieldset>
+                </article>             
+                                      <article class="demande-post">
+                    <fieldset>
+                        <legend>Demandes récentes</legend>
+                    {% for lastAnnonce in lastAnnonces22 %}<section class="col-md-12 col-sm-12 col-xs-12">
+                            <aside class="col-md-2 col-sm-2 col-xs-4 "><img class="img-thumbnail" height="200" width="320" src="{% if lastAnnonce.membre.logo %}{{asset('upload/logo/'~lastAnnonce.membre.id~'/'~lastAnnonce.membre.logo)}} {% else %}{{ asset('bundles/tuniannonce/images/avatar.png') }}{% endif %}" title="avatar" alt="avatar"></aside>
+                            <article class="col-md-7 col-sm-6 col-xs-8">
+                                <h5>{{ lastAnnonce.titreAnn }}</h5>
+                                <p>
+                                    {{ lastAnnonce.descAnn[:100] ~ ' ...'|raw }}
+                                </p>
+                                <p>Publié le {% if lastAnnonce.dateAnnonce %}{{ lastAnnonce.dateAnnonce|date('Y-m-d') }}{% endif %}</p>
+                            </article>
+                            <aside class="col-md-3 col-sm-4 col-xs-12">
+                                <span class="detail"><a href="{{ path('annonceFront_showMembre',{'id':lastAnnonce.id}) }}" title="Détail nnonce">détail</a></span>
+                            </aside>
+                        </section>
+                      
+                        
+                            
+                            {% endfor %}
+                  
+      
+
+                    </fieldset>
+                </article>
+            </section>
+            <section class="col-lg-3 col-md-3 col-sm-11 col-xs-12">
+                                   
+                <aside class="service-contact col-lg-12 col-md-12">
+                    <a href="{{ path('tuni_annonce_service-express') }}" title="service-express "><img src="{{ asset('bundles/tuniannonce/images/service-express.png') }}" title="service-express" alt="service-express"class="img-responsive"></a>
+
+                    <a href="{{ path('tuni_annonce_service-express') }}" title="Ajouter votre parrain"><img src="{{ asset('bundles/tuniannonce/images/parainage.png') }}" title="parainage" alt="parainage" class="img-responsive">     </a>      
+             
+                      </aside>
+               <aside class="service-contact  col-lg-12 col-md-12">
+                                   <a class="hidden-sm" href="{{ path('tuni_annonce_comment-ca-marche') }}#24" title="contact"><img src="{{ asset('bundles/tuniannonce/images/faire_jobbing.png') }}" title="Faire le jobbig c'est quoi ?" alt="Jobbing"></a>
+                                   <a href="{{ path('tuni_annonce_contact') }}" title="contact"><img src="{{ asset('bundles/tuniannonce/images/contact.png') }}" title="Contactez nous" alt="contact"></a>
+
+                </aside>
+                      </section>  
+       
+        
+        </div>
+        <div class="container-bottom row">
+            <section>
+               <article class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+                    <ul class="category col-md-12 col-sm-12 col-xs-12">
+                       {% for Categorie in Categories %}
+                            <li class="col-md-4 col-sm-6 col-xs-12 parent" >
+                                <ul>
+                                    <li>
+{% if (Categorie.icon )%}<a href="{{path('annonceFront_ReAv',{'idc':Categorie.id})}}"><img src="{{asset('upload/categorie/'~Categorie.id~'/'~Categorie.icon)}}" alt="{{Categorie.icon}}" title="{{Categorie.icon}}" class="img-responsive"/>{%else%}<img src="{{asset('upload/categorie/no-image.png')}}" alt="no image" style="width: 60px;height: 44px" title="no image" class="img-responsive"/> </a> {%endif%}
+  
+                                    </li>
+                                      <li>
+  <a href="{{path('annonceFront_ReAv',{'idc':Categorie.id})}}"><span>{{Categorie.nomCat}}</span></a>
+ 
+                                    </li>
+                                </ul>
+                        </li>
+                        {% endfor %}
+                          
+                    </ul>  
+                </article>
+                <aside class="col-lg-3 col-md-3  infos-services hidden-sm hidden-xs">
+                      <fieldset>
+                        <legend>Infos services</legend>
+                         <ul>
+                        <li><a href="{{ path('tuni_annonce_engagement') }}"><span>Nos engagement</span></a></li>
+                        <li><a  href="{{ path('tuni_annonce_securite') }}"><span>Sécurité et confiance</span></a></li>
+                        <li><a href="{{ path('tuni_annonce_remuneration') }}""><span>Rémunération</span></a></li>
+                        <li><a href="{{ path('tuni_annonce_comment-ca-marche') }}"><span>Comment-ca-marche</span></a></li>
+                        <li><a href="{{ path('tuni_annonce_avantage') }}"><span>Avantage</span></a></li>
+                        <li><a href="{{ path('tuni_annonce_mention') }}#25"><span>Condition générale de vente</span></a></li>
+                        <li><a href="{{ path('tuni_annonce_faq') }}"><span>FAQ</span></a></li>
+
+                        </ul>
+                    </fieldset>
+                </aside>
+            </section>
+        </div>
+
+
+               
+
+{% endblock %}
+        </div></div>            
+{% endblock %}
+{% block javascripts %}
+{{parent()}}
+	
+<script type="text/javascript">
+	function validateEmail(email) { 
+		var reg = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+		return reg.test(email);
+	}
+
+	$(document).ready(function() {
+		
+		$("#contact").submit(function() { return false; });
+
+		
+		$("#send").on("click", function(){
+			var emailval  = $("#email").val();
+			var msgval    = $("#msg").val();
+			var msglen    = msgval.length;
+			var mailvalid = validateEmail(emailval);
+			
+			if(mailvalid == false) {
+				$("#email").addClass("error");
+			}
+			else if(mailvalid == true){
+				$("#email").removeClass("error");
+			}
+			
+			if(msglen < 4) {
+				$("#msg").addClass("error");
+			}
+			else if(msglen >= 4){
+				$("#msg").removeClass("error");
+			}
+			
+			if(mailvalid == true && msglen >= 4) {
+				// if both validate we attempt to send the e-mail
+				// first we hide the submit btn so the user doesnt click twice
+				$("#send").replaceWith("<em>sending...</em>");
+				
+				$.ajax({
+					type: 'POST',
+					url: '{{ path('contact_create') }}',
+					data: $("#contact").serialize(),
+					success: function(data) {
+						if(data == "true") {$("#send").replaceWith("<button id='send'>Envoyer</button>");
+							$("#contact").fadeOut("fast", function(){
+								$(this).before("<p><strong>Contact envoyer avec sucée :)</strong></p>");
+								setTimeout("$.fancybox.close()", 1000);
+							});
+						}
+					}
+				});
+			}
+		});
+	});
+</script>{%block propJs%}
+{%endblock%}
+<script type="text/javascript">
+   function goLogIn(){
+      window.location.href="{{path('_security_check')}}";
+   }
+   function onFbInit(){
+      if(typeof(FB)!='undefined' && FB!=null ) {
+         FB.Event.subscribe('auth.statusChange', function(response){
+            if(response.session||response.authResponse){
+               goLogIn();
+            }else{
+               window.location.href="{{ path('_security_logout') }}";
+            }
+         });
+      }
+   }
+   function fblogin(){
+      FB.login(function(response){},{scope:'email'});
+   }
+</script>
+{% endblock %}

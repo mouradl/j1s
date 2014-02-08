@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<routes xmlns="http://symfony.com/schema/routing"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
+
+   
+     <route id="fos_user_security_login" pattern="/{_locale}/{type}/connexion">
+        <default key="_controller">FOSUserBundle:Security:login</default>
+        <default key="_locale">fr</default>
+        <default key="type">Membre</default>
+         <requirement key="_locale">en|fr|pl|ro|it</requirement>
+    </route>
+    <route id="fos_user_security_login2" pattern="/{_locale}/{type}/connexion">
+        <default key="_controller">FOSUserBundle:Security2:login</default>
+        <default key="_locale">fr</default>
+        <default key="type">Membre</default>
+         <requirement key="_locale">en|fr|pl|ro|it</requirement>
+    </route>
+    <route id="fos_user_security_check" pattern="/connexion_check">
+        <default key="_controller">FOSUserBundle:Security:check</default>
+    </route>
+
+    <route id="fos_user_security_logout" pattern="/déconnexion">
+        <default key="_controller">FOSUserBundle:Security:logout</default>
+    </route>
+
+</routes>

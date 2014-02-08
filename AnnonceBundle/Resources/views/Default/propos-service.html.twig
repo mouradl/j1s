@@ -1,0 +1,238 @@
+{% extends "TuniAnnonceBundle:Default:index.html.twig" %}
+
+
+{% block content_middle %}
+<div class="navbar-wrapper-content page2">
+    <div class="container clearfix">
+        <div class="container-top">
+            <div class="recherche hidden-sm hidden-xs">
+                <section class="recherche-text">
+                    <div class="col-lg-2 col-md-3">
+                        <img src="{{ asset('bundles/tuniannonce/images/rechreche-rapide.png') }}" alt="Recherche avancée" title="Recherche avancée"  class="img-responsive"></div>
+                    <p class="col-lg-8 col-md-9">Juste1service vous propose 831 offres</p>
+                </section>
+                <section class="recherche-form col-lg-12">
+                    <form action="{{path('annonceFront_RechercheAvance')}}" method="post" name="FormCriteres"  class="form-inline" >
+                        <input type="hidden" name="Type" value="2">
+                        <div class="form-group">
+
+                            <select id="Region" name="Region" class="form-control  input-sm" onChange='remplirVille();'><option value="">Par région</option>{% for Region in Regions %}<option value="{{Region.id}}">{{Region.nomReg}}</option>{% endfor %}</select>
+                        </div>
+                        <div class="form-group">
+                            <select id="Ville" name="Ville" class="form-control  input-sm" onChange=''><option value="">Par ville</option></select>
+
+                        </div>
+                        <div class="form-group ">
+
+                            <select class="form-control  input-sm" id="Categories" name="Categories" onChange='remplirCategorie();'><option value="">Par catégorie</option>{% for Categorie in Categories %}<option value="{{Categorie.id}}">{{Categorie.nomCat}}</option>{% endfor %}</select>
+                        </div>
+                        <div class="form-group ">
+
+                            <select id="SCategorie" name="soucat" class="form-control  input-sm" onChange=''><option value="">Par sous catégorie</option></select>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="text" name="motClet" placeholder="Taper un Mot clè"   class="form-control input-sm"/>
+
+                        </div>
+
+                        <input type="submit" value="Rechercher" class="btn btn-search input-sm"/>
+                    </form>  
+                </section>
+            </div>
+
+        </div>
+            {% if is_granted("IS_AUTHENTICATED_REMEMBERED")== false %}
+<div class="container-center row">
+                                  
+{{ render(controller('FOSUserBundle:Security2:login', { '_locale': app.request.locale ,'type':'prop-besoin'})) }}
+                         
+    </div>
+{% else %}
+        <div class="container-center row">
+            <section>
+                <aside class="col-lg-4">
+                    <fieldset class="offre-form">
+                        <legend>Je propose 1 service</legend>
+                        <span>Recevez directement par e-mail toutes les demandes de services.</span><br><br>
+                        <form action="{{ path('annonceFront_createMembre') }}"{{ form_enctype(form) }} method="post" name="form-demande">
+                            <div class="input-group">
+                                <label class="input-group-addon"><span>Titre : *</span></label>
+                                                                        {{ form_errors(form.titreAnn) }}
+                                                                        {{ form_widget(form.titreAnn) }}
+                            </div>
+                            <div class="input-group">
+
+
+                                <label class="input-group-addon">Pays :</label>
+
+                                <select id="Pays" class="form-control  input-sm" onChange='remplirRegion2();'><option></option>{% for Pay in Pays %}<option value="{{Pay.id}}">{{Pay.nomP}}</option>{% endfor %}</select>
+                            </div>
+                            <div class="input-group">
+
+
+                                <label class="input-group-addon">Région :</label>
+                                <select id="Region2" class="form-control  input-sm" onChange='remplirVille2();'><option></option></select>
+                            </div>                                
+                            <div class="input-group">
+                                <label class="input-group-addon">Ville :</label>
+
+                             {{ form_errors(form.ville) }}
+                                                                        {{ form_widget(form.ville) }}
+                            </div>
+                            <div class="input-group ">
+                                <label class="input-group-addon">Catégories :</label>
+
+                                <select class="form-control  input-sm" id="Categories2" onChange='remplirCategorie2();'><option></option>{% for Categorie in Categories %}<option value="{{Categorie.id}}">{{Categorie.nomCat}}</option>{% endfor %}</select>
+                            </div>
+                            <div class="input-group ">
+                                <label class="input-group-addon">Sous catégorie :</label>
+
+
+                            {{ form_errors(form.sousCat) }}
+                                                                        {{ form_widget(form.sousCat) }} 
+                            </div>
+                            <div class="input-group">
+                                <label for="demande" class="input-group-addon">Offre :</label>
+                                   {{ form_errors(form.descAnn) }}
+                                                                        {{ form_widget(form.descAnn) }}
+
+                            </div>
+                            <div class="input-group">
+                                <label for="price" class="input-group-addon">Prix : *</label>
+                                    {{ form_errors(form.prixAnn) }}
+                                                                        {{ form_widget(form.prixAnn) }}
+
+                            </div>
+                            <div style="visibility: hidden">
+                                                                        {{ form_errors(form.devise) }}
+                                                                        {{ form_widget(form.devise) }}
+                            </div>
+                            <div class="input-group">
+                                <label for="tarif" class="input-group-addon">Tarifs  avec le choix : </label>
+
+                                   {{ form_errors(form.prixNegociable) }}
+                                   {{ form_widget(form.prixNegociable) }}
+
+                            </div>
+
+
+
+
+                         {{ form_rest(form) }}    
+                            <input type="submit" class="btn  bnt-valider position-right" value="Valider">
+                        </form>
+                    </fieldset>
+                </aside>
+
+               
+<article class="demande-post col-lg-8">
+                    <fieldset>
+                        <legend>Demandes récentes</legend>
+
+                    {% for lastAnnonce in pagination %}<section class="col-md-12 col-sm-12 col-xs-12">
+                            <aside class="col-md-2 col-sm-2 col-xs-12 "><img class="img-thumbnail" height="200" width="320" src="{% if lastAnnonce.membre.logo %}{{asset('upload/logo/'~lastAnnonce.membre.id~'/'~lastAnnonce.membre.logo)}} {% else %}{{ asset('bundles/tuniannonce/images/avatar.png') }}{% endif %}" title="avatar" alt="avatar"></aside>
+                            <article class="col-md-6 col-sm-6 col-xs-12">
+
+                                <ul>
+                                    <li><span>Nom :</span>{% if lastAnnonce.membre %} {{lastAnnonce.membre.nom }}{% endif %}</li>
+
+                                    <li><span>Prénom :</span>{% if lastAnnonce.membre %} {{lastAnnonce.membre.prenom }}{% endif %}</li>
+                                    <li><span>Localité :</span>{% if lastAnnonce.ville %}{{ lastAnnonce.ville.nomV}}{% endif %}</li>
+                                    <li><span>Je propose :</span> {% if lastAnnonce.descAnn %}{{ lastAnnonce.descAnn[:30] ~ ' ...'|raw }}{% endif %}</li>
+                                    <li><span>Publication :</span>{% if lastAnnonce.dateAnnonce %}{{ lastAnnonce.dateAnnonce|date('Y-m-d') }}{%else%}Non configuré{% endif %}</li>
+                                </ul>
+                            </article>
+                            <aside class="col-md-4 col-sm-5 col-xs-12">
+                                <span class="detail"><a href="{{ path('annonceFront_showMembre',{'id':lastAnnonce.id}) }}" title="Détail Annonce">détail</a></span>
+                            </aside>
+                        </section>
+
+
+                            {% endfor %}
+
+
+                        <div class="pagination pagination-sm pull-right" style="margin: 0;">
+				 {{ knp_pagination_render(pagination) }}
+                        </div>
+                    </fieldset>
+                </article>
+
+
+
+            </section>
+        </div>
+{% endif %}
+
+
+    </div><!-- /.container -->
+</div>
+
+{% endblock %}
+{%block javascripts%}
+
+	{{parent()}}
+	{%block propJs%}
+<script type="text/javascript">
+
+    function remplirRegion2() {
+        var id_select = $('#Pays').val();
+//alert(id_select)
+        $.ajax({
+            url: "{{ path('remplir_cb_Region') }}",
+            type: 'POST',
+            data: {'id': id_select},
+            dataType: 'json',
+            success: function(json) {
+// quand la réponse de la requete arrive
+                $('#Region2').html('');
+                $.each(json, function(index, value) { // et  boucle sur la réponse contenu dans la variable passé à la function du success "json"
+                    $('#Region2').append('<option value="' + value.id + '">' + value.nomReg + '</option>');
+                });
+                remplirVille2();
+            }
+        });
+
+    }
+    function remplirVille2() {
+        var id_select = $('#Region2').val();
+//alert(id_select)
+        $.ajax({
+            url: "{{ path('remplir_cb_Ville') }}",
+            type: 'POST',
+            data: {'id': id_select},
+            dataType: 'json',
+            success: function(json) { // quand la réponse de la requete arrive
+                $('#tuni_annoncebundle_annoncetype_ville').html('');
+                $.each(json, function(index, value) { // et  boucle sur la réponse contenu dans la variable passé à la function du success "json"
+                    $('#tuni_annoncebundle_annoncetype_ville').append('<option value="' + value.id + '">' + value.nomV + '</option>');
+                });
+            }
+        });
+    }
+    function remplirCategorie2() {
+        var id_select = $('#Categories2').val();
+//alert(id_select)
+        $.ajax({
+            url: "{{ path('remplir_cb_Categorie') }}",
+            type: 'POST',
+            data: {'id': id_select},
+            dataType: 'json',
+            success: function(json) { // quand la réponse de la requete arrive
+                $('#tuni_annoncebundle_annoncetype_sousCat').html('');
+                $.each(json, function(index, value) { // et  boucle sur la réponse contenu dans la variable passé à la function du success "json"
+                    $('#tuni_annoncebundle_annoncetype_sousCat').append('<option value="' + value.id + '">' + value.nomSousCat + '</option>');
+                });
+            }
+        });
+    }
+</script>
+{%endblock%}	
+{% endblock %}
+
+{% block fos_user_content %}
+{% if is_granted("IS_AUTHENTICATED_REMEMBERED")== false %}
+
+{{ render(controller('FOSUserBundle:Security2:login', { '_locale': app.request.locale ,'type':'job'})) }}
+{% endif %}
+{% endblock %}         

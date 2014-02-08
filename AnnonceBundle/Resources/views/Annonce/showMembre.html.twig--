@@ -1,0 +1,114 @@
+{% extends "TuniAnnonceBundle:Default:index.html.twig" %}
+{% block content_middle %}
+				    {% for type, messages in app.session.flashBag.all %}
+                                        {% for message in messages %}
+                                            <div class="{{ type }} alert-success">
+                                                {{ message|trans({}, 'FOSUserBundle') }}
+                                            </div>
+                                        {% endfor %}
+                                    {% endfor %}
+				
+
+             
+        <div class="navbar-wrapper-content">
+    <div class="container">
+<div class="container-top">
+        
+    <section class="bloc-static clearfix">
+                <aside class="col-lg-3 col-md-3 col-sm-4 "><a href="{{path('tuni_annonce_propos-service')}}"><img src="{{ asset('bundles/tuniannonce/images/je-propose.png') }}" alt="" title=""></a></aside>
+                 <aside class="col-lg-3 col-md-3 col-sm-4 "><a href="{{path('tuni_annonce_besoin-service')}}"><img src="{{ asset('bundles/tuniannonce/images/besoin.png') }}" alt="" title=""></a></aside>
+                  <aside class="col-lg-3 col-md-3 hidden-sm "><a href="{{path('tuni_annonce_comment-ca-marche')}}"><img src="{{ asset('bundles/tuniannonce/images/comment.png') }}" alt="" title=""></a></aside>
+                   <aside class="col-lg-3 col-md-3 col-sm-4 "><a href="#"><img src="{{ asset('bundles/tuniannonce/images/mon-compte.png') }}" alt="" title=""></a></aside>
+            </section>
+          <section class="pub visible-lg visible-md">
+                <div class="pub-img  col-lg-2 col-md-2">
+                    <img src="{{ asset('bundles/tuniannonce/images/img-left.png') }}" alt="" title=""  class="img-responsive">
+                </div>
+                <div class="col-lg-8 col-md-8 ">
+                    <p class="pub-text text-center">Facilitez votre recherche d'1 service</p>
+                                      <p class="pub-text-1 text-center"data-toggle="tooltip" id="element" data-placement="top" title="" data-original-title="Prestation uniquement pour les abonnés">"Recevez directement  par e-mail tous les nouveaux services"</p>
+
+                </div>
+                  <div class="pub-img text-center col-lg-2 col-md-2 col-lg-pull-0"> 
+                      <img src="{{ asset('bundles/tuniannonce/images/img-right.png') }}" alt="" title=""  class="img-responsive"></div>
+            </section>
+            <div class="recherche hidden-sm hidden-xs">
+               <section class="recherche-text">
+                    <div class="col-lg-2 col-md-3">
+                        <img src="{{ asset('bundles/tuniannonce/images/rechreche-rapide.png') }}" alt="Recherche avancée" title="Recherche avancée"  class="img-responsive"></div>
+                    <p class="col-lg-8 col-md-9">Juste1service vous propose 831 offres</p>
+                </section>
+                <section class="recherche-form col-lg-12">
+                    <form action="{{path('annonceFront_RechercheAvance')}}" method="post" name="FormCriteres"  class="form-inline" >
+                        <div class="form-group">
+                        
+                              <select id="Region" name="Region" class="form-control  input-sm" onChange='remplirVille();'><option value="">Par région</option>{% for Region in Regions %}<option value="{{Region.id}}">{{Region.nomReg}}</option>{% endfor %}</select>
+                         </div>
+                          <div class="form-group">
+                        <select id="Ville" name="Ville" class="form-control  input-sm" onChange=''><option value="">Par ville</option></select>
+                        
+                         </div>
+                        <div class="form-group ">
+                        
+                           <select class="form-control  input-sm" id="Categories" name="Categories" onChange='remplirCategorie();'><option value="">Par catégorie</option>{% for Categorie in Categories %}<option value="{{Categorie.id}}">{{Categorie.nomCat}}</option>{% endfor %}</select>
+                        </div>
+                         <div class="form-group ">
+                        
+                             <select id="SCategorie" name="soucat" class="form-control  input-sm" onChange=''><option value="">Par sous catégorie</option></select>
+                        </div>
+                       
+                        <div class="form-group">
+                        <input type="text" name="motClet" placeholder="Taper un Mot clè"   class="form-control input-sm"/>
+                     
+                        </div>
+      
+                       <input type="submit" value="Rechercher" class="btn btn-search input-sm"/>
+                    </form>  
+                </section>
+            </div>
+               
+        
+  </div>
+
+       
+   <div class="container-center row">
+              <section class="col-lg-12 col-md-12 col-sm-12 col-xs-12 detail-annonce">
+                              <article class="offre-post col-lg-9">
+                    <fieldset>
+                        <legend>Détail annonce</legend>
+                 
+                     
+                        <aside class="col-md-2 col-sm-2 col-xs-12 "><img src="{{ asset('bundles/tuniannonce/images/avatar.png') }}" class="img-thumbnail" height="200" width="320" title="avatar" alt="avatar"></aside>
+                            <article class="col-md-7 col-sm-6 col-xs-12">
+                                <ul>
+                                    <li><span>Nom :</span> {% if entity.membre.nom %}{{entity.membre.nom }}{% endif %}</li>
+                                  
+                                    <li><span>Prénom :</span> {% if entity.membre.nom %}{{entity.membre.prenom }}{% endif %}</li>
+                                    <li><span>Localité :</span>{% if entity.ville.nomV %}{{ entity.ville.nomV}}{% endif %}</li>
+                                    <li><span>Je propose :</span> {% if entity.descAnn %}{{ entity.descAnn[:100] ~ ' ...'|raw }}{% endif %}</li>
+                                    <li><span>Publication :</span>{% if entity.dateAnnonce %}{{ entity.dateAnnonce|date('Y-m-d') }}{% endif %}</li>
+                                </ul>
+                            </article>
+                        
+                       
+      
+
+                    </fieldset>
+                </article>
+                  <aside>
+                      
+                  </aside>
+                        </section>
+        
+        </div>
+   
+        
+
+</div></div>                
+{% endblock %}    
+{% block fos_user_content %}
+{% if is_granted("IS_AUTHENTICATED_REMEMBERED")== false %}
+                       
+{{ render(controller('FOSUserBundle:Security2:login', { '_locale': app.request.locale ,'type':'job'})) }}
+{% endif %}
+{% endblock %}

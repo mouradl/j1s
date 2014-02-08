@@ -1,0 +1,52 @@
+<?php
+
+namespace Tuni\AnnonceBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * AttributAnnonce
+ *
+ * @ORM\Table(name="attribut_annonce")
+ * @ORM\Entity
+ */
+class AttributAnnonce
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="valeur", type="string", length=255, nullable=true)
+     */
+    private $valeur;
+
+    /**
+     * @var \Annonce
+     *
+     * @ORM\ManyToOne(targetEntity="Annonce")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="annonce_id", referencedColumnName="id")
+     * })
+     */
+    private $annonce;
+
+    /**
+     * @var \Attribut
+     *
+     * @ORM\ManyToOne(targetEntity="Attribut")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="attribut_id", referencedColumnName="id")
+     * })
+     */
+    private $attribut;
+
+
+}

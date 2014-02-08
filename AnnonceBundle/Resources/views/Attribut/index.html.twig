@@ -1,0 +1,109 @@
+
+{% extends "TuniAdminBundle::layout.html.twig" %}
+
+{% block content_middle_b %}
+<ul class="breadcrumb">
+    <li><a  class="glyphicons home"><i></i> juste1service</a></li>
+    <li class="divider"></li>
+    <li>{{'Attributs'|trans({}, 'TuniAdminBundle') }}</li>
+</ul>
+<div class="separator"></div>
+
+<div class="heading-buttons">
+    <h3 class="glyphicons group"><i></i> Attributs</h3>
+    <div class="buttons pull-right">
+        <a href="{{ path('attribut_new') }}" class="btn btn-primary btn-icon glyphicons circle_plus"><i></i>Ajouter attribut</a>
+    </div>
+    <div class="clearfix"></div>
+</div>
+<div class="separator"></div>
+<div class="widget widget-2" style="margin: 0;">
+    <div class="widget-head">
+        <h4 class="heading glyphicons list"><i></i> Gérer les attributs</h4>
+    </div>
+    <div class="widget-body">
+        <div class="separator bottom form-inline small">
+            total attribut : {{total}}
+
+            <span class="pull-right">
+
+
+            </span>
+        </div>
+        <form id="adminsform" name="adminsform">
+                    {% for type, messages in app.session.flashBag.all %}
+                                        {% for message in messages %}
+                <div class="{{ type }} alert-success">
+                                                {{ message|trans({}, 'FOSUserBundle') }}
+                    </div> <br>
+                                        {% endfor %}
+                    {% endfor %}
+                    <table class="table table-bordered table-condensed table-striped table-vertical-center checkboxs js-table-sortable ui-sortable">
+                        <thead>
+                            <tr>
+                                <th style="width: 1%;" class="uniformjs"><input type="checkbox" /></th>
+                                <th style="width: 1%;" class="center">{{ knp_pagination_sortable(pagination, 'Nom', 'a.nom') }}</th>
+                                <th style="width: 1%;" class="center">{{ knp_pagination_sortable(pagination, 'Unite', 'a.unite') }}</th>
+                                <th style="width: 1%;" class="center">{{ knp_pagination_sortable(pagination, 'Libelle', 'a.libelle') }}</th>
+                                <th style="width: 1%;" class="center">{{ knp_pagination_sortable(pagination, 'Required', 'a.isRequired') }}</th>
+                               <th style="width: 1%;" class="center">{{ knp_pagination_sortable(pagination, 'Type', 'a.isSelectbox') }}</th>
+                               <th class="center" style="width: 40px;">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                                {% if total==0 %}<tr class="selectable"><td colspan="7" >Aucun attribut</td></tr>{% endif%}
+				{% for entity in pagination %}
+                                <tr class="selectable">
+                                    <td class="center uniformjs"><input type="checkbox" id="admin_{{entity.id}}" name="admin_{{entity.id}}"/></td>
+                                    <td class="center">{{ entity.nom }}</td>
+                                    <td class="center">{{ entity.unite }}</td>
+                                    <td class="center">{% if entity.libelle %}{{ entity.libelle}}{% endif%}</td>
+                                    <td class="center">{% if (entity.isRequired )%}Oui{%else%}Non{%endif%}</td>
+                                    <td class="center">{% if (entity.isSelectbox )%}Selectbox{%else%}Input{%endif%}</td>
+                                    <td class="center">
+                                        <a class="btn-action glyphicons eye_open btn-info" href="{{ path('attribut_show',{'id':entity.id}) }}"><i></i></a>
+                                        <a href="{{ path('attribut_edit',{'id':entity.id}) }}" class="btn-action glyphicons pencil btn-success"><i></i></a>
+                                        <a href="{{ path('attribut_delete',{'id':entity.id}) }}" onclick="return(confirm('Etes-vous sûr de vouloir supprimer cet attribut?'));" class="btn-action glyphicons remove_2 btn-danger"><i></i></a>
+                                    </td>
+                                </tr>
+				{% endfor %}
+                            </tbody>
+                        </table>
+                    </form>        
+                    <div class="separator top form-inline small">
+                        <div class="pull-left checkboxs_actions hide"> 				<label class="strong">Action:</label> 				<select class="selectpicker" id="selectAction" data-style="btn-default btn-small">                                     <option value="supprimer">Supprimer</option> 					 				</select> 			</div>                         <div class="pagination pagination-small pull-right" style="margin: 0;">
+				 {{ knp_pagination_render(pagination) }}
+                            </div>
+
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <br/>
+
+
+{% endblock content_middle_b %}
+
+{% block javascripts %}
+{{parent()}}
+                <script>
+                    $("#selectAction").change(function() {
+
+                        if ($("#selectAction").val() == "supprimer") {
+                            var form_data = $('#adminsform').serialize();
+                            $.ajax({
+                                type: "POST",
+                                url: "{{ path('attribut_deleteliste') }}",
+                                data: form_data,
+                                cache: false,
+                                success: function(data) {
+                                    // alert(data);
+                                    window.location = '{{ path('attribut') }}';
+                                }
+                            });
+                            return false;
+                        }
+                    });
+                    </script>
+{% endblock %}

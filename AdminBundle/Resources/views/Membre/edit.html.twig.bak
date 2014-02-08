@@ -1,0 +1,60 @@
+{% extends "TuniAdminBundle::layout.html.twig" %}
+
+{% block content_middle_b %}
+<ul class="breadcrumb">
+	<li><a  class="glyphicons home"><i></i> juste1service</a></li>
+	<li class="divider"></li>
+	<li>{{'Administrateur'|trans({}, 'TuniAdminBundle') }}</li>
+</ul>
+<div class="separator"></div>   
+
+<div class="heading-buttonfs">
+    <h3 class="glyphicons group"><i></i> Jobeurs</h3>
+    <div class="buttons pull-right">
+        <a href="{{ path('membre_new') }}" class="btn btn-primary btn-icon glyphicons circle_plus"><i></i>Ajouter Jobeur</a>
+    </div>
+    <div class="clearfix"></div>
+</div>
+<div class="separator"></div>
+
+<div class="innerLR">
+   
+<form class="form-horizontal" action="{{ path('membre_update', { 'id': entity.id }) }}" {{ form_enctype(form) }}{{ form_enctype(edit_form) }} method="POST" >
+    
+        
+    
+    <div class="tab-content" style="padding: 0;" >
+		<div class="tab-pane active" id="account-settings">
+		
+			<div class="widget widget-2">
+				<div class="widget-head">
+					<h4 class="heading glyphicons edit"><i></i>Editer Jobeur</h4>
+				</div>
+				<div class="widget-body" style="padding-bottom: 0;">
+                                    {% for type, messages in app.session.flashBag.all %}
+                                        {% for message in messages %}
+                                            <div class="{{ type }} alert-success">
+                                                {{ message|trans({}, 'FOSUserBundle') }}
+                                            </div>
+                                        {% endfor %}
+                                    {% endfor %}
+				
+					<div class="row-fluid">
+                                           {% include "TuniAdminBundle:Membre:edit_content.html.twig" %}
+					</div>
+					
+					<div class="form-actions" style="margin: 0;">
+						<button type="submit" class="btn btn-icon btn-primary glyphicons circle_ok" onclick="if(!confirm('Voulez-vous modifier cet utilisateur')) return false;"><i></i>{{ 'registration.edit.submit'|trans({}, 'FOSUserBundle') }}</button>
+						<button type="reset"  style="float:right;"  class="btn btn-icon btn-default glyphicons circle_remove"><i></i>Annuler</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+{{ form_rest(form) }}	    
+</form>
+</div>
+
+  
+{% endblock %}

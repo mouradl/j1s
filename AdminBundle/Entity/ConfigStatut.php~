@@ -1,0 +1,109 @@
+<?php
+
+namespace Tuni\AnnonceBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * ConfigStatut
+ *
+ * @ORM\Table(name="config_statut")
+ * @ORM\Entity
+ */
+class ConfigStatut
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="duree_annonce", type="integer", nullable=false)
+     */
+    private $dureeAnnonce;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="prix", type="integer", nullable=false)
+     */
+    private $prix;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="nbr_audiovideo", type="integer", nullable=false)
+     */
+    private $nbrAudiovideo;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="nbr_pic", type="integer", nullable=false)
+     */
+    private $nbrPic;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="annonce_urg", type="boolean", nullable=false)
+     */
+    private $annonceUrg;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="renouvellement_annonce", type="boolean", nullable=false)
+     */
+    private $renouvellementAnnonce;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="modif_annonce", type="boolean", nullable=false)
+     */
+    private $modifAnnonce;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="maj_pic", type="boolean", nullable=false)
+     */
+    private $majPic;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="up_video", type="boolean", nullable=false)
+     */
+    private $upVideo;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="maj_video", type="boolean", nullable=false)
+     */
+    private $majVideo;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="ext_audio", type="string", length=255, nullable=false)
+     */
+    private $extAudio;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="ext_video", type="string", length=255, nullable=false)
+     */
+    private $extVideo;
+
+
+}

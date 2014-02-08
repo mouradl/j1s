@@ -1,0 +1,215 @@
+ {% block fos_user_content %}
+<!-- Forms account and connect -->
+ <div class="hidden-elements "> 
+  <!--@modal - signup modal-->
+  <div class="modal fade" id="signup-modal" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content panel panel-default">
+        <div class="modal-header panel-heading">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h3 class="modal-title">Créer un nouveau compte</h3>
+        </div>
+        <div class="modal-body">
+            <form action="{{ path('tuni_membre_create') }}" {{ form_enctype(form) }}{{ form_enctype(formMembre) }} role="form" method="post">
+           {% for type, messages in app.session.flashBag.all %}
+                                        {% for message in messages %}
+                                            {%if type=='compte' %}
+                                                           
+                                                                 <div class="{{ type }} alert-success">
+                                                                     {{ message|trans({}, 'FOSUserBundle') }}
+                                                                 </div>
+                                             {%endif%}
+                                         {% endfor %}
+            {% endfor %}
+                                {% if errorcompte %}
+                <div class="error-count-aut justify" ><span>{{ errorcompte|trans({}, 'FOSUserBundle') }}</span></div>
+            {% endif %}
+                <h4>Vous êtes :</h4>
+                <select name="type_membre" class="form-control">
+                    <option value="Employeur">Je propose</option>
+                    <option value="Jobeur">J'ai besoin</option>
+     
+            </select>
+            <h4>Information de compte :</h4>
+             <div class="form-group">
+              <label class="sr-only" for="signup-first-name">Civilté</label>
+              {{ form_errors(formMembre.civilite) }}
+              {{ form_widget(formMembre.civilite) }}
+             </div>
+            <div class="form-group">
+              <label class="sr-only" for="signup-first-name">Prénom :</label>
+              {{ form_errors(formMembre.prenom) }}
+              {{ form_widget(formMembre.prenom) }}
+            </div>
+            <div class="form-group">
+              <label class="sr-only" for="signup-last-name">Nom :</label>
+              {{ form_errors(formMembre.nom) }}
+              {{ form_widget(formMembre.nom) }}
+            </div><div class="form-group">
+              <label class="sr-only" for="signup-last-tel">Tel :</label>
+              {{ form_errors(formMembre.tel) }}
+              {{ form_widget(formMembre.tel) }}
+            </div>
+            <div class="form-group">
+              <label class="sr-only" for="signup-last-addresse">Adresse :</label>
+              {{ form_errors(formMembre.adresse) }}
+              {{ form_widget(formMembre.adresse) }}
+              {{ form_errors(formMembre.codePostal) }}
+              {{ form_widget(formMembre.codePostal) }}
+            </div>
+            <div class="form-group">
+              <label class="sr-only" for="signup-username">Login</label>
+              {{ form_errors(form.username) }}
+              {{ form_widget(form.username) }}
+            </div>
+            <div class="form-group">
+              <label class="sr-only" for="signup-email">Email address</label>
+              {{ form_errors(form.email) }}
+              {{ form_widget(form.email) }}
+            </div>
+            <div class="form-group">
+              <label class="sr-only" for="signup-password">Password</label>
+              {{ form_errors(form.password.first) }}
+              {{ form_widget(form.password.first) }}
+                                                
+            </div>
+              <div class="form-group">
+              <label class="sr-only" for="signup-password-confirm">Confirm Password</label>
+              {{ form_errors(form.password.second) }}
+              {{ form_widget(form.password.second) }}
+            </div>
+             <div class="input-group">
+              <label class="input-group-addon" for="signup-password">Photos</label>
+              {{ form_errors(formMembre.logo) }}
+              {{ form_widget(formMembre.logo) }}
+            </div>
+            {{ form_rest(formMembre) }}{{ form_rest(form) }}	
+            <div class="checkbox">
+              <label>
+                  <input type="checkbox" required="required" value="term">
+               J'accepte les condition générale de Juste1service. </label>
+            </div>
+            <input class="btn btn-primary" type="submit" value="Valider"/>
+          </form>
+        </div>
+<div class="modal-footer"> <small>Bienvenu sur le site Juste1service.fr</small>
+       </div>      </div>
+      <!-- /.modal-content --> 
+    </div>
+    <!-- /.modal-dialog --> 
+  </div>
+  <!-- /.modal --> 
+  <!--@modal - login modal-->
+  <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+      <div class="modal-content panel panel-default">
+        <div class="modal-header panel-heading">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h3 class="modal-title">Connexion</h3>
+        
+        </div>
+        <div class="modal-body panel-body">
+                   
+            {% for type, messages in app.session.flashbag.all() %}
+            {% for key, message in messages %}
+            
+                {%if type=='login' %}
+                                  
+                                   <div class="{{ type }} alert-success">
+                                     {{ message|trans({}, 'FOSUserBundle') }}
+                                   </div>
+                {%endif%}
+            {% endfor %}
+            {% endfor %}        
+   
+           {% if error %}
+                                    
+                <div class="error-count-aut justify" ><span>{{ error|trans({}, 'FOSUserBundle') }}</span></div>
+            {% endif %}
+            <form action="{{ path("fos_user_security_check") }}" id="indentificationFormulaire" role="form"  method="post">
+            <div class="checkbox connect-with">
+            <a  class="" href="#" onclick="fblogin();">Se connecter via Facebook</a>
+           </div>
+            <div class="form-group">
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+            
+              <label class="sr-only" for="login">Tapez votre identifiant</label>
+             
+              <input type="text" id="username" name="_username" value="{{ last_username }}" required="required" class="form-control email placeholder" placeholder="Email" required="required" autofocus>
+         
+            </div>
+            <div class="form-group">
+              <label class="sr-only" for="login-password">Mot de passe</label>
+              <input type="password" id="password" name="_password" required="required" class="form-control password placeholder" placeholder="Password" required="required">
+            </div>
+            <div class="checkbox">
+            <label><input type="checkbox" id="remember_me" name="_remember_me" value="on" />
+            {{ 'security.login.remember_me'|trans({}, 'FOSUserBundle') }}</label>
+             </div>
+                
+            <div class="checkbox">
+              <label><a style="color: red" href="{{ path("fos_user_resetting_request") }}">Mot de passe oublié ?</a>  
+           </label>
+            </div>
+            
+                 
+              
+                          
+                <input type="submit" class="btn btn-primary" value="{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}"/>
+      
+          </form>
+        </div>
+        <div class="modal-footer"> <small>Bienvenu sur le site Juste1service.fr</small>
+       </div>
+      </div>
+      <!-- /.modal-content --> 
+    </div>
+    <!-- /.modal-dialog --> 
+  </div>
+  <!-- /.modal --> 
+</div>
+
+             {% endblock fos_user_content %}                                          
+  
+{% block javascripts %}
+  <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+   <script src="{{ asset('bundles/tuniannonce/js/modal.js') }}"></script>
+                                                                                                             
+  {% for type, messages in app.session.flashbag.all() %}
+            {% for key, message in messages %}
+            
+                {%if type=='login' %}
+                                       <script type="text/javascript">
+
+                                        $('#login-modal').modal('show');
+
+                                        </script>
+                                                                
+                {%endif%}
+                                                        {%if type=='compte' %}
+                                       <script type="text/javascript">
+
+                                        $('#signup-modal').modal('show');
+
+                                        </script>
+                                                                
+                {%endif%}
+            {% endfor %}
+            {% endfor %}        
+   
+           {% if error %}
+                                    <script type="text/javascript">
+
+                                                $('#login-modal').modal('show');
+
+                                    </script>
+              {% endif %}
+                                                             {% if errorcompte %}
+                <script type="text/javascript">
+
+                                        $('#signup-modal').modal('show');
+
+                                        </script>
+            {% endif %}
+                        
+                        {% endblock %}                            

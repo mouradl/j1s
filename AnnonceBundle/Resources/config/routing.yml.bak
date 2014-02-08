@@ -1,0 +1,56 @@
+tuni_annonce_homepage:
+    pattern:  /acceuil
+    defaults: { _controller: TuniAnnonceBundle:Default:index }
+tuni_annonce_newsletterIndex:
+    pattern:  /newsltter
+    defaults: { _controller: TuniAnnonceBundle:Default:newsletterIndex }
+    requirements:
+       _method: POST
+tuni_annonce_nous:
+    pattern:  /menu/nous
+    defaults: { _controller: TuniAnnonceBundle:Default:nous }
+tuni_annonce_contact:
+    pattern:  /menu/contact
+    defaults: { _controller: TuniAnnonceBundle:Default:contact }
+tuni_annonce_contact_create:
+    pattern:  /menu/contact/create
+    defaults: { _controller: TuniAnnonceBundle:Contact:create }
+    requirements:
+       _method: POST  
+tuni_annonce_service-express:
+    pattern:  /menu/service-express
+    defaults: { _controller: TuniAnnonceBundle:Default:serviceExpress }
+tuni_annonce_serviceExpress_create:
+    pattern:  /menu/service-express/create
+    defaults: { _controller: TuniAnnonceBundle:Default:createExpress }
+    requirements:
+       _method: POST
+tuni_annonce_propos-service:
+    pattern:  /menu/propos-service
+    defaults: { _controller: TuniAnnonceBundle:Default:proposService }
+tuni_annonce_besoin-service:
+    pattern:  /menu/besoin-service
+    defaults: { _controller: TuniAnnonceBundle:Default:besoinservice }
+tuni_annonce_avantage:
+    pattern:  /menu/avantage
+    defaults: { _controller: TuniAnnonceBundle:Default:avantage }
+tuni_annonce_comment-ca-marche:
+    pattern:  /menu/comment-ca-marche
+    defaults: { _controller: TuniAnnonceBundle:Default:commentCaMarche }
+tuni_annonce_mention:
+    pattern:  /menu/mention
+    defaults: { _controller: TuniAnnonceBundle:Default:mention }
+tuni_annonce_error_page:
+    pattern:  /err
+    defaults: { _controller: TuniAnnonceBundle:Default:error }
+tuni_annonce_parrainer_get:
+    pattern:  /parrainage
+    defaults: { _controller: TuniAnnonceBundle:Default:parrainage }    
+tuni_annonce_parrainer:
+    pattern:  /parrainer
+    defaults: { _controller: TuniAnnonceBundle:Default:parrainer }
+    requirements:
+       _method: POST 
+tuni_annonce_parrainer_confirm:
+    pattern:  /parrainerConfirm/{email}
+    defaults: { _controller: TuniAnnonceBundle:Default:parrainerConfirm }
