@@ -7,7 +7,7 @@
             <aside class="col-md-2 col-sm-4 position-{{ Article.direction}}">
                 {% if (Article.img )%}<img src="{{asset('upload/article/'~Article.img)}}" alt="{{Article.img}}" title="{{Article.img}}" class="img-responsive" >{%endif%}
             </aside>
-            <article class="col-md-10 col-sm-8">
+            <article class="col-md-10 col-sm-8" id="{{Article.id}}">
                 <h4>{{ Article.titre }}</h4>
                 <p>{{ Article.contenu|raw }}</p>  
                 

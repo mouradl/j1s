@@ -1,13 +1,119 @@
 {% extends "TuniAnnonceBundle:Default:index.html.twig" %}
 {% block maincontent %}
-<section class="main-content grid_24 alpha  ">
-  
-<form class="form-horizontal" action="{{ path('tuni_membre_update', { 'id': entityid }) }}" {{ form_enctype(form) }}{{ form_enctype(edit_form) }} method="POST" >
+     <div class="navbar-wrapper-content ">
+            <div class="container">
+            
+        <div class="container-top">
+    <section class="bloc-static clearfix">
+                <aside class="col-lg-3 col-md-3 col-sm-4 "><a href="{{path('tuni_annonce_propos-service')}}"><img src="{{ asset('bundles/tuniannonce/images/je-propose.png') }}" alt="Je propose un service" title="Je propose un service"></a></aside>
+                 <aside class="col-lg-3 col-md-3 col-sm-4 "><a href="{{path('tuni_annonce_besoin-service')}}"><img src="{{ asset('bundles/tuniannonce/images/besoin.png') }}" alt="J'ai besoin d'un service" title="J'ai besoin d'un service"></a></aside>
+                  <aside class="col-lg-3 col-md-3 hidden-sm "><a href="{{path('tuni_annonce_comment-ca-marche')}}"><img src="{{ asset('bundles/tuniannonce/images/comment.png') }}" alt="comment ça marche" title="comment ça marche"></a></aside>
+                   <aside class="col-lg-3 col-md-3 col-sm-4 "><a href="{{path('tuni_annonce_abonnez-vous')}}"><img src="{{ asset('bundles/tuniannonce/images/mon-compte.png') }}" alt="Abonnez vous" title="Abonnez vous"></a></aside>
+            </section>
+          <section class="pub visible-lg visible-md">
+                <div class="pub-img  col-lg-2 col-md-2">
+                    <img src="{{ asset('bundles/tuniannonce/images/img-left.png') }}" alt="" title=""  class="img-responsive">
+                </div>
+                <div class="col-lg-8 col-md-8 ">
+                    <p class="pub-text text-center">Facilitez votre recherche d'1 service</p>
+                    <a href="#"class="pub-text-1 text-center" rel='tooltip' data-toggle="tooltip"  data-placement="top" title="" data-original-title="Prestation uniquement pour les abonnés">"Recevez directement  par e-mail tous les nouveaux services"</a>
+
+                </div>
+                  <div class="pub-img text-center col-lg-2 col-md-2 col-lg-pull-0"> 
+                      <img src="{{ asset('bundles/tuniannonce/images/img-right.png') }}" alt="" title=""  class="img-responsive"></div>
+            </section>
+            <div class="recherche hidden-sm hidden-xs">
+               <section class="recherche-text">
+                    <div class="col-lg-2 col-md-3">
+                        <img src="{{ asset('bundles/tuniannonce/images/rechreche-rapide.png') }}" alt="Recherche avancée" title="Recherche avancée"  class="img-responsive"></div>
+                    <p class="col-lg-8 col-md-9">Juste1service vous propose 831 offres</p>
+                </section>
+                <section class="recherche-form col-lg-12">
+                    <form action="{{path('annonceFront_RechercheAvance')}}" method="post" name="FormCriteres"  class="form-inline" >
+                        <div class="form-group">
+                        
+                              <select id="Region" name="Region" class="form-control  input-sm" onChange='remplirVille();'><option value="">Par région</option>{% for Region in Regions %}<option value="{{Region.id}}">{{Region.nomReg}}</option>{% endfor %}</select>
+                         </div>
+                          <div class="form-group">
+                        <select id="Ville" name="Ville" class="form-control  input-sm" onChange=''><option value="">Par ville</option></select>
+                        
+                         </div>
+                        <div class="form-group ">
+                        
+                           <select class="form-control  input-sm" id="Categories" name="Categories" onChange='remplirCategorie();'><option value="">Par catégorie</option>{% for Categorie in Categories %}<option value="{{Categorie.id}}">{{Categorie.nomCat}}</option>{% endfor %}</select>
+                        </div>
+                         <div class="form-group ">
+                        
+                             <select id="SCategorie" name="soucat" class="form-control  input-sm" onChange=''><option value="">Par sous catégorie</option></select>
+                        </div>
+                       
+                        <div class="form-group">
+                        <input type="text" name="motClet" placeholder="Taper un Mot clè"   class="form-control input-sm"/>
+                     
+                        </div>
+      
+                       <input type="submit" value="Rechercher" class="btn btn-search input-sm"/>
+                    </form>  
+                </section>
+            </div>
+               
+        </div>
+                <div class="container-center page">
+                
+                    <section  class="col-lg-9 fiche-job">
+                        <article class="next-left col-lg-5 col-md-5 col-sm-12 col-xs-12 " >
+
+                            <ul class="bxslider">
+                                                                <li><img src="images/avatar.png" alt="mon profil" title="mon profil" height="107" width="107" /></li>
+
+                                <li><img src="images/avatar.png" alt="mon profil" title="mon profil" height="107" width="107" /></li>
+  <li><img src="images/avatar.png" alt="mon profil" title="mon profil" height="107" width="107" /></li>
+  <li><img src="images/avatar.png" alt="mon profil" title="mon profil" height="107" width="107"/></li>
+  <li><img src="images/avatar.png" alt="mon profil" title="mon profil" height="107" width="107" /></li>
+</ul>
+                           
+                            
+                  
+                         
+                          </article>
+                        <aside class="col-lg-6 col-md-6 col-sm-12 col-xs-12 next-right position-right">
+                            
+                            <div class="confiance">
+                                <span>Confiance </span>
+                                <span>80%</span>
+                            </div>
+                       
+                    
+                        </aside>
+                        <article class="col-lg-12">
+                        <ul class="nav nav-tabs col-lg-12">
+  <li><a href="#profile" data-toggle="tab">Mon Profile</a></li>
+  <li><a href="#edit-profile" data-toggle="tab">Editer mon profile</a></li>
+  <li><a href="#eval" data-toggle="tab">Mes évaluations </a></li>
+   <li><a href="#certif" data-toggle="tab">Mes certifications</a></li>
+  <li><a href="#comment" data-toggle="tab">Commentaire</a></li>
+  <li><a href="#job" data-toggle="tab">Mes propositions </a></li>
+</ul>
+            <div class="tab-content col-lg-10">
+  <div class="tab-pane active" id="profile">
+  <pre> <span>Pseudo :</span> François F  </pre>
+                        <pre><span>Tél :</span> +33 </pre>
+                        <pre><span>Zone de travail : </span> a distance </pre>
+                        <pre><span>Déscription de l'offre :</span><br> 
+                        
+                        
+                        </pre>
+                        <pre><span>Disponibilité :</span><br> 
+                        
+                        
+                        </pre>
+  </div>
+                 <div class="tab-pane active" id="edit-profile">
+                     <form class="form-horizontal" action="{{ path('tuni_membre_update', { 'id': entityid }) }}" {{ form_enctype(form) }}{{ form_enctype(edit_form) }} method="POST" >
     
         
     
-    	<div class="grid_22 widget-head">
-					<h4 class="heading glyphicons edit"><i></i>Editer Jobeur</h4>
+    	<div class="widget-head">
 				</div>
 				    {% for type, messages in app.session.flashBag.all %}
                                         {% for message in messages %}
@@ -28,12 +134,51 @@
 {{ form_rest(form) }}	    
     
 </form>
-<br><div class="grid_22 widget-head">
-					<h4 class="heading glyphicons edit"><i></i>Mes Annonces</h4>
-				</div><br>
-    <div class="grid_22">
+                     
+  </div>
+  <div class="tab-pane" id="eval">
+      <div class="notation">
+                                <ul class="list-inline">
+                                <li><img src="images/profil/eva1.png" alt="" title=""></li>
+                                      <li><img src="images/profil/eva1.png" alt="" title=""></li>
+                                <li><img src="images/profil/eva1.png" alt="" title=""></li>
+
+                                     <li><img src="images/profil/eva2.png" alt="" title=""></li>
+                               <li><img src="images/profil/eva2.png" alt="" title=""></li>
+                               </ul>
+                                  
+                            </div>
+  
+  </div>
+                <div class="tab-pane" id="certif">
+                     <div class="certification">
+                                <h4 class="title">Mes « post-it certifiés » </h4>
+                                <ul class="list-inline">
+                                      <li><img src="images/profil/certifie.png" alt="" title=""></li>
+                                      <li><img src="images/profil/certifie.png" alt="" title=""></li>
+                                      
+                                      <li><img src="images/profil/certifie.png" alt="" title=""></li>
+                                      <li><img src="images/profil/certifie.png" alt="" title=""></li>
+                                      <li><img src="images/profil/non-certifie.png" alt="" title=""></li>
+                                  
+                                </ul>
+                            </div>
+                </div>
+  <div class="tab-pane" id="comment">Raw denim you probably haven't heard of them jean shorts Austin.
+      Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum iphone. 
+      Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui.</div>
+  <div class="tab-pane" id="job">
+      <h4> Mes job</h4>
+       <div class="col-lg-12 col-md-12">
+                                           {% if total==0 %}<tr class="selectable"><td colspan="7" >Aucun annonce{{total}}</td></tr>
+
+{% else%}
+
+
     <table class="table table-bordered table-condensed table-striped table-vertical-center checkboxs js-table-sortable ui-sortable">
-                        <thead>
+                       
+        
+        <thead>
                             <tr>
                                 <th style="width: 1%;" class="center">{{ knp_pagination_sortable(pagination, 'Titre', 'a.titreAnn') }}</th>
                                 <th style="width: 1%;" class="center">{{ knp_pagination_sortable(pagination, 'Prix', 'a.prixAnn') }}</th>
@@ -45,7 +190,6 @@
                             </tr>
                         </thead>
                         <tbody>
-                                {% if total==0 %}<tr class="selectable"><td colspan="7" >Aucun annonce{{total}}</td></tr>{% endif%}
 				{% for entity in pagination %}
                                 <tr class="selectable">
                                     <td class="center">{{ entity.titreAnn }}</td>
@@ -63,7 +207,28 @@
 				{% endfor %}
                             </tbody>
                         </table>
+                                           {% endif%}
         </div>
-</section>
+  </div>
+</div>            
+                    </article>
+                    </section>
+               
+                                   
+                <aside class="service-contact col-lg-3 col-md-3 col-sm-11 col-xs-12">
+                    <a href="{{ path('tuni_annonce_service-express') }}" title="service-express "><img src="{{ asset('bundles/tuniannonce/images/service-express.png') }}" title="service-express" alt="service-express"class="img-responsive"></a>
+
+                    <a href="{{ path('tuni_annonce_parrainage') }}" title="Ajouter votre parrain"><img src="{{ asset('bundles/tuniannonce/images/parainage.png') }}" title="parainage" alt="parainage" class="img-responsive">     </a>      
+             
+                    
+                                   <a class="hidden-sm" href="{{ path('tuni_annonce_comment-ca-marche') }}#24" title="contact"><img src="{{ asset('bundles/tuniannonce/images/faire_jobbing.png') }}" title="Faire le jobbig c'est quoi ?" alt="Jobbing"></a>
+
+                </aside>
+                    
+                    
+
+                </div>
+            </div><!-- /.container -->
+        </div>
                 
 {% endblock %}

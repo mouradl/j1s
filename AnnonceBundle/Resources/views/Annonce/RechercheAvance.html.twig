@@ -130,7 +130,7 @@ $('#rech_prix_max').val=$('#pricemax').val();
                             </article>
                             <aside class="col-md-3 col-sm-4 col-xs-12">
                                 <!--<span class="price">{%if entity.prixAnn!=null%}   {{ entity.prixAnn ~' '~ entity.devise.code}}{%endif%}</span>-->
-                                <span class="detail"><a href="details" title="Détail profile">détail</a></span>
+                                <span class="detail"><a href="{{ path('annonceFront_showMembre',{'id':entity.id}) }}"  title="Détail">détail</a></span>
                             </aside>
                         </section>
                       

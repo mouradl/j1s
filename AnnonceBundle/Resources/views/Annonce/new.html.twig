@@ -13,8 +13,17 @@
 	
 	<script type="text/javascript">
             $(window).load(function(){
-            $('#datepicker').datepicker("option", "minDate", 0);//datepicker({minDate: 0});
+                
+            $('#datepicker').datepicker({
+    format: "dd-mm-yyyy",
+    todayBtn: true,
+    language: "fr",
+    calendarWeeks: true,
+    minDate: 0
+});;//datepicker({minDate: 0});
         });
+        </script>
+        <script type="text/javascript">
             function remplirRegion(){
 var id_select = $('#Pays').val();
 //alert(id_select)
@@ -203,7 +212,7 @@ var id_select = $('#Categories').val();
                             <div class="span6 control-group alpha">
                                 <label class="control-label alignleft">Choix tarif</label>
                                 <div class="controls">
-                                    <div class="toggle-button" data-toggleButton-style-enabled="success">
+                                    <div class="toggle-button choix" data-toggleButton-style-enabled="success">
                                                         		{{ form_errors(form.prixNegociable) }}
                                                                         {{ form_widget(form.prixNegociable) }}
 
