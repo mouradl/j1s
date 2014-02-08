@@ -12,7 +12,7 @@
 	<script type="text/javascript" src="{{asset('bundles/tuniadmin/theme/scripts/plupload/js/jquery.plupload.queue/jquery.plupload.queue.js') }}"></script>
 	
 	<script type="text/javascript">
-            $(window).load(function(){remplirRegion();
+            $(window).load(function(){
             $('#datepicker').datepicker("option", "minDate", 0);//datepicker({minDate: 0});
         });
             function remplirRegion(){
@@ -175,7 +175,7 @@ var id_select = $('#Categories').val();
  <label class="control-label alignleft">Categorie</label>
     <div class="controls">
    
-        <select class="span10" id="Categories" onChange='remplirCategorie();'><option value="">--Selectionnez une categorie--</option>{% for Categorie in Categories %}<option value="{{Categorie.id}}">{{Categorie.nomCat}}</option>{% endfor %}</select>
+        <select class="span10" id="Categories" onChange='remplirCategorie();'><option></option>{% for Categorie in Categories %}<option value="{{Categorie.id}}">{{Categorie.nomCat}}</option>{% endfor %}</select>
  
  </div>
 </div>   
@@ -215,14 +215,14 @@ var id_select = $('#Categories').val();
  <div class="span4 control-group alpha">
                                     <label class="control-label alignleft" >Pays</label>
                                     <div class="controls alpha">
-                                        <select id="Pays" class="span5" onChange='remplirRegion();' disabled>{% for Pay in Pays %}<option value="{{Pay.id}}">{{Pay.nomP}}</option>{% endfor %}</select>
+                                        <select id="Pays" class="span4" onChange='remplirRegion();'><option></option>{% for Pay in Pays %}<option value="{{Pay.id}}">{{Pay.nomP}}</option>{% endfor %}</select>
                                             
                                         </div>
                                     </div>
  <div class="span4 control-group alpha">
                                     <label class="control-label alignleft ">Region</label>
                                     <div class="controls alpha">
-						<select id="Region" class="span5" onChange='remplirVille();'><option value="">--Selectionnez une region--</option></select>
+						<select id="Region" class="span4" onChange='remplirVille();'><option></option></select>
                                          
                                         </div>
                                     </div>

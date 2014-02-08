@@ -7,7 +7,7 @@
             <aside class="col-md-2 col-sm-4 position-{{ Article.direction}}">
                 {% if (Article.img )%}<img src="{{asset('upload/article/'~Article.img)}}" alt="{{Article.img}}" title="{{Article.img}}" class="img-responsive" >{%endif%}
             </aside>
-            <article class="col-md-10 col-sm-8" id="{{Article.id}}">
+            <article class="col-md-10 col-sm-8">
                 <h4>{{ Article.titre }}</span></h4>
                 <p>{{ Article.contenu|raw }}</p>  
                 
@@ -19,8 +19,6 @@
         
     </div><!-- /.container -->
       </div>
-
-        
 {% endblock %}
 {% block fos_user_content %}
 {% if is_granted("IS_AUTHENTICATED_REMEMBERED")== false %}
@@ -28,21 +26,3 @@
 {{ render(controller('FOSUserBundle:Security2:login', { '_locale': app.request.locale ,'type':'job'})) }}
 {% endif %}
 {% endblock %} 
-          
-
-{% block javascripts %}
-{{parent()}}
-  <script type="text/javascript">
-     
-$().ready(function() {
-    var listarticle="{% for Article in Articles %}#{{ Article.id}},{% endfor %}";
-    listarticle=listarticle.substring(0,listarticle.length-1);
-     $(listarticle).jTruncate({
-        length: 350,
-        moreText: "[Lire la suite]",
-        lessText: "[Retour]"  });
-    
-});
-
-</script>
-{% endblock %}

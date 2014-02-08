@@ -16,7 +16,6 @@
 <link rel="stylesheet" href="{{ asset('bundles/tuniannonce/css/ie9.css') }}" type="text/css"/>
 <link href="{{ asset('bundles/tuniannonce/css/ui.totop.css') }}" rel="stylesheet">
 <link href="{{ asset('bundles/tuniannonce/css/datepicker.css') }}" rel="stylesheet">
- <link href="{{ asset('bundles/tuniannonce/css/jquery.bxslider.css') }}" rel="stylesheet">
 {% endblock %}
 {% block content_header %}
  <div class="header-top">
@@ -26,7 +25,7 @@
                       <a href="{{path('tuni_annonce_homepage')}} "class="logo"> <img src="{{ asset('bundles/tuniannonce/images/logo-head.png') }}" class="img-responsive" alt="Juste1Service" title="Juste1Service">  
                   </a></section>
         
-                <section class=" col-lg-10 col-md-10 col-sm-8 col-xs-8 ">
+                <section class=" col-lg-10 col-md-9 col-sm-8 col-xs-8  ">
                       <aside class="header-top-a  row ">
                           <div id="fb-root"></div>
                         {{ facebook_initialize({'xfbml': true, 'fbAsyncInit': 'onFbInit();'}) }}
@@ -52,10 +51,9 @@
                                        <ul class="dropdown-menu"> 
                                            <li><a href="{{ path('tuni_membre_edit', {'id': app.user.id}) }}">{{ 'Mon profil'|trans({}, 'FOSUserBundle') }}</a></li>
                                          <li><a href="{{ path('tuni_membre_edit', {'id': app.user.id}) }}">{{ 'Editer mon profil'|trans({}, 'FOSUserBundle') }}</a></li>
-                                           <li><a href="#">{{ 'Mes evaluations'|trans({}, 'FOSUserBundle') }}</a></li>
-                                           <li><a href="#">{{ 'Mes certifications'|trans({}, 'FOSUserBundle') }}</a></li>
-                                           <li><a href="#">{{ 'Mes commentaires'|trans({}, 'FOSUserBundle') }}</a></li>
-                                           <li><a href="#">{{ 'Mes job'|trans({}, 'FOSUserBundle') }}</a></li>
+                                           <li><a href="#">{{ 'Mes parrains'|trans({}, 'FOSUserBundle') }}</a></li>
+                                           <li><a href="#">{{ 'Mes abonnements'|trans({}, 'FOSUserBundle') }}</a></li>
+
                                          <li class="divider"></li>
                                          <li><a href="{{ path('fos_user_security_logout') }}">{{ 'layout.logout'|trans({}, 'FOSUserBundle') }}</a></li>
                                        </ul>
@@ -159,7 +157,7 @@
                    <a href="{{path('tuni_annonce_homepage')}}" title="Juste1service"> 
                       <img src="{{ asset('bundles/tuniannonce/images/logo-footer.png') }}" class="img-responsive" alt="Juste1Service" title="Juste1Service" />  
                   </a> </div>
-           <ul class="nav nav-pills col-lg-10 hidden-sm hidden-xs ">
+           <ul class="nav nav-pills col-lg-10 col-sm-10 hidden-xs ">
                {% for Menu in Menus %}
                       <li class="{%if Menu.titre|length>10%}two {%else%} one {%endif%} "><a href="{{path("tuni_annonce_"~Menu.url)}}"><span>{{Menu.titre}}</span></a></li>
                 
@@ -288,14 +286,11 @@
                                                         <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
                                                         <script src="{{ asset('bundles/tuniannonce/js/bootstrap.min.js') }}"></script>
                                                         <script src="{{ asset('bundles/tuniannonce/js/modal.js') }}"></script>
-                                                          <script src="{{ asset('bundles/tuniannonce/js/jquery.jtruncate.js') }}"></script>
                                                         <script src="{{ asset('bundles/tuniannonce/js/bootstrap-datepicker.js') }}"></script>
-                                                         <script src="{{ asset('bundles/tuniannonce/js/bootstrap-datepicker.fr.js') }}"></script>
                                                         <!-- easing plugin ( optional ) -->
                                                         <script src="{{ asset('bundles/tuniannonce/js/easing.js') }}" type="text/javascript"></script>
 
-                                                       <script src="{{ asset('bundles/tuniannonce/js/jquery.jtruncate.js') }}"></script>
-                                                        <script src="{{ asset('bundles/tuniannonce/js/jquery.bxslider.js') }}" type="text/javascript"></script>
+                                                       
                      
                                                   
                                                             <script type="text/javascript">
@@ -419,9 +414,9 @@
                                                                         <!-- UItoTop plugin -->
                                                         <script src="{{ asset('bundles/tuniannonce/js/jquery.ui.totop.js') }}" type="text/javascript"></script>
                                                          <!-- Starting the plugin -->
-                                                        <script type="text/javascript">
+                                                                              <script type="text/javascript">
                                                             $('.input-daterange').datepicker({
-                                                                language: "fr",
+                                                                language: "FR",
                                                                 orientation: "auto left",
                                                                 calendarWeeks: true,
                                                                 autoclose: true,
@@ -448,12 +443,7 @@
                                <script language="javascript">
    $(document).ready(function(){
 	$("[rel='tooltip']").tooltip();
-    });
+    })
 </script>
-      <script type="text/javascript">
-$('.bxslider').bxSlider({
-     autoStart: true,
-controls: false
-});
-</script>   
+        
 {% endblock %}

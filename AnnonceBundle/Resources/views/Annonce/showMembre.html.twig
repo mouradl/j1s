@@ -76,18 +76,20 @@
                         <article class="next-left col-lg-5 col-md-5 col-sm-12 col-xs-12 " >
 
                             <ul class="bxslider">
-                                    <li><img src="{% if entity.membre.logo %}{{asset('upload/logo/'~entity.membre.id~'/'~entity.membre.logo)}} {% else %}{{ asset('bundles/tuniannonce/images/avatar.png') }}{% endif %}"  height="107" width="107" title="avatar" alt="avatar">
-                                    <li><img src="{{ asset('bundles/tuniannonce/images/avatar.png') }}" alt="mon profil" title="mon profil" height="107" width="107" /></li>
-                                    <li><img src="{{ asset('bundles/tuniannonce/images/avatar.png') }}" alt="mon profil" title="mon profil" height="107" width="107" /></li>
-                                    <li><img src="{{ asset('bundles/tuniannonce/images/avatar.png') }}" alt="mon profil" title="mon profil" height="107" width="107"/></li>
-                                    <li><img src="{{ asset('bundles/tuniannonce/images/avatar.png') }}" alt="mon profil" title="mon profil" height="107" width="107" /></li>
+                                                                <li><img src="images/avatar.png" alt="mon profil" title="mon profil" height="107" width="107" /></li>
+
+                                <li><img src="{% if entity.membre.logo %}{{asset('upload/logo/'~entity.membre.id~'/'~entity.membre.logo)}} {% else %}{{ asset('bundles/tuniannonce/images/avatar.png') }}{% endif %}"  height="107" width="107" title="avatar" alt="avatar">
+                                    <img src="{{ asset('bundles/tuniannonce/images/avatar.png') }}" alt="mon profil" title="mon profil" height="107" width="107" /></li>
+  <li><img src="{{ asset('bundles/tuniannonce/images/avatar.png') }}" alt="mon profil" title="mon profil" height="107" width="107" /></li>
+  <li><img src="{{ asset('bundles/tuniannonce/images/avatar.png') }}" alt="mon profil" title="mon profil" height="107" width="107"/></li>
+  <li><img src="{{ asset('bundles/tuniannonce/images/avatar.png') }}" alt="mon profil" title="mon profil" height="107" width="107" /></li>
 </ul>
                            
                             
                   
                          <pre> <span>Pseudo :</span> {% if entity.membre.prenom %}{{entity.membre.prenom}} {{entity.membre.nom[:1] }}{% endif %} </pre>
                        {% if entity.membre.cachePhone == false %} <pre><span>Tél :</span> {{ entity.membre.tel}} </pre>{% endif %}
-                       <pre><span>Zone de travail : </span>{% if entity.ville%}{% if entity.ville.region%}{% if entity.ville.region.pays%}{{ entity.ville.region.pays.nomP}} {% endif %}{{ entity.ville.region.nomReg}}{% endif %} {{ entity.ville.nomV}} {% endif %} {% if entity.adresse %}{{ entity.adresse}} {{ entity.codePostal}} {% endif %}</pre>
+                        <pre><span>Zone de travail : </span>{% if entity.ville.nomV %}{{ entity.ville.region.pays.nomP}} {{ entity.ville.region.nomReg}} {{ entity.ville.nomV}} {% endif %} {% if entity.adresse %}{{ entity.adresse}} {{ entity.codePostal}} {% endif %}</pre>
                         <pre><span>Déscription de l'offre :</span><br> 
                         {% if entity.descAnn %}{{ entity.descAnn |raw }}{% endif %}
                         
@@ -101,15 +103,17 @@
                             
                             <div class="confiance">
                                 <span>Confiance </span>
-                                <span>{% if entity.membre.indiceConfiance %}{{entity.membre.indiceConfiance}}{% else %}0{% endif %}%</span>
+                                <span>80%</span>
                             </div>
                             <div class="certification">
                                 <h4 class="title">Mes « post-it certifiés » </h4>
                                 <ul class="list-inline">
-                                      <li>{% if entity.membre.certificationArray[0] %}Photo<img src="{{ asset('bundles/tuniannonce/images/profil/certifie.png') }}" alt="" title="">{% else %}<img src="{{ asset('bundles/tuniannonce/images/profil/non-certifie.png') }}">{% endif %}</li>
-                                      <li>{% if entity.membre.certificationArray[1] %}Tel<img src="{{ asset('bundles/tuniannonce/images/profil/certifie.png') }}" alt="" title="">{% else %}<img src="{{ asset('bundles/tuniannonce/images/profil/non-certifie.png') }}">{% endif %}</li>                                      
-                                      <li>{% if entity.membre.certificationArray[2] %}Justificatif<img src="{{ asset('bundles/tuniannonce/images/profil/certifie.png') }}" alt="" title="">{% else %}<img src="{{ asset('bundles/tuniannonce/images/profil/non-certifie.png') }}">{% endif %}</li>
-                                      <li>{% if entity.membre.certificationArray[3] %}Identité<img src="{{ asset('bundles/tuniannonce/images/profil/certifie.png') }}" alt="" title="">{% else %}<img src="{{ asset('bundles/tuniannonce/images/profil/non-certifie.png') }}">{% endif %}</li>
+                                      <li><img src="images/profil/certifie.png" alt="" title=""></li>
+                                      <li><img src="images/profil/certifie.png" alt="" title=""></li>
+                                      
+                                      <li><img src="images/profil/certifie.png" alt="" title=""></li>
+                                      <li><img src="images/profil/certifie.png" alt="" title=""></li>
+                                      <li><img src="images/profil/non-certifie.png" alt="" title=""></li>
                                   
                                 </ul>
                             </div>
@@ -117,12 +121,12 @@
                             <div class="notation">
                                   <h4 class="title">Mon évalution  </h4>
                                 <ul class="list-inline">
-                                <li><img src="{{ asset('bundles/tuniannonce/images/profil/eva1.png') }}" alt="" title=""></li>
-                                      <li><img src="{{ asset('bundles/tuniannonce/images/profil/eva1.png') }}" alt="" title=""></li>
-                                <li><img src="{{ asset('bundles/tuniannonce/images/profil/eva1.png') }}" alt="" title=""></li>
+                                <li><img src="images/profil/eva1.png" alt="" title=""></li>
+                                      <li><img src="images/profil/eva1.png" alt="" title=""></li>
+                                <li><img src="images/profil/eva1.png" alt="" title=""></li>
 
-                                     <li><img src="{{ asset('bundles/tuniannonce/images/profil/eva2.png') }}" alt="" title=""></li>
-                               <li><img src="{{ asset('bundles/tuniannonce/images/profil/eva2.png') }}" alt="" title=""></li>
+                                     <li><img src="images/profil/eva2.png" alt="" title=""></li>
+                               <li><img src="images/profil/eva2.png" alt="" title=""></li>
                                </ul>
                                   
                             </div>
@@ -138,12 +142,12 @@
                            
                              <div>
                                  <ul class="list-inline">
-                                     <li class="type-price col-md-6 "><span >{% if entity.prixNegociable %}{{ entity.prixNegociable}}{% elseif entity.prixAnn %}{{ entity.prixAnn}} {%else%}Non mentionné{% endif %}</span></li>
-                                     <li class="col-md-6"><a href="" ><img src="{{ asset('bundles/tuniannonce/images/profil/contacter-moi.png') }}" alt="contacter moi" title="contacter moi"></a></li>
+                                     <li class="type-price col-md-6 "><span >{% if entity.prixNegociable %}{{ entity.prixNegociable}}{% endif %}</span></li>
+                                     <li class="col-md-6"><a href="" ><img src="images/profil/contacter-moi.png" alt="contacter moi" title="contacter moi"></a></li>
                                          
                                  </ul>
-                             </div>
-                            <div id="map-canvas" style="float:right;height:220px;width:100%; margin:10px 0;"></div>
+                            </div>
+                            <div id="map-canvas" style="float:right;height:220px;width:100%"></div>
                             <div class="addthis_toolbox addthis_default_style ">
 <a class="addthis_button_preferred_1"></a>
 <a class="addthis_button_preferred_2"></a>
@@ -172,7 +176,7 @@
 
 
 
-                               <article class="col-md-12 col-sm-12 col-xs-12 block-annonce">
+                         <!--       <article class="col-md-12 col-sm-12 col-xs-12 block-annonce">
 
                                     <span class="title">Annonces publié par : {% if entity.membre.nom %}{{entity.membre.nom }}{% endif %}</span>
                                     <table class="table table-responsive table-bordered table-striped col-md-12">
@@ -203,7 +207,7 @@
 				 {{ knp_pagination_render(pagination) }}
                             </div>
                                 </article>
-
+-->
                        
                  
 
@@ -245,7 +249,7 @@ TrouverAdresse();
  
 function TrouverAdresse() {
   // Récupération de l'adresse tapée dans le formulaire
-  var adresse = '{% if entity.ville%}{% if entity.ville.region%}{% if entity.ville.region.pays%}{{ entity.ville.region.pays.nomP}} {% endif %}{{ entity.ville.region.nomReg}}{% endif %} {{ entity.ville.nomV}} {% endif %} {% if entity.adresse %}{{ entity.adresse}} {{ entity.codePostal}} {% endif %}';
+  var adresse = '{% if entity.ville.nomV %}{{ entity.ville.region.pays.nomP}} {{ entity.ville.region.nomReg}} {{ entity.ville.nomV}} {% endif %} {% if entity.adresse %}{{ entity.adresse}} {{ entity.codePostal}} {% endif %}';
   geocoder.geocode( { 'address': adresse}, function(results, status) {
     if (status == google.maps.GeocoderStatus.OK) {
       map.setCenter(results[0].geometry.location);
@@ -254,7 +258,7 @@ function TrouverAdresse() {
       strposition=strposition.replace('(', '');
       strposition=strposition.replace(')', '');
       // Affichage des coordonnées dans le <span>
-      //document.getElementById('text_latlng').innerHTML='Coordonnées : '+strposition;
+      document.getElementById('text_latlng').innerHTML='Coordonnées : '+strposition;
       // Création du marqueur du lieu (épingle)
       var marker = new google.maps.Marker({
           map: map,

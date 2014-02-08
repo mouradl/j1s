@@ -8,10 +8,10 @@
 
         <div class="container-top">
     <section class="bloc-static clearfix">
-                <aside class="col-lg-3 col-md-3 col-sm-4 "><a href="{{path('tuni_annonce_propos-service')}}"><img src="{{ asset('bundles/tuniannonce/images/je-propose.png') }}" alt="Je propose un service" title="Je propose un service"></a></aside>
-                 <aside class="col-lg-3 col-md-3 col-sm-4 "><a href="{{path('tuni_annonce_besoin-service')}}"><img src="{{ asset('bundles/tuniannonce/images/besoin.png') }}" alt="J'ai besoin d'un service" title="J'ai besoin d'un service"></a></aside>
-                  <aside class="col-lg-3 col-md-3 hidden-sm "><a href="{{path('tuni_annonce_comment-ca-marche')}}"><img src="{{ asset('bundles/tuniannonce/images/comment.png') }}" alt="comment ça marche" title="comment ça marche"></a></aside>
-                   <aside class="col-lg-3 col-md-3 col-sm-4 "><a href="{{path('tuni_annonce_abonnez-vous')}}"><img src="{{ asset('bundles/tuniannonce/images/mon-compte.png') }}" alt="Abonnez vous" title="Abonnez vous"></a></aside>
+                <aside class="col-lg-3 col-md-3 col-sm-4 "><a href="{{path('tuni_annonce_propos-service')}}"><img src="{{ asset('bundles/tuniannonce/images/je-propose.png') }}" alt="" title=""></a></aside>
+                 <aside class="col-lg-3 col-md-3 col-sm-4 "><a href="{{path('tuni_annonce_besoin-service')}}"><img src="{{ asset('bundles/tuniannonce/images/besoin.png') }}" alt="" title=""></a></aside>
+                  <aside class="col-lg-3 col-md-3 hidden-sm "><a href="{{path('tuni_annonce_comment-ca-marche')}}"><img src="{{ asset('bundles/tuniannonce/images/comment.png') }}" alt="" title=""></a></aside>
+                   <aside class="col-lg-3 col-md-3 col-sm-4 "><a href="#"><img src="{{ asset('bundles/tuniannonce/images/mon-compte.png') }}" alt="" title=""></a></aside>
             </section>
           <section class="pub visible-lg visible-md">
                 <div class="pub-img  col-lg-2 col-md-2">
@@ -62,15 +62,14 @@
                
         </div>
         <div class="container-center row">
-             
-            <section class="col-lg-9 col-md-9">
-                   <article class="offre-post">
+                  <section>
+            <section>
+                   <article class="offre-post col-lg-9">
                     <fieldset>
                           <legend>Offres récentes</legend>
-                    {% for lastAnnonce in lastAnnonces %}
-						<section class="col-md-12 col-sm-12 col-xs-12">
-                            <aside class="col-md-2 col-sm-2 col-xs-4 "><img class="img-thumbnail" height="200" width="320" src="{% if lastAnnonce.membre.logo %}{{asset('upload/logo/'~lastAnnonce.membre.id~'/'~lastAnnonce.membre.logo)}} {% else %}{{ asset('bundles/tuniannonce/images/avatar.png') }}{% endif %}" title="avatar" alt="avatar"></aside>
-                            <article class="col-md-7 col-sm-6 col-xs-8">
+                    {% for lastAnnonce in lastAnnonces %}<section class="col-md-12 col-sm-12 col-xs-12">
+                            <aside class="col-md-2 col-sm-2 col-xs-12 "><img class="img-thumbnail" height="200" width="320" src="{% if lastAnnonce.membre.logo %}{{asset('upload/logo/'~lastAnnonce.membre.id~'/'~lastAnnonce.membre.logo)}} {% else %}{{ asset('bundles/tuniannonce/images/avatar.png') }}{% endif %}" title="avatar" alt="avatar"></aside>
+                            <article class="col-md-7 col-sm-6 col-xs-12">
                                 <h5>{{ lastAnnonce.titreAnn }}</h5>
                                 <p>
                                     {{ lastAnnonce.descAnn[:100] ~ ' ...'|raw }}
@@ -89,13 +88,21 @@
       
 
                     </fieldset>
-                </article>             
-                                      <article class="demande-post">
+                </article>
+                   <aside class="service-contact col-lg-3 col-md-8">
+                    <a href="{{ path('tuni_annonce_service-express') }}" title="service-express "><img src="{{ asset('bundles/tuniannonce/images/service-express.png') }}" title="service-express" alt="service-express"class="img-responsive"></a>
+
+                    <a href="{{ path('tuni_annonce_parrainer_get') }}" title="Ajouter votre parrain"><img src="{{ asset('bundles/tuniannonce/images/parainage.png') }}" title="parainage" alt="parainage" class="img-responsive">     </a>      
+             
+                      </aside>
+            </section>
+            <section>
+                                      <article class="demande-post col-lg-9">
                     <fieldset>
                         <legend>Demandes récentes</legend>
                     {% for lastAnnonce in lastAnnonces22 %}<section class="col-md-12 col-sm-12 col-xs-12">
-                            <aside class="col-md-2 col-sm-2 col-xs-4 "><img class="img-thumbnail" height="200" width="320" src="{% if lastAnnonce.membre.logo %}{{asset('upload/logo/'~lastAnnonce.membre.id~'/'~lastAnnonce.membre.logo)}} {% else %}{{ asset('bundles/tuniannonce/images/avatar.png') }}{% endif %}" title="avatar" alt="avatar"></aside>
-                            <article class="col-md-7 col-sm-6 col-xs-8">
+                            <aside class="col-md-2 col-sm-2 col-xs-12 "><img class="img-thumbnail" height="200" width="320" src="{% if lastAnnonce.membre.logo %}{{asset('upload/logo/'~lastAnnonce.membre.id~'/'~lastAnnonce.membre.logo)}} {% else %}{{ asset('bundles/tuniannonce/images/avatar.png') }}{% endif %}" title="avatar" alt="avatar"></aside>
+                            <article class="col-md-7 col-sm-6 col-xs-12">
                                 <h5>{{ lastAnnonce.titreAnn }}</h5>
                                 <p>
                                     {{ lastAnnonce.descAnn[:100] ~ ' ...'|raw }}
@@ -115,30 +122,34 @@
 
                     </fieldset>
                 </article>
-            </section>
-            <section class="col-lg-3 col-md-3 col-sm-11 col-xs-12">
-                                   
-                <aside class="service-contact col-lg-12 col-md-12">
-                    <a href="{{ path('tuni_annonce_service-express') }}" title="service-express "><img src="{{ asset('bundles/tuniannonce/images/service-express.png') }}" title="service-express" alt="service-express"class="img-responsive"></a>
-
-                    <a href="{{ path('tuni_annonce_service-express') }}" title="Ajouter votre parrain"><img src="{{ asset('bundles/tuniannonce/images/parainage.png') }}" title="parainage" alt="parainage" class="img-responsive">     </a>      
-             
-                      </aside>
-               <aside class="service-contact  col-lg-12 col-md-12">
-                                   <a class="hidden-sm" href="{{ path('tuni_annonce_comment-ca-marche') }}#24" title="contact"><img src="{{ asset('bundles/tuniannonce/images/faire_jobbing.png') }}" title="Faire le jobbig c'est quoi ?" alt="Jobbing"></a>
+                
+               <aside class="service-contact col-lg-3 col-md-8">
+                                   <a href="{{ path('tuni_annonce_comment-ca-marche') }}" title="contact"><img src="{{ asset('bundles/tuniannonce/images/faire_jobbing.png') }}" title="Faire le jobbig c'est quoi ?" alt="Jobbing"></a>
                                    <a href="{{ path('tuni_annonce_contact') }}" title="contact"><img src="{{ asset('bundles/tuniannonce/images/contact.png') }}" title="Contactez nous" alt="contact"></a>
 
                 </aside>
                       </section>  
-       
-        
+         <aside class="col-lg-3 infos-services hidden-lg col-md-pull-1 hidden-xs">
+                    <fieldset>
+                        <legend>Infos services</legend>
+                         <ul>
+                        <li><a href="{{ path('tuni_annonce_nous') }}"><span>Juste1service</span></a></li>
+                        <li><a href=""><span>Confiance et sécurité</span></a></li>
+                        <li><a href=""><span>Rémuniration</span></a></li>
+                        <li><a href="{{ path('tuni_annonce_comment-ca-marche') }}"><span>comment-ca-marche</span></a></li>
+                        <li><a href="{{ path('tuni_annonce_avantage') }}"><span>Avantage</span></a></li>
+                        <li><a href="{{ path('tuni_annonce_mention') }}"><span>Condition générale de vente</span></a></li>
+                        </ul>
+                    </fieldset>
+                </aside>
+            </section>
         </div>
         <div class="container-bottom row">
             <section>
-               <article class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+               <article class="col-lg-9">
                     <ul class="category col-md-12 col-sm-12 col-xs-12">
                        {% for Categorie in Categories %}
-                            <li class="col-md-4 col-sm-6 col-xs-12 parent" >
+                            <li class="col-md-4 col-sm-4 col-xs-12 parent" >
                                 <ul>
                                     <li>
 {% if (Categorie.icon )%}<a href="{{path('annonceFront_ReAv',{'idc':Categorie.id})}}"><img src="{{asset('upload/categorie/'~Categorie.id~'/'~Categorie.icon)}}" alt="{{Categorie.icon}}" title="{{Categorie.icon}}" class="img-responsive"/>{%else%}<img src="{{asset('upload/categorie/no-image.png')}}" alt="no image" style="width: 60px;height: 44px" title="no image" class="img-responsive"/> </a> {%endif%}
@@ -154,18 +165,16 @@
                           
                     </ul>  
                 </article>
-                <aside class="col-lg-3 col-md-3  infos-services hidden-sm hidden-xs">
+                <aside class="col-lg-3 infos-services visible-lg">
                       <fieldset>
                         <legend>Infos services</legend>
                          <ul>
-                        <li><a href="{{ path('tuni_annonce_engagement') }}"><span>Nos engagement</span></a></li>
-                        <li><a  href="{{ path('tuni_annonce_securite') }}"><span>Sécurité et confiance</span></a></li>
-                        <li><a href="{{ path('tuni_annonce_remuneration') }}""><span>Rémunération</span></a></li>
-                        <li><a href="{{ path('tuni_annonce_comment-ca-marche') }}"><span>Comment-ca-marche</span></a></li>
+                        <li><a href="{{ path('tuni_annonce_nous') }}"><span>Juste1service</span></a></li>
+                        <li><a href=""><span>Confiance et sécurité</span></a></li>
+                        <li><a href=""><span>Rémuniration</span></a></li>
+                        <li><a href="{{ path('tuni_annonce_comment-ca-marche') }}"><span>comment-ca-marche</span></a></li>
                         <li><a href="{{ path('tuni_annonce_avantage') }}"><span>Avantage</span></a></li>
-                        <li><a href="{{ path('tuni_annonce_mention') }}#25"><span>Condition générale de vente</span></a></li>
-                        <li><a href="{{ path('tuni_annonce_faq') }}"><span>FAQ</span></a></li>
-
+                        <li><a href="{{ path('tuni_annonce_mention') }}"><span>Condition générale de vente</span></a></li>
                         </ul>
                     </fieldset>
                 </aside>
