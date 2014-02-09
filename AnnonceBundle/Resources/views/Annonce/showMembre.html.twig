@@ -95,7 +95,7 @@
                         <pre><span>Disponibilité :</span><br> 
                         {% if entity.disponibilite %}{{ entity.disponibilite}}{% endif %}
                         
-                        </pre>
+                        </pre> 
                           </article>
                         <aside class="col-lg-6 col-md-6 col-sm-12 col-xs-12 next-right position-right">
                             
@@ -108,9 +108,9 @@
                                 <ul class="list-inline">
                                       <li>{% if entity.membre.certificationArray[0] %}Photo<img src="{{ asset('bundles/tuniannonce/images/profil/certifie.png') }}" alt="" title="">{% else %}<img src="{{ asset('bundles/tuniannonce/images/profil/non-certifie.png') }}">{% endif %}</li>
                                       <li>{% if entity.membre.certificationArray[1] %}Tel<img src="{{ asset('bundles/tuniannonce/images/profil/certifie.png') }}" alt="" title="">{% else %}<img src="{{ asset('bundles/tuniannonce/images/profil/non-certifie.png') }}">{% endif %}</li>                                      
-                                      <li>{% if entity.membre.certificationArray[2] %}Justificatif<img src="{{ asset('bundles/tuniannonce/images/profil/certifie.png') }}" alt="" title="">{% else %}<img src="{{ asset('bundles/tuniannonce/images/profil/non-certifie.png') }}">{% endif %}</li>
-                                      <li>{% if entity.membre.certificationArray[3] %}Identité<img src="{{ asset('bundles/tuniannonce/images/profil/certifie.png') }}" alt="" title="">{% else %}<img src="{{ asset('bundles/tuniannonce/images/profil/non-certifie.png') }}">{% endif %}</li>
-                                  
+                                      <li>{% if entity.membre.certificationArray[2] %}Identité<img src="{{ asset('bundles/tuniannonce/images/profil/certifie.png') }}" alt="" title="">{% else %}<img src="{{ asset('bundles/tuniannonce/images/profil/non-certifie.png') }}">{% endif %}</li>
+                                      <li>{% if entity.membre.certificationArray[3] %}Justificatif<img src="{{ asset('bundles/tuniannonce/images/profil/certifie.png') }}" alt="" title="">{% else %}<img src="{{ asset('bundles/tuniannonce/images/profil/non-certifie.png') }}">{% endif %}</li>
+                                      
                                 </ul>
                             </div>
                            

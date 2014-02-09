@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class UtilisateurType extends AbstractType
+class UtilisateurEditType extends AbstractType
 {
     
    
@@ -14,10 +14,10 @@ class UtilisateurType extends AbstractType
     {
      
         $builder
-            ->add('username','text',array('required'=>true,'attr'=> array('class'=>'span10')))
-            ->add('email', 'email',array('required'=>true,'attr'=> array('class'=>'span10')))
+            ->add('username','text',array('attr'=> array('class'=>'span10')))
+            ->add('email', 'email',array('attr'=> array('class'=>'span10')))
              
-            ->add('password', 'repeated', array('required'=>true,'attr'=> array('class'=>'span12'),
+            ->add('password', 'repeated', array('required'=>FALSE,'attr'=> array('class'=>'span12'),
                 'type' => 'password',
                 'options' => array('translation_domain' => 'FOSUserBundle'),
                 'first_options' => array('label' => 'form.password','attr'=> array('class'=>'span10',"pattern"=>".{6,}", "title"=>"6 characters minimum")),

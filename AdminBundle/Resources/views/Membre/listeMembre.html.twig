@@ -65,7 +65,7 @@
                                         <a class="btn-action glyphicons eye_open btn-info" href="{{ path('membre_show',{'id':entity.id}) }}"><i></i></a>
                                         <a href="{{ path('membre_edit',{'id':entity.id}) }}" class="btn-action glyphicons pencil btn-success"><i></i></a>
                                         <a href="{{ path('membre_delete',{'id':entity.id}) }}" onclick="return(confirm('Etes-vous sûr de vouloir supprimer cet membre?'));" class="btn-action glyphicons remove_2 btn-danger"><i></i></a>
-                                        
+                                        <a class="btn-action glyphicons certificate btn-info" href="{{ path('membre_certif',{'id':entity.id}) }}"><i></i></a>
                                     </td>
                                 </tr>
 				{% endfor %}

@@ -1,0 +1,140 @@
+
+{% extends "TuniAdminBundle::layout.html.twig" %}
+
+{% block content_middle_b %}
+<ul class="breadcrumb">
+	<li><a  class="glyphicons home"><i></i> juste1service</a></li>
+	<li class="divider"></li>
+	<li>{{'Administrateur'|trans({}, 'TuniAdminBundle') }}</li>
+</ul>
+<div class="separator"></div>   
+
+<div class="heading-buttons">
+    <h3 class="glyphicons group"><i></i> Jobeurs</h3>
+    <div class="buttons pull-right">
+        <a href="{{ path('membre_new') }}" class="btn btn-primary btn-icon glyphicons circle_plus"><i></i>Ajouter Jobeur</a>
+    </div>
+    <div class="clearfix"></div>
+</div>
+<div class="separator"></div>
+
+<div class="innerLR">
+   
+<form class="form-horizontal" action="{{ path('membre_setcertif') }}" method="POST" >
+    
+    <input type="hidden" name="idmembre" value="{{entity.id}}" >
+    
+    <div class="tab-content" style="padding: 0;" >
+		<div class="tab-pane active" id="account-settings">
+		
+			<div class="widget widget-2">
+				<div class="widget-head">
+					<h4 class="heading glyphicons edit"><i></i>Certification Jobeur</h4>
+				</div>
+				<div class="widget-body" style="padding-bottom: 0;">
+                                    {% for type, messages in app.session.flashBag.all %}
+                                        {% for message in messages %}
+                                            <div class="{{ type }} alert-success">
+                                                {{ message|trans({}, 'FOSUserBundle') }}
+                                            </div>
+                                        {% endfor %}
+                                    {% endfor %}
+				
+					<div class="row-fluid">
+                                          
+
+
+                                    <div class="span6 control-group alpha">
+								<label class="control-label alignleft">Avatar:</label>
+								<div class="controls roles">
+									<div class="row-fluid gallery">
+		<ul>                  
+						<li class="grid_12">
+				<span class=" view ">
+                                    {% if (entity.logo )%}  <img src="{{asset('upload/logo/'~entity.id~'/'~entity.logo)}}" alt="{{entity.logo}}" />
+				{% else%}<img src="{{asset('upload/logo/no_image_available_male.png')}}" />
+                                {%endif%}</span>
+				
+                                                        <span class="name"> Valider avatar <input type="checkbox" name="cert[0]" value="1"  {%if entity.certificationArray[0]%}checked="checked"{%endif%} > </span>
+			</li>
+				 </ul>
+	</div>
+									
+								</div>
+							</div>
+                                                    <div class="span6 control-group alpha">
+            <label class="control-label alignleft">Tel fixe/GSM :</label>
+            <div class="controls">
+									{%if entity.tel%}{{ entity.tel}}{%else%}N'existe pas{%endif%}
+                                                                        
+                
+                   </div>
+            </div>
+
+                            <div class="span6 control-group alpha">
+                                <label class="control-label alignleft">Cacher Phone :</label>
+                                <div class="controls">
+                                                       		{%if entity.cachePhone==1%}Oui{%else%}Non{%endif%}
+                                    </div>
+                                Valider telephone <input type="checkbox" name="cert[1]" value="1" {%if entity.certificationArray[1]%}checked="checked"{%endif%} >
+                                </div>
+        <div class="span6 control-group alpha">
+            <label class="control-label alignleft">Piece d'Identite :</label>
+            <div class="controls">
+									
+                                                                      
+                                               
+                    {% if (entity.pieceIdentite )%}  <img src="{{asset('upload/pieceidentite/'~entity.id~'/'~entity.pieceIdentite)}}" alt="{{ entity.pieceIdentite}}" />
+                                    
+                                    {% else%}N'existe pas
+                                    {%endif%}
+                                    
+                                    Valider pièce d'idendité <input type="checkbox" name="cert[2]" value="1" {%if entity.certificationArray[2]%}checked="checked"{%endif%} >
+                   </div>
+            </div>
+
+                            <div class="span6 control-group alpha">
+                                <label class="control-label alignleft">Justificatifs :</label>
+                                <div class="controls">
+                                        {%if entity.justificatifs%}
+                                        <div class="well">
+                                                <div class="row-fluid gallery">
+                                                        <ul>{% for justificatif in entity.getFulljustificatifsPath() %}
+                                                                              {%if justificatif!=null%}{%if justificatif!=""%}
+                                                                                        <li class="span4">
+                                                                        <span class="thumb view">
+                                                                                <img src="{{asset('upload/justificatifs/'~entity.id~'/'~justificatif)}}" alt="{{justificatif}}" />
+                                                                        </span>
+                                                                        <span class="name">{{justificatif}}</span>
+                                                                        {%endif%}{%endif%}
+                                                                </li>
+                                                                          {% endfor %}	</ul>
+                                                </div>
+                                        </div>		
+
+                                        {%else%}Nexiste pas{%endif%}
+                                    </div>
+                                Valider document justificatif <input type="checkbox" name="cert[3]" value="1" {%if entity.certificationArray[3]%}checked="checked"{%endif%}>
+                                </div>
+
+
+					</div>
+					
+					<div class="form-actions" style="margin: 0;">
+                                            
+                                                <input type="submit" class="btn btn-icon btn-primary glyphicons circle_ok" />
+                                                <div class="buttons pull-right" style="float:right;">
+                                                <a href="{{ path('membre')}}" class="btn btn-success btn-icon glyphicons list"><i></i>Retour à la liste</a>
+                                            </div>
+                                            </div>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+     
+</form>
+</div>
+
+  
+{% endblock %}
